@@ -1,0 +1,133 @@
+:root {
+  --bg: oklch(8% 0.018 30);
+  --bg2: oklch(11% 0.018 30);
+  --bg3: oklch(15% 0.018 30);
+  --border: oklch(22% 0.015 30);
+  --text: oklch(92% 0.008 60);
+  --text-dim: oklch(55% 0.01 60);
+  --text-dimmer: oklch(38% 0.01 60);
+  --gold: oklch(72% 0.16 60);
+  --gold-dim: oklch(60% 0.12 60);
+  --cyan: oklch(72% 0.14 200);
+  --cyan-dim: oklch(55% 0.12 200);
+  /* --font-display, --font-mono, --font-body are injected by next/font */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+a {
+  color: inherit;
+}
+
+/* Offset in-page anchor jumps so the fixed nav doesn't cover section tops. */
+[id] {
+  scroll-margin-top: 80px;
+}
+
+/* Form controls stay tappable on mobile. */
+input,
+textarea,
+select,
+button {
+  min-height: 44px;
+}
+input::placeholder,
+textarea::placeholder {
+  color: oklch(35% 0.01 60);
+}
+select option {
+  background: oklch(11% 0.018 30);
+}
+
+@keyframes scrollBounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(6px);
+  }
+}
+
+/* ── Responsive nav ─────────────────────────────────────────── */
+@media (min-width: 900px) {
+  .hamburger-btn {
+    display: none !important;
+  }
+  .mobile-booking-bar {
+    display: none !important;
+  }
+}
+@media (max-width: 899px) {
+  .nav-desktop {
+    display: none !important;
+  }
+}
+
+/* ── Responsive grids ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .epk-featured-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (max-width: 600px) {
+  .catalog-grid {
+    grid-template-columns: 1fr !important;
+  }
+  /* On phones the photos grid is a single column — a 2-column span would
+     force an invisible second column and overflow the viewport. */
+  .photo-wide {
+    grid-column: span 1 !important;
+  }
+  section,
+  [data-section] {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+@media (max-width: 480px) {
+  .hero-name {
+    font-size: 60px !important;
+    line-height: 0.92 !important;
+    letter-spacing: -0.03em !important;
+  }
+}

@@ -1,0 +1,160 @@
+// Prisma schema for the Yongolailan site.
+//
+// Local development uses SQLite (provider below) for zero-setup iteration.
+// For production on Vercel, change provider to "postgresql" — the models are
+// written to be portable (no native enums / Json / arrays).
+
+generator client {
+  provider      = "prisma-client-js"
+  // "native" for local dev; "rhel-openssl-3.0.x" is the runtime Vercel uses.
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ── Music catalog / discography ──────────────────────────────
+model Release {
+  id            String   @id @default(cuid())
+  title         String
+  year          String
+  genre         String
+  description   String
+  credits       String
+  coverImage    String? // uploaded cover art URL
+  accentColor   String   @default("oklch(62% 0.16 60)")
+  spotifyUrl    String?
+  appleUrl      String?
+  soundcloudUrl String?
+  youtubeUrl    String?
+  bandcampUrl   String?
+  featured      Boolean  @default(false)
+  featuredType  String? // e.g. "Featured Release", "Latest Single", "Live Session"
+  published     Boolean  @default(true)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ── Portfolio areas: Music / Films / Games / Web ─────────────
+model PortfolioItem {
+  id          String   @id @default(cuid())
+  area        String // music | films | games | web
+  title       String
+  subtitle    String
+  description String
+  tag         String
+  linkUrl     String?
+  image       String?
+  color       String   @default("oklch(72% 0.16 60)")
+  published   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── Videos (embedded from YouTube / Vimeo) ───────────────────
+model Video {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  embedUrl    String
+  thumbnail   String?
+  published   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── Video games ──────────────────────────────────────────────
+model Game {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  cover       String?
+  linkUrl     String?
+  platform    String?
+  published   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── Photos & branding assets ─────────────────────────────────
+model Photo {
+  id        String   @id @default(cuid())
+  title     String?
+  caption   String?
+  image     String
+  category  String   @default("press") // press | artist | logo | branding
+  published Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── Social / streaming links ─────────────────────────────────
+model Link {
+  id        String   @id @default(cuid())
+  name      String
+  handle    String
+  url       String
+  color     String   @default("oklch(72% 0.16 60)")
+  published Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── Awards & recognition ─────────────────────────────────────
+model Award {
+  id        String   @id @default(cuid())
+  title     String
+  year      String
+  note      String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+// ── Newsletter subscribers ───────────────────────────────────
+model Subscriber {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  name             String?
+  confirmed        Boolean  @default(true)
+  unsubscribeToken String   @unique @default(cuid())
+  createdAt        DateTime @default(now())
+}
+
+// ── Newsletter campaigns ─────────────────────────────────────
+model Campaign {
+  id         String    @id @default(cuid())
+  subject    String
+  body       String
+  status     String    @default("draft") // draft | sent
+  recipients Int       @default(0)
+  sentAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+// ── Contact-form inbox ───────────────────────────────────────
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  type      String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ── Site-wide settings & section visibility (key/value) ──────
+// Holds hero copy, bio/EPK text, contact info, sound tags, identity
+// facts, featured "special art" picks, and per-section availability.
+model Setting {
+  key   String @id
+  value String
+}
