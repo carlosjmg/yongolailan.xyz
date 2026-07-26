@@ -20,19 +20,23 @@ function extFor(file: File): string {
 
 /**
  * Store an uploaded file and return its public URL.
- * - Production / when BLOB_READ_WRITE_TOKEN is set → Vercel Blob.
- * - Local dev (no token) → saved under /public/uploads so it still works.
+ * - On Vercel → Vercel Blob. Auth is automatic: with a connected store the SDK
+ *   uses OIDC (VERCEL_OIDC_TOKEN + BLOB_STORE_ID), or a BLOB_READ_WRITE_TOKEN if
+ *   one is set. No static token is required.
+ * - Local dev (not on Vercel) → saved under /public/uploads so it still works.
  */
 export async function uploadFile(file: File, folder = "uploads"): Promise<string> {
   const rand = Math.random().toString(36).slice(2, 8);
   const base = `${Date.now()}-${rand}.${extFor(file)}`;
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
 
-  if (token) {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  const onVercel = Boolean(process.env.VERCEL);
+
+  if (token || onVercel) {
     const blob = await put(`${folder}/${base}`, file, {
       access: "public",
-      token,
       addRandomSuffix: false,
+      ...(token ? { token } : {}),
     });
     return blob.url;
   }

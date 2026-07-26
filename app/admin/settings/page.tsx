@@ -11,6 +11,7 @@ const KEYS = [
   "hero.roleLine",
   "hero.oneLiner",
   "hero.image",
+  "site.logo",
   "contact.email",
   "contact.whatsapp",
   "contact.whatsappUrl",
@@ -39,6 +40,11 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <label className="admin-label">Hero / background image</label>
           <ImageUpload name="hero.image" defaultValue={s["hero.image"]} />
           <div className="admin-help">This is the big background image at the top of the home page (your &ldquo;special art&rdquo;).</div>
+        </div>
+        <div className="admin-field">
+          <label className="admin-label">Logo (top-left corner)</label>
+          <ImageUpload name="site.logo" defaultValue={s["site.logo"]} />
+          <div className="admin-help">Shown in the top-left of the site and footer. A white logo on a transparent background works best.</div>
         </div>
 
         <GroupHeading>Contact</GroupHeading>

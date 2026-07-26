@@ -53,7 +53,7 @@ export default function Nav({
     fontSize: "11px",
     letterSpacing: "0.12em",
     textTransform: "uppercase",
-    color: "var(--text-dim)",
+    color: "rgba(255,255,255,0.9)",
     cursor: "pointer",
     transition: "color 0.2s",
     padding: "4px 0",
@@ -107,7 +107,7 @@ export default function Nav({
         <img
           src={logo}
           alt="Yongolailan"
-          style={{ height: "28px", opacity: 0.95, filter: "brightness(1.1)", cursor: "pointer" }}
+          style={{ height: "40px", opacity: 0.95, filter: "brightness(1.1)", cursor: "pointer" }}
           onClick={() => handleNav("home")}
         />
 
@@ -117,9 +117,9 @@ export default function Nav({
               <button
                 style={{ ...navLinkStyle, color: active === item.id ? "var(--gold)" : undefined }}
                 onClick={() => handleNav(item.id)}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = active === item.id ? "var(--gold)" : "var(--text-dim)")
+                  (e.currentTarget.style.color = active === item.id ? "var(--gold)" : "rgba(255,255,255,0.9)")
                 }
               >
                 {item.label}

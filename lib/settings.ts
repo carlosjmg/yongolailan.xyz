@@ -68,6 +68,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "label.name": "Caribbean Sea Sound",
   "label.location": "Brooklyn, New York",
   "site.domain": "yongolailan.xyz",
+  "site.logo": "/images/Yongo-logo-blanco.webp",
 
   "section.catalog": "on",
   "section.portfolio": "on",

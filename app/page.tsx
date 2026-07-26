@@ -63,7 +63,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Nav primary={primary} secondary={secondary} />
+      <Nav primary={primary} secondary={secondary} logo={settings["site.logo"]} />
 
       <Hero
         eyebrow={settings["hero.eyebrow"]}
@@ -130,6 +130,7 @@ export default async function HomePage() {
         labelName={settings["label.name"]}
         labelLocation={settings["label.location"]}
         domain={settings["site.domain"]}
+        logo={settings["site.logo"]}
         oneLiner={settings["hero.oneLiner"]}
       />
 
