@@ -115,7 +115,7 @@ export default function Nav({
           {primary.map((item) => (
             <li key={item.id}>
               <button
-                style={{ ...navLinkStyle, color: active === item.id ? "var(--gold)" : undefined }}
+                style={{ ...navLinkStyle, color: active === item.id ? "var(--gold)" : "rgba(255,255,255,0.9)" }}
                 onClick={() => handleNav(item.id)}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
                 onMouseLeave={(e) =>
