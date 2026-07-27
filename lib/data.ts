@@ -87,3 +87,14 @@ export async function getAwards() {
     return [];
   }
 }
+
+export async function getMerch() {
+  try {
+    return await prisma.merchItem.findMany({
+      where: { published: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  } catch {
+    return [];
+  }
+}

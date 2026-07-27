@@ -189,6 +189,28 @@ export const COLLECTIONS: Record<string, Collection> = {
       { name: "note", label: "Note", type: "text", placeholder: "Electroacoustic category — Sueño Tropical" },
     ],
   },
+
+  merch: {
+    key: "merch",
+    model: "merchItem",
+    label: "Merch",
+    singular: "merch item",
+    titleField: "title",
+    imageField: "image",
+    hasPublished: true,
+    listColumns: [
+      { name: "title", label: "Title" },
+      { name: "price", label: "Price" },
+    ],
+    fields: [
+      { name: "title", label: "Title", type: "text", required: true, placeholder: "Vinyl — Sueño Tropical" },
+      { name: "description", label: "Description", type: "textarea" },
+      { name: "image", label: "Photo", type: "image" },
+      { name: "linkUrl", label: "Buy link", type: "url", placeholder: "https://... (where people buy it)" },
+      { name: "price", label: "Price", type: "text", placeholder: "$30" },
+      { name: "published", label: "Visible on site", type: "boolean" },
+    ],
+  },
 };
 
 export function getCollection(key: string): Collection | undefined {

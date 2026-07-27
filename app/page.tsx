@@ -3,6 +3,7 @@ import {
   getAwards,
   getFeaturedReleases,
   getLinks,
+  getMerch,
   getPhotos,
   getPortfolio,
   getReleases,
@@ -12,7 +13,6 @@ import Hero from "@/components/site/Hero";
 import Featured from "@/components/site/Featured";
 import Catalog from "@/components/site/Catalog";
 import Portfolio from "@/components/site/Portfolio";
-import EPK from "@/components/site/EPK";
 import Photos from "@/components/site/Photos";
 import Merch from "@/components/site/Merch";
 import About from "@/components/site/About";
@@ -27,7 +27,7 @@ import ComingSoon from "@/components/site/ComingSoon";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [settings, releases, featured, portfolio, photos, links, awards] = await Promise.all([
+  const [settings, releases, featured, portfolio, photos, links, awards, merch] = await Promise.all([
     getAllSettings(),
     getReleases(),
     getFeaturedReleases(),
@@ -35,10 +35,13 @@ export default async function HomePage() {
     getPhotos(),
     getLinks(),
     getAwards(),
+    getMerch(),
   ]);
+  void awards;
 
   const st = (k: Parameters<typeof sectionState>[1]) => sectionState(settings, k);
   const email = settings["contact.email"];
+  const epkPdf = settings["epk.pdfUrl"];
 
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
     { id: "home", label: "Home" },
@@ -49,8 +52,12 @@ export default async function HomePage() {
     { id: "contact", label: "Contact", key: "contact" },
   ];
   const primary: NavItem[] = primaryDefs
-    .filter((d) => !d.key || st(d.key) !== "off")
-    .map(({ id, label }) => ({ id, label }));
+    .filter((d) => {
+      // EPK only appears when a PDF is set — the link opens it directly.
+      if (d.id === "epk") return Boolean(epkPdf);
+      return !d.key || st(d.key) !== "off";
+    })
+    .map(({ id, label }) => ({ id, label, href: id === "epk" ? epkPdf : undefined }));
 
   const secondaryDefs = [
     { id: "photos", label: "Photos", key: "photos" as const },
@@ -63,19 +70,9 @@ export default async function HomePage() {
 
   return (
     <>
-      <Nav primary={primary} secondary={secondary} logo={settings["site.logo"]} />
+      <Nav primary={primary} secondary={secondary} logo={settings["site.logo"]} logoSize={settings["site.logoSize"]} />
 
-      <Hero
-        eyebrow={settings["hero.eyebrow"]}
-        name={settings["hero.name"]}
-        roleLine={settings["hero.roleLine"]}
-        oneLiner={settings["hero.oneLiner"]}
-        image={settings["hero.image"]}
-        email={email}
-        showCatalog={st("catalog") !== "off"}
-        showPortfolio={st("portfolio") !== "off"}
-        showEpk={st("epk") !== "off"}
-      />
+      <Hero image={settings["hero.image"]} name={settings["hero.name"]} />
 
       <Featured
         releases={featured}
@@ -89,20 +86,17 @@ export default async function HomePage() {
       {st("portfolio") === "on" && <Portfolio items={portfolio} />}
       {st("portfolio") === "soon" && <ComingSoon id="portfolio" eyebrow="Portfolio" title="Creative Work" />}
 
-      {st("epk") === "on" && <EPK settings={settings} awards={awards} email={email} />}
-      {st("epk") === "soon" && <ComingSoon id="epk" eyebrow="Electronic Press Kit" title="EPK / Press" />}
-
       {st("photos") === "on" && <Photos photos={photos} email={email} />}
       {st("photos") === "soon" && <ComingSoon id="photos" eyebrow="Visual Assets" title="Photos & Branding" />}
 
-      {st("merch") !== "off" && <Merch />}
+      {st("merch") !== "off" && <Merch items={merch} />}
 
       {st("about") === "on" && (
         <About
           p1={settings["about.p1"]}
           p2={settings["about.p2"]}
           stats={settings["about.stats"]}
-          showEpk={st("epk") !== "off"}
+          showEpk={false}
         />
       )}
       {st("about") === "soon" && <ComingSoon id="about" eyebrow="About" title="The Artist" />}

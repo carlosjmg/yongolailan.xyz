@@ -57,42 +57,6 @@ export default function Photos({
           </div>
         ))}
 
-        {/* Branding / logo presentation tiles */}
-        {["White Logo", "Black Logo", "Gold Version", "Minimal"].map((v, i) => (
-          <div
-            key={v}
-            style={{
-              aspectRatio: "4/3",
-              background: i % 2 === 0 ? "var(--bg2)" : "var(--bg3)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "12px",
-              border: "1px solid var(--border)",
-              padding: "20px",
-            }}
-          >
-            {i === 0 ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={logo} alt="Logo white" style={{ maxWidth: "80%", maxHeight: "60px", objectFit: "contain", opacity: 0.9 }} />
-            ) : (
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "22px",
-                  color: i === 2 ? "var(--gold)" : i === 3 ? "var(--text-dimmer)" : "oklch(8% 0.018 30)",
-                  background: i === 1 ? "var(--text)" : "none",
-                  padding: i === 1 ? "6px 16px" : "0",
-                  borderRadius: "1px",
-                }}
-              >
-                Yongolailan
-              </div>
-            )}
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-dimmer)" }}>{v}</span>
-          </div>
-        ))}
       </div>
 
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>

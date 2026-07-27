@@ -69,6 +69,8 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "label.location": "Brooklyn, New York",
   "site.domain": "yongolailan.xyz",
   "site.logo": "/images/Yongo-logo-blanco.webp",
+  "site.logoSize": "40",
+  "epk.pdfUrl": "",
 
   "section.catalog": "on",
   "section.portfolio": "on",

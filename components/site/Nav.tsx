@@ -6,16 +6,19 @@ import { scrollToSection } from "./shared";
 export interface NavItem {
   id: string;
   label: string;
+  href?: string;
 }
 
 export default function Nav({
   primary,
   secondary,
   logo = "/images/Yongo-logo-blanco.webp",
+  logoSize = 40,
 }: {
   primary: NavItem[];
   secondary: NavItem[];
   logo?: string;
+  logoSize?: number | string;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -107,25 +110,39 @@ export default function Nav({
         <img
           src={logo}
           alt="Yongolailan"
-          style={{ height: "40px", opacity: 0.95, filter: "brightness(1.1)", cursor: "pointer" }}
+          style={{ height: `${logoSize}px`, opacity: 0.95, filter: "brightness(1.1)", cursor: "pointer" }}
           onClick={() => handleNav("home")}
         />
 
         <ul className="nav-desktop" style={{ display: "flex", gap: "28px", alignItems: "center", listStyle: "none" }}>
-          {primary.map((item) => (
-            <li key={item.id}>
-              <button
-                style={{ ...navLinkStyle, color: active === item.id ? "var(--gold)" : "rgba(255,255,255,0.9)" }}
-                onClick={() => handleNav(item.id)}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = active === item.id ? "var(--gold)" : "rgba(255,255,255,0.9)")
-                }
-              >
-                {item.label}
-              </button>
-            </li>
-          ))}
+          {primary.map((item) => {
+            const linkColor = active === item.id ? "var(--gold)" : "rgba(255,255,255,0.9)";
+            return (
+              <li key={item.id}>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ ...navLinkStyle, color: linkColor, textDecoration: "none" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = linkColor)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <button
+                    style={{ ...navLinkStyle, color: linkColor }}
+                    onClick={() => handleNav(item.id)}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = linkColor)}
+                  >
+                    {item.label}
+                  </button>
+                )}
+              </li>
+            );
+          })}
           <li style={{ paddingLeft: "8px", borderLeft: "1px solid var(--border)", marginLeft: "4px" }}>
             <button
               style={{
@@ -133,17 +150,23 @@ export default function Nav({
                 fontSize: "11px",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "oklch(8% 0.018 30)",
-                background: "var(--gold)",
-                padding: "8px 18px",
-                border: "none",
-                borderRadius: "2px",
+                color: "#ffffff",
+                background: "transparent",
+                padding: "9px 24px",
+                border: "1px solid rgba(255,255,255,0.75)",
+                borderRadius: "999px",
                 cursor: "pointer",
-                transition: "background 0.2s",
+                transition: "background 0.2s, border-color 0.2s",
               }}
               onClick={() => handleNav("contact")}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "oklch(65% 0.14 60)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--gold)")}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.14)";
+                e.currentTarget.style.borderColor = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.75)";
+              }}
             >
               Booking
             </button>
@@ -206,11 +229,17 @@ export default function Nav({
             overflowY: "auto",
           }}
         >
-          {primary.map((item) => (
-            <button key={item.id} style={mobileLinkStyle} onClick={() => handleNav(item.id)}>
-              {item.label}
-            </button>
-          ))}
+          {primary.map((item) =>
+            item.href ? (
+              <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer" style={{ ...mobileLinkStyle, textDecoration: "none", display: "block" }}>
+                {item.label}
+              </a>
+            ) : (
+              <button key={item.id} style={mobileLinkStyle} onClick={() => handleNav(item.id)}>
+                {item.label}
+              </button>
+            )
+          )}
           {secondary.map((item) => (
             <button key={item.id} style={{ ...mobileLinkStyle, color: "oklch(50% 0.01 60)" }} onClick={() => handleNav(item.id)}>
               {item.label}
@@ -223,11 +252,11 @@ export default function Nav({
               fontSize: "12px",
               letterSpacing: "0.16em",
               textTransform: "uppercase",
-              color: "oklch(8% 0.018 30)",
-              background: "var(--gold)",
+              color: "#ffffff",
+              background: "transparent",
               padding: "16px 20px",
-              border: "none",
-              borderRadius: "2px",
+              border: "1px solid rgba(255,255,255,0.75)",
+              borderRadius: "999px",
               cursor: "pointer",
               fontWeight: 500,
             }}

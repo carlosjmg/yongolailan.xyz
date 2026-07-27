@@ -2,6 +2,7 @@ import { getAllSettings } from "@/lib/settings";
 import { saveSettingsForm } from "../settings-actions";
 import { TextSetting, GroupHeading, SavedNote } from "@/components/admin/fields";
 import ImageUpload from "@/components/admin/ImageUpload";
+import FileUpload from "@/components/admin/FileUpload";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,8 @@ const KEYS = [
   "hero.oneLiner",
   "hero.image",
   "site.logo",
+  "site.logoSize",
+  "epk.pdfUrl",
   "contact.email",
   "contact.whatsapp",
   "contact.whatsappUrl",
@@ -45,6 +48,14 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <label className="admin-label">Logo (top-left corner)</label>
           <ImageUpload name="site.logo" defaultValue={s["site.logo"]} />
           <div className="admin-help">Shown in the top-left of the site and footer. A white logo on a transparent background works best.</div>
+        </div>
+        <TextSetting name="site.logoSize" label="Logo size (px)" value={s["site.logoSize"]} type="number" help="How big the logo shows in the top-left. Try 40–72." />
+
+        <GroupHeading>EPK (Press Kit)</GroupHeading>
+        <div className="admin-field">
+          <label className="admin-label">EPK PDF</label>
+          <FileUpload name="epk.pdfUrl" defaultValue={s["epk.pdfUrl"]} accept="application/pdf" label="Upload EPK PDF" />
+          <div className="admin-help">Upload your EPK as a PDF. When set, the &ldquo;EPK&rdquo; menu link opens it directly and the on-site EPK section is hidden.</div>
         </div>
 
         <GroupHeading>Contact</GroupHeading>

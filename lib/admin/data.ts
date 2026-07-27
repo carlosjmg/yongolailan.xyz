@@ -17,6 +17,8 @@ export function delegateFor(model: string): any {
       return prisma.link;
     case "award":
       return prisma.award;
+    case "merchItem":
+      return prisma.merchItem;
     default:
       throw new Error(`Unknown model: ${model}`);
   }
