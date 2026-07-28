@@ -36,6 +36,39 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
     "Electronic ritual music shaped by Afro-diasporic rhythms and Caribbean roots.",
   "hero.image": "/images/ICE.webp",
 
+  // ── Section headings (every title/subtitle on the site) ──
+  "text.catalog.eyebrow": "Discography",
+  "text.catalog.title": "Catalog",
+  "text.catalog.subtitle":
+    "A growing archive of electronic ritual music rooted in Afro-Caribbean tradition.",
+  "text.portfolio.eyebrow": "Portfolio",
+  "text.portfolio.title": "Creative Work",
+  "text.portfolio.subtitle":
+    "Music, film, games, and digital experiences rooted in Caribbean culture.",
+  "text.photos.eyebrow": "Visual Assets",
+  "text.photos.title": "Photos & Branding",
+  "text.photos.subtitle":
+    "High-resolution press photos, logos, and branding assets for editorial and promotional use.",
+  "text.merch.eyebrow": "Merchandise",
+  "text.merch.title": "Merch",
+  "text.merch.subtitle": "Vinyl, prints, and special releases.",
+  "text.about.eyebrow": "About",
+  "text.about.title": "The Artist",
+  "text.contact.eyebrow": "Booking & Press",
+  "text.contact.title": "Get in Touch",
+  "text.contact.subtitle":
+    "Open to bookings, collaborations, press, and live performance inquiries worldwide.",
+  "text.links.eyebrow": "Official Links",
+  "text.links.title": "Everywhere",
+  "text.newsletter.eyebrow": "Newsletter",
+  "text.newsletter.title": "New music, shows & drops",
+  "text.newsletter.subtitle":
+    "Releases, live sessions, and special art — straight to your inbox. No noise, unsubscribe anytime.",
+
+  "contact.inquiryTypes":
+    "booking, press, collaborations, licensing, sound design, DJ sets, live performance, general",
+
+  "about.image": "/images/ICE.webp",
   "about.p1":
     "Yongolailan is a Cuban DJ, producer, and live electronic performer based in New York City. His work blends Afro-diasporic rhythms, Afro-Cuban roots, Latin jazz, and contemporary electronic music into immersive Caribbean futurist soundscapes.",
   "about.p2":
@@ -114,6 +147,30 @@ export async function setSettings(entries: Record<string, string>): Promise<void
       })
     )
   );
+}
+
+/** Editable heading text for a site section. */
+export interface SectionText {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}
+
+export function sectionText(settings: Settings, key: string): SectionText {
+  return {
+    eyebrow: settings[`text.${key}.eyebrow`] || "",
+    title: settings[`text.${key}.title`] || "",
+    subtitle: settings[`text.${key}.subtitle`] || undefined,
+  };
+}
+
+/** Comma-separated setting → trimmed list. */
+export function parseListSetting(value: string | undefined): string[] {
+  if (!value) return [];
+  return value
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
 export function sectionState(settings: Settings, key: SectionKey): SectionState {

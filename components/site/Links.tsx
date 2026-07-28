@@ -35,11 +35,21 @@ function PlatformLink({ platform }: { platform: LinkModel }) {
   );
 }
 
-export default function Links({ links }: { links: LinkModel[] }) {
+export default function Links({
+  links,
+  eyebrow,
+  title,
+  subtitle,
+}: {
+  links: LinkModel[];
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}) {
   if (links.length === 0) return null;
   return (
     <Section id="links">
-      <SectionHeader eyebrow="Official Links" title="Everywhere" />
+      <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "2px" }}>
         {links.map((p) => (
           <PlatformLink key={p.id} platform={p} />

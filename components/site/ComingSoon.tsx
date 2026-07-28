@@ -4,11 +4,14 @@ export default function ComingSoon({
   id,
   eyebrow,
   title,
+  subtitle,
 }: {
   id: string;
   eyebrow?: string;
   title: string;
+  subtitle?: string;
 }) {
+  void subtitle;
   return (
     <div id={id} data-section style={{ background: "var(--bg)" }}>
       <div style={{ padding: "clamp(72px, 8vw, 112px) clamp(20px, 6vw, 80px)", maxWidth: "1400px", margin: "0 auto" }}>

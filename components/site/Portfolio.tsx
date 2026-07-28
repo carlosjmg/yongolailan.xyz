@@ -101,13 +101,23 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
   );
 }
 
-export default function Portfolio({ items }: { items: PortfolioItem[] }) {
+export default function Portfolio({
+  items,
+  eyebrow,
+  title,
+  subtitle,
+}: {
+  items: PortfolioItem[];
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}) {
   return (
     <Section id="portfolio">
       <SectionHeader
-        eyebrow="Portfolio"
-        title="Creative Work"
-        subtitle="Music, film, games, and digital experiences rooted in Caribbean culture."
+        eyebrow={eyebrow}
+        title={title}
+        subtitle={subtitle}
       />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "2px" }}>
         {items.map((item) => (

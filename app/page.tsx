@@ -1,4 +1,4 @@
-import { getAllSettings, sectionState } from "@/lib/settings";
+import { getAllSettings, parseListSetting, sectionState, sectionText } from "@/lib/settings";
 import {
   getAwards,
   getFeaturedReleases,
@@ -42,6 +42,7 @@ export default async function HomePage() {
   void awards;
 
   const st = (k: Parameters<typeof sectionState>[1]) => sectionState(settings, k);
+  const txt = (k: string) => sectionText(settings, k);
   const email = settings["contact.email"];
   const epkPdf = settings["epk.pdfUrl"];
 
@@ -82,26 +83,28 @@ export default async function HomePage() {
         pressAttribution={settings["epk.pressAttribution"]}
       />
 
-      {st("catalog") === "on" && <Catalog releases={releases} />}
-      {st("catalog") === "soon" && <ComingSoon id="catalog" eyebrow="Discography" title="Catalog" />}
+      {st("catalog") === "on" && <Catalog releases={releases} {...txt("catalog")} />}
+      {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
 
-      {st("portfolio") === "on" && <Portfolio items={portfolio} />}
-      {st("portfolio") === "soon" && <ComingSoon id="portfolio" eyebrow="Portfolio" title="Creative Work" />}
+      {st("portfolio") === "on" && <Portfolio items={portfolio} {...txt("portfolio")} />}
+      {st("portfolio") === "soon" && <ComingSoon id="portfolio" {...txt("portfolio")} />}
 
-      {st("photos") === "on" && <Photos photos={photos} email={email} />}
-      {st("photos") === "soon" && <ComingSoon id="photos" eyebrow="Visual Assets" title="Photos & Branding" />}
+      {st("photos") === "on" && <Photos photos={photos} email={email} {...txt("photos")} />}
+      {st("photos") === "soon" && <ComingSoon id="photos" {...txt("photos")} />}
 
-      {st("merch") !== "off" && <Merch items={merch} />}
+      {st("merch") !== "off" && <Merch items={merch} {...txt("merch")} />}
 
       {st("about") === "on" && (
         <About
           p1={settings["about.p1"]}
           p2={settings["about.p2"]}
           stats={settings["about.stats"]}
+          image={settings["about.image"]}
           showEpk={false}
+          {...txt("about")}
         />
       )}
-      {st("about") === "soon" && <ComingSoon id="about" eyebrow="About" title="The Artist" />}
+      {st("about") === "soon" && <ComingSoon id="about" {...txt("about")} />}
 
       {st("contact") !== "off" && (
         <Contact
@@ -110,13 +113,15 @@ export default async function HomePage() {
           whatsappUrl={settings["contact.whatsappUrl"]}
           labelName={settings["label.name"]}
           labelLocation={settings["label.location"]}
+          inquiryTypes={parseListSetting(settings["contact.inquiryTypes"])}
+          {...txt("contact")}
         />
       )}
 
-      <NewsletterSignup />
+      <NewsletterSignup {...txt("newsletter")} />
 
-      {st("links") === "on" && <Links links={links} />}
-      {st("links") === "soon" && <ComingSoon id="links" eyebrow="Official Links" title="Everywhere" />}
+      {st("links") === "on" && <Links links={links} {...txt("links")} />}
+      {st("links") === "soon" && <ComingSoon id="links" {...txt("links")} />}
 
       <Footer
         navItems={primary}

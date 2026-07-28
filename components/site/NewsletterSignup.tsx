@@ -2,7 +2,15 @@
 
 import React, { useState } from "react";
 
-export default function NewsletterSignup() {
+export default function NewsletterSignup({
+  eyebrow,
+  title,
+  subtitle,
+}: {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -43,14 +51,16 @@ export default function NewsletterSignup() {
       >
         <div>
           <div style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "16px" }}>
-            Newsletter
+            {eyebrow}
           </div>
           <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(30px, 4vw, 52px)", fontWeight: 300, lineHeight: 1.05, color: "var(--text)", letterSpacing: "-0.01em", marginBottom: "14px" }}>
-            New music, shows & drops
+            {title}
           </h2>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.7, maxWidth: "440px" }}>
-            Releases, live sessions, and special art — straight to your inbox. No noise, unsubscribe anytime.
-          </p>
+          {subtitle && (
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.7, maxWidth: "440px" }}>
+              {subtitle}
+            </p>
+          )}
         </div>
 
         <div>

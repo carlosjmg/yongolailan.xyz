@@ -22,7 +22,8 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
     label: "Site",
     items: [
       { href: "/admin/settings", label: "Home & Hero" },
-      { href: "/admin/epk", label: "EPK & Bio" },
+      { href: "/admin/about", label: "About & Bio" },
+      { href: "/admin/sections", label: "Section Titles" },
       { href: "/admin/availability", label: "Availability" },
     ],
   },

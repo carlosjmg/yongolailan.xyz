@@ -256,7 +256,17 @@ function CatalogCard({ release }: { release: Release }) {
   );
 }
 
-export default function Catalog({ releases }: { releases: Release[] }) {
+export default function Catalog({
+  releases,
+  eyebrow,
+  title,
+  subtitle,
+}: {
+  releases: Release[];
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}) {
   const genres = ["All", ...Array.from(new Set(releases.map((r) => r.genre)))];
   const [filter, setFilter] = useState("All");
   const shown = releases.filter((r) => filter === "All" || r.genre === filter);
@@ -264,9 +274,9 @@ export default function Catalog({ releases }: { releases: Release[] }) {
   return (
     <SectionFullWidth id="catalog" dark>
       <SectionHeader
-        eyebrow="Discography"
-        title="Catalog"
-        subtitle="A growing archive of electronic ritual music rooted in Afro-Caribbean tradition."
+        eyebrow={eyebrow}
+        title={title}
+        subtitle={subtitle}
       />
 
       {genres.length > 2 && (

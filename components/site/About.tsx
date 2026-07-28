@@ -18,12 +18,18 @@ export default function About({
   stats,
   image = "/images/ICE.webp",
   showEpk,
+  eyebrow,
+  title,
+  subtitle,
 }: {
   p1: string;
   p2: string;
   stats: string;
   image?: string;
   showEpk: boolean;
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
 }) {
   const statList = parseArr<[string, string][]>(stats, []);
 
@@ -37,7 +43,7 @@ export default function About({
         </div>
 
         <div>
-          <SectionHeader eyebrow="About" title="The Artist" />
+          <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
           {p1 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "20px" }}>{p1}</p>}
           {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "36px" }}>{p2}</p>}
 

@@ -40,32 +40,18 @@ function toPairs(input: string): string {
   return JSON.stringify(pairs);
 }
 
-/** EPK / bio page — mixes plain text fields with tag/pair transforms. */
-export async function saveEpkForm(formData: FormData) {
+/** About page — plain text fields plus the "Number | Label" stats grid. */
+export async function saveAboutForm(formData: FormData) {
   await assertAdmin();
-  const plainKeys = [
-    "about.p1",
-    "about.p2",
-    "epk.bio1",
-    "epk.bio2",
-    "epk.bio3",
-    "epk.oneLiner",
-    "epk.sound",
-    "epk.performance",
-    "epk.recognition",
-    "epk.pressQuote",
-    "epk.pressAttribution",
-  ];
+  const plainKeys = ["about.p1", "about.p2", "about.image", "epk.pressQuote", "epk.pressAttribution"];
   const entries: Record<string, string> = {};
   for (const k of plainKeys) {
     const v = formData.get(k);
     entries[k] = v === null ? "" : String(v);
   }
-  entries["epk.soundTags"] = toTags(String(formData.get("soundTags") || ""));
-  entries["epk.identityFacts"] = toPairs(String(formData.get("identityFacts") || ""));
   entries["about.stats"] = toPairs(String(formData.get("stats") || ""));
 
   await setSettings(entries);
   revalidatePath("/", "layout");
-  redirect("/admin/epk?saved=1");
+  redirect("/admin/about?saved=1");
 }

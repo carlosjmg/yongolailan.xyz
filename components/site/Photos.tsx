@@ -12,11 +12,15 @@ const FALLBACK: { image: string; caption: string; category: string }[] = [
 export default function Photos({
   photos,
   email,
-  logo = "/images/Yongo-logo-blanco.webp",
+  eyebrow,
+  title,
+  subtitle,
 }: {
   photos: Photo[];
   email: string;
-  logo?: string;
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
 }) {
   const large =
     photos.length > 0
@@ -26,9 +30,9 @@ export default function Photos({
   return (
     <Section id="photos">
       <SectionHeader
-        eyebrow="Visual Assets"
-        title="Photos & Branding"
-        subtitle="High-resolution press photos, logos, and branding assets for editorial and promotional use."
+        eyebrow={eyebrow}
+        title={title}
+        subtitle={subtitle}
       />
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "2px", marginBottom: "40px" }}>

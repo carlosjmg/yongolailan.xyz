@@ -4,11 +4,21 @@ import React from "react";
 import type { MerchItem } from "@prisma/client";
 import { SectionFullWidth, SectionHeader } from "./shared";
 
-export default function Merch({ items }: { items: MerchItem[] }) {
+export default function Merch({
+  items,
+  eyebrow,
+  title,
+  subtitle,
+}: {
+  items: MerchItem[];
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}) {
   if (items.length === 0) {
     return (
       <SectionFullWidth id="merch" dark>
-        <SectionHeader eyebrow="Merchandise" title="Merch" />
+        <SectionHeader eyebrow={eyebrow} title={title} />
         <div
           style={{
             display: "flex",
@@ -34,7 +44,7 @@ export default function Merch({ items }: { items: MerchItem[] }) {
 
   return (
     <SectionFullWidth id="merch" dark>
-      <SectionHeader eyebrow="Merchandise" title="Merch" subtitle="Vinyl, prints, and special releases." />
+      <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "20px" }}>
         {items.map((m) => (
           <div key={m.id} style={{ border: "1px solid var(--border)", background: "var(--bg)", display: "flex", flexDirection: "column", overflow: "hidden" }}>

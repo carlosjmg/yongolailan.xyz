@@ -3,16 +3,7 @@
 import React, { useState } from "react";
 import { EyebrowLabel, SectionFullWidth, SectionHeader } from "./shared";
 
-const INQUIRY_TYPES = [
-  "booking",
-  "press",
-  "collaborations",
-  "licensing",
-  "sound design",
-  "DJ sets",
-  "live performance",
-  "general",
-];
+const FALLBACK_INQUIRY_TYPES = ["booking", "press", "collaborations", "general"];
 
 function ContactInfoRow({ label, value, href }: { label: string; value: string; href: string }) {
   const [hover, setHover] = useState(false);
@@ -66,14 +57,23 @@ export default function Contact({
   whatsappUrl,
   labelName,
   labelLocation,
+  eyebrow,
+  title,
+  subtitle,
+  inquiryTypes,
 }: {
   email: string;
   whatsapp: string;
   whatsappUrl: string;
   labelName: string;
   labelLocation: string;
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+  inquiryTypes?: string[];
 }) {
-  const [form, setForm] = useState({ name: "", email: "", type: "booking", message: "" });
+  const INQUIRY_TYPES = inquiryTypes?.length ? inquiryTypes : FALLBACK_INQUIRY_TYPES;
+  const [form, setForm] = useState({ name: "", email: "", type: INQUIRY_TYPES[0], message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -101,9 +101,9 @@ export default function Contact({
   return (
     <SectionFullWidth id="contact" dark>
       <SectionHeader
-        eyebrow="Booking & Press"
-        title="Get in Touch"
-        subtitle="Open to bookings, collaborations, press, and live performance inquiries worldwide."
+        eyebrow={eyebrow}
+        title={title}
+        subtitle={subtitle}
       />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "60px" }}>
         <div>
