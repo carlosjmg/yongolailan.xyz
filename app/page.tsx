@@ -22,11 +22,13 @@ import Footer from "@/components/site/Footer";
 import MobileBookingBar from "@/components/site/MobileBookingBar";
 import NewsletterSignup from "@/components/site/NewsletterSignup";
 import ComingSoon from "@/components/site/ComingSoon";
+import { unstable_noStore as noStore } from "next/cache";
 
 // Always render fresh so admin edits appear immediately.
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
+  noStore();
   const [settings, releases, featured, portfolio, photos, links, awards, merch] = await Promise.all([
     getAllSettings(),
     getReleases(),

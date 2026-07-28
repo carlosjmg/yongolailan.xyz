@@ -18,7 +18,7 @@ export async function saveSettingsForm(keys: string[], redirectTo: string, formD
     entries[k] = v === null ? "" : String(v);
   }
   await setSettings(entries);
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   redirect(`${redirectTo}?saved=1`);
 }
 
@@ -66,6 +66,6 @@ export async function saveEpkForm(formData: FormData) {
   entries["about.stats"] = toPairs(String(formData.get("stats") || ""));
 
   await setSettings(entries);
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   redirect("/admin/epk?saved=1");
 }

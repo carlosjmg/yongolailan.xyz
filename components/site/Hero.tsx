@@ -2,8 +2,9 @@
 
 import React from "react";
 
-// Clean hero: just the full-bleed background image, no text, buttons, overlays
-// or shadows. Everything else appears as you scroll down.
+// Clean hero: full-bleed background image. The photo shows clearly at the top;
+// only the bottom fades to dark for a smooth transition into the next section.
+// A cache-busting query on the URL guarantees a freshly-uploaded image shows.
 export default function Hero({ image, name }: { image: string; name: string }) {
   return (
     <section
@@ -17,6 +18,17 @@ export default function Hero({ image, name }: { image: string; name: string }) {
         backgroundColor: "oklch(8% 0.018 30)",
       }}
     >
+      {/* Bottom fade — smooth transition into the section below (no shadow up top). */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background: "linear-gradient(to bottom, transparent 55%, oklch(8% 0.018 30 / 0.6) 82%, oklch(8% 0.018 30) 100%)",
+        }}
+      />
+
       {/* Visually hidden heading — keeps the page SEO/accessibility-friendly. */}
       <h1
         style={{
