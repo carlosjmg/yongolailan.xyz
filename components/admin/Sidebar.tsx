@@ -29,10 +29,7 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
   },
   {
     label: "Audience",
-    items: [
-      { href: "/admin/newsletter", label: "Newsletter" },
-      { href: "/admin/messages", label: "Messages" },
-    ],
+    items: [{ href: "/admin/messages", label: "Messages" }],
   },
 ];
 

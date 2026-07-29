@@ -4,6 +4,7 @@ import { prisma } from "./prisma";
 export const SECTION_KEYS = [
   "catalog",
   "portfolio",
+  "videos",
   "epk",
   "photos",
   "merch",
@@ -18,6 +19,7 @@ export type SectionState = "on" | "off" | "soon";
 export const SECTION_LABELS: Record<SectionKey, string> = {
   catalog: "Catalog",
   portfolio: "Portfolio",
+  videos: "Short Films & Videos",
   epk: "EPK / Press",
   photos: "Photos & Branding",
   merch: "Merch",
@@ -45,6 +47,10 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "text.portfolio.title": "Creative Work",
   "text.portfolio.subtitle":
     "Music, film, games, and digital experiences rooted in Caribbean culture.",
+  "text.videos.eyebrow": "Film & Motion",
+  "text.videos.title": "Short Films & Videos",
+  "text.videos.subtitle":
+    "Music videos, short films, and live sessions — visual storytelling rooted in Afro-Caribbean culture.",
   "text.photos.eyebrow": "Visual Assets",
   "text.photos.title": "Photos & Branding",
   "text.photos.subtitle":
@@ -60,10 +66,6 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
     "Open to bookings, collaborations, press, and live performance inquiries worldwide.",
   "text.links.eyebrow": "Official Links",
   "text.links.title": "Everywhere",
-  "text.newsletter.eyebrow": "Newsletter",
-  "text.newsletter.title": "New music, shows & drops",
-  "text.newsletter.subtitle":
-    "Releases, live sessions, and special art — straight to your inbox. No noise, unsubscribe anytime.",
 
   "contact.inquiryTypes":
     "booking, press, collaborations, licensing, sound design, DJ sets, live performance, general",

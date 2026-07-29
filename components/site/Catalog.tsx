@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import type { Release } from "@prisma/client";
 import { SectionFullWidth, SectionHeader } from "./shared";
+import PlatformIcon from "./PlatformIcon";
 
 const PLATFORMS: { key: keyof Release; label: string }[] = [
   { key: "spotifyUrl", label: "Spotify" },
-  { key: "appleUrl", label: "Apple" },
-  { key: "soundcloudUrl", label: "SC" },
-  { key: "youtubeUrl", label: "YT" },
-  { key: "bandcampUrl", label: "BC" },
+  { key: "appleUrl", label: "Apple Music" },
+  { key: "soundcloudUrl", label: "SoundCloud" },
+  { key: "youtubeUrl", label: "YouTube" },
+  { key: "bandcampUrl", label: "Bandcamp" },
 ];
 
 function firstLink(r: Release): string | undefined {
@@ -210,19 +211,28 @@ function CatalogCard({ release }: { release: Release }) {
                 href={release[p.key] as string}
                 target="_blank"
                 rel="noopener noreferrer"
+                title={p.label}
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "9px",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  padding: "5px 9px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "6px",
                   border: "1px solid var(--border)",
                   color: "var(--text-dim)",
                   borderRadius: "2px",
                   textDecoration: "none",
+                  transition: "color 0.2s, border-color 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--text)";
+                  e.currentTarget.style.borderColor = "oklch(35% 0.015 30)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--text-dim)";
+                  e.currentTarget.style.borderColor = "var(--border)";
                 }}
               >
-                {p.label}
+                <PlatformIcon name={p.label} size={16} />
               </a>
             ))}
           </div>

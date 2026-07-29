@@ -5,14 +5,14 @@ import { isEmailConfigured } from "@/lib/email";
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const [releases, portfolio, videos, games, photos, links, subscribers, unread] = await Promise.all([
+  const [releases, portfolio, videos, games, photos, links, merch, unread] = await Promise.all([
     prisma.release.count(),
     prisma.portfolioItem.count(),
     prisma.video.count(),
     prisma.game.count(),
     prisma.photo.count(),
     prisma.link.count(),
-    prisma.subscriber.count(),
+    prisma.merchItem.count(),
     prisma.contactMessage.count({ where: { read: false } }),
   ]);
 
@@ -23,7 +23,7 @@ export default async function Dashboard() {
     { href: "/admin/games", num: games, label: "Games" },
     { href: "/admin/photos", num: photos, label: "Photos" },
     { href: "/admin/links", num: links, label: "Links" },
-    { href: "/admin/newsletter", num: subscribers, label: "Subscribers" },
+    { href: "/admin/merch", num: merch, label: "Merch items" },
     { href: "/admin/messages", num: unread, label: "Unread messages" },
   ];
 
@@ -60,7 +60,7 @@ export default async function Dashboard() {
           <Link href="/admin/photos/new" className="admin-btn">+ Upload photo</Link>
           <Link href="/admin/videos/new" className="admin-btn">+ Add video</Link>
           <Link href="/admin/games/new" className="admin-btn">+ Add game</Link>
-          <Link href="/admin/newsletter" className="admin-btn">Write newsletter</Link>
+          <Link href="/admin/merch/new" className="admin-btn">+ Add merch</Link>
           <Link href="/admin/availability" className="admin-btn">Show / hide sections</Link>
         </div>
       </div>
