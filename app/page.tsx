@@ -49,13 +49,13 @@ export default async function HomePage() {
   const epkPdf = settings["epk.pdfUrl"];
 
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
-    { id: "home", label: "Home" },
     { id: "catalog", label: "Catalog", key: "catalog" },
-    { id: "portfolio", label: "Portfolio", key: "portfolio" },
-    { id: "videos", label: "Videos", key: "videos" },
-    { id: "epk", label: "EPK", key: "epk" },
+    { id: "videos", label: "Films", key: "videos" },
+    { id: "merch", label: "Merch", key: "merch" },
     { id: "about", label: "About", key: "about" },
     { id: "contact", label: "Contact", key: "contact" },
+    // Only appears once an EPK PDF is uploaded; the link opens it directly.
+    { id: "epk", label: "EPK", key: "epk" },
   ];
   const primary: NavItem[] = primaryDefs
     .filter((d) => {
@@ -66,8 +66,8 @@ export default async function HomePage() {
     .map(({ id, label }) => ({ id, label, href: id === "epk" ? epkPdf : undefined }));
 
   const secondaryDefs = [
+    { id: "portfolio", label: "Portfolio", key: "portfolio" as const },
     { id: "photos", label: "Photos", key: "photos" as const },
-    { id: "merch", label: "Merch", key: "merch" as const },
     { id: "links", label: "Links", key: "links" as const },
   ];
   const secondary: NavItem[] = secondaryDefs

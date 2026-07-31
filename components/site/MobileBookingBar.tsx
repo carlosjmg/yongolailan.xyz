@@ -81,24 +81,6 @@ export default function MobileBookingBar({ email }: { email: string }) {
       >
         Booking →
       </button>
-      <button
-        onClick={() => scrollToSection("epk")}
-        style={{
-          flex: 1,
-          minHeight: "48px",
-          fontFamily: "var(--font-mono)",
-          fontSize: "11px",
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          color: "var(--text)",
-          background: "transparent",
-          border: "1px solid var(--border)",
-          borderRadius: "2px",
-          cursor: "pointer",
-        }}
-      >
-        EPK
-      </button>
     </div>
   );
 }

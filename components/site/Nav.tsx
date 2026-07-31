@@ -143,34 +143,6 @@ export default function Nav({
               </li>
             );
           })}
-          <li style={{ paddingLeft: "8px", borderLeft: "1px solid var(--border)", marginLeft: "4px" }}>
-            <button
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "11px",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#ffffff",
-                background: "transparent",
-                padding: "9px 24px",
-                border: "1px solid rgba(255,255,255,0.75)",
-                borderRadius: "999px",
-                cursor: "pointer",
-                transition: "background 0.2s, border-color 0.2s",
-              }}
-              onClick={() => handleNav("contact")}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.14)";
-                e.currentTarget.style.borderColor = "#ffffff";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.75)";
-              }}
-            >
-              Booking
-            </button>
-          </li>
         </ul>
 
         <button
@@ -245,25 +217,6 @@ export default function Nav({
               {item.label}
             </button>
           ))}
-          <button
-            style={{
-              marginTop: "20px",
-              fontFamily: "var(--font-mono)",
-              fontSize: "12px",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "#ffffff",
-              background: "transparent",
-              padding: "16px 20px",
-              border: "1px solid rgba(255,255,255,0.75)",
-              borderRadius: "999px",
-              cursor: "pointer",
-              fontWeight: 500,
-            }}
-            onClick={() => handleNav("contact")}
-          >
-            Booking →
-          </button>
         </div>
       )}
     </>
