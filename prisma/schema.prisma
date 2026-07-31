@@ -90,7 +90,8 @@ model Photo {
   id        String   @id @default(cuid())
   title     String?
   caption   String?
-  image     String
+  image     String   @default("")
+  videoUrl  String? // when set, this item renders as an embedded video
   category  String   @default("press") // press | artist | logo | branding
   published Boolean  @default(true)
   sortOrder Int      @default(0)

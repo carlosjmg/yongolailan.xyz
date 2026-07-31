@@ -51,6 +51,7 @@ export default async function HomePage() {
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
     { id: "catalog", label: "Catalog", key: "catalog" },
     { id: "videos", label: "Films", key: "videos" },
+    { id: "photos", label: "Live", key: "photos" },
     { id: "merch", label: "Merch", key: "merch" },
     { id: "about", label: "About", key: "about" },
     { id: "contact", label: "Contact", key: "contact" },
@@ -67,7 +68,6 @@ export default async function HomePage() {
 
   const secondaryDefs = [
     { id: "portfolio", label: "Portfolio", key: "portfolio" as const },
-    { id: "photos", label: "Photos", key: "photos" as const },
     { id: "links", label: "Links", key: "links" as const },
   ];
   const secondary: NavItem[] = secondaryDefs

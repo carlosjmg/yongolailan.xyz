@@ -21,7 +21,7 @@ export const SECTION_LABELS: Record<SectionKey, string> = {
   portfolio: "Portfolio",
   videos: "Short Films & Videos",
   epk: "EPK / Press",
-  photos: "Photos & Branding",
+  photos: "Live Performance",
   merch: "Merch",
   about: "About",
   contact: "Contact",
@@ -51,10 +51,10 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "text.videos.title": "Short Films & Videos",
   "text.videos.subtitle":
     "Music videos, short films, and live sessions — visual storytelling rooted in Afro-Caribbean culture.",
-  "text.photos.eyebrow": "Visual Assets",
-  "text.photos.title": "Photos & Branding",
+  "text.photos.eyebrow": "On Stage",
+  "text.photos.title": "Live Performance",
   "text.photos.subtitle":
-    "High-resolution press photos, logos, and branding assets for editorial and promotional use.",
+    "Photos and video from live shows, festivals, and sessions.",
   "text.merch.eyebrow": "Merchandise",
   "text.merch.title": "Merch",
   "text.merch.subtitle": "Vinyl, prints, and special releases.",
