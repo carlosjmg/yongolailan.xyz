@@ -2,53 +2,81 @@
 
 import { useRef, useState } from "react";
 
-const MAX_DIM = 1600;
-const RESIZE_ABOVE = 1_000_000; // only shrink files bigger than ~1 MB
+// Vercel's serverless request body limit is 4.5 MB, so keep a little headroom.
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
 
-// Downscale large photos in the browser before uploading. This keeps files well
-// under Vercel's request-size limit and optimizes them. Small files (logos,
-// icons) pass through untouched so they stay crisp.
-async function prepareImage(file: File): Promise<{ blob: Blob; filename: string }> {
-  const resizable = ["image/jpeg", "image/png", "image/webp"].includes(file.type);
-  if (!resizable || file.size < RESIZE_ABOVE) {
-    return { blob: file, filename: file.name };
-  }
+// Only used when a file is too big to send as-is. Ordered largest-first so we
+// keep as much detail as possible — important for full-screen hero images.
+const FALLBACK_STEPS: [number, number][] = [
+  [3200, 0.92],
+  [2600, 0.9],
+  [2048, 0.88],
+  [1600, 0.85],
+];
+
+const RESIZABLE = ["image/jpeg", "image/png", "image/webp"];
+
+async function loadImage(file: File): Promise<HTMLImageElement> {
+  const objectUrl = URL.createObjectURL(file);
   try {
-    const objectUrl = URL.createObjectURL(file);
     const img = document.createElement("img");
     await new Promise<void>((resolve, reject) => {
       img.onload = () => resolve();
-      img.onerror = () => reject(new Error("read-fail"));
+      img.onerror = () => reject(new Error("Could not read that image."));
       img.src = objectUrl;
     });
+    return img;
+  } finally {
     URL.revokeObjectURL(objectUrl);
+  }
+}
 
-    let w = img.naturalWidth;
-    let h = img.naturalHeight;
-    if (Math.max(w, h) > MAX_DIM) {
-      const s = MAX_DIM / Math.max(w, h);
-      w = Math.round(w * s);
-      h = Math.round(h * s);
-    }
-    const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return { blob: file, filename: file.name };
-    ctx.drawImage(img, 0, 0, w, h);
+function drawToBlob(img: HTMLImageElement, maxDim: number, quality: number): Promise<Blob | null> {
+  let w = img.naturalWidth;
+  let h = img.naturalHeight;
+  if (Math.max(w, h) > maxDim) {
+    const s = maxDim / Math.max(w, h);
+    w = Math.round(w * s);
+    h = Math.round(h * s);
+  }
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return Promise.resolve(null);
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(img, 0, 0, w, h);
+  return new Promise((r) => canvas.toBlob(r, "image/webp", quality));
+}
 
-    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/webp", 0.9));
-    if (!blob || blob.size >= file.size) return { blob: file, filename: file.name };
-    return { blob, filename: "image.webp" };
-  } catch {
+/**
+ * Send the original file untouched whenever it fits — that keeps full
+ * resolution for hero/background images. Only genuinely oversized files get
+ * scaled down, and then as little as possible.
+ */
+async function prepareImage(file: File): Promise<{ blob: Blob; filename: string }> {
+  if (file.size <= MAX_UPLOAD_BYTES) {
     return { blob: file, filename: file.name };
   }
+  if (!RESIZABLE.includes(file.type)) {
+    throw new Error("That file is too large (max 4 MB). Please export a smaller version.");
+  }
+
+  const img = await loadImage(file);
+  for (const [maxDim, quality] of FALLBACK_STEPS) {
+    const blob = await drawToBlob(img, maxDim, quality);
+    if (blob && blob.size <= MAX_UPLOAD_BYTES) {
+      return { blob, filename: "image.webp" };
+    }
+  }
+  throw new Error("That image is too large. Please export it at a smaller size and try again.");
 }
 
 export default function ImageUpload({ name, defaultValue }: { name: string; defaultValue?: string | null }) {
   const [url, setUrl] = useState(defaultValue || "");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
+  const [info, setInfo] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -56,17 +84,18 @@ export default function ImageUpload({ name, defaultValue }: { name: string; defa
     if (!file) return;
     setBusy(true);
     setErr("");
+    setInfo("");
     try {
       const { blob, filename } = await prepareImage(file);
-      if (blob.size > 4 * 1024 * 1024) {
-        throw new Error("Image is too large. Please use one under 4 MB.");
-      }
       const fd = new FormData();
       fd.append("file", blob, filename);
       const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Upload failed. Please try again.");
       setUrl(data.url);
+      if (blob !== file) {
+        setInfo("Image was very large, so it was resized slightly to upload.");
+      }
     } catch (e) {
       setErr(e instanceof Error ? e.message : "Upload failed.");
     } finally {
@@ -101,6 +130,7 @@ export default function ImageUpload({ name, defaultValue }: { name: string; defa
           )}
           <input ref={inputRef} type="file" accept="image/*" hidden onChange={onFile} />
           {err && <div className="admin-error">{err}</div>}
+          {info && <div className="admin-help">{info}</div>}
         </div>
       </div>
     </div>

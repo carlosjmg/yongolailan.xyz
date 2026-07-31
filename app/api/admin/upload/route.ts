@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { isAuthenticated } from "@/lib/session";
 import { uploadFile } from "@/lib/blob";
 
-const MAX_BYTES = 15 * 1024 * 1024; // 15 MB
+// Vercel caps serverless request bodies at 4.5 MB; the admin uploader keeps
+// files under 4 MB, so anything bigger here is a genuine error.
+const MAX_BYTES = 4.4 * 1024 * 1024;
 
 export async function POST(req: Request) {
   if (!(await isAuthenticated())) {
@@ -16,7 +18,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No file provided." }, { status: 400 });
   }
   if (file.size > MAX_BYTES) {
-    return NextResponse.json({ error: "File is too large (max 15 MB)." }, { status: 400 });
+    return NextResponse.json({ error: "File is too large (max 4 MB)." }, { status: 400 });
   }
 
   try {
