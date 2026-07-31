@@ -100,9 +100,7 @@ export default async function HomePage() {
         <About
           p1={settings["about.p1"]}
           p2={settings["about.p2"]}
-          stats={settings["about.stats"]}
           image={settings["about.image"]}
-          showEpk={false}
           {...txt("about")}
         />
       )}
