@@ -80,11 +80,7 @@ export default async function HomePage() {
 
       <Hero image={settings["hero.image"]} name={settings["hero.name"]} />
 
-      <Featured
-        releases={featured}
-        pressQuote={settings["epk.pressQuote"]}
-        pressAttribution={settings["epk.pressAttribution"]}
-      />
+      <Featured releases={featured} />
 
       {st("catalog") === "on" && <Catalog releases={releases} {...txt("catalog")} />}
       {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}

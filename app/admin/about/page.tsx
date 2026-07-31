@@ -1,6 +1,6 @@
 import { getAllSettings, parseJsonSetting } from "@/lib/settings";
 import { saveAboutForm } from "../settings-actions";
-import { TextSetting, TextareaSetting, GroupHeading, SavedNote } from "@/components/admin/fields";
+import { TextareaSetting, GroupHeading, SavedNote } from "@/components/admin/fields";
 import ImageUpload from "@/components/admin/ImageUpload";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +15,7 @@ export default async function AboutPage({ searchParams }: { searchParams: { save
   return (
     <div>
       <h1 className="admin-h1">About &amp; Bio</h1>
-      <p className="admin-sub">Your photo, biography, stats, and the press quote on the home page.</p>
+      <p className="admin-sub">Your photo, biography, and stats.</p>
       <SavedNote show={Boolean(searchParams?.saved)} />
 
       <form action={saveAboutForm} className="admin-panel" style={{ maxWidth: "700px" }}>
@@ -34,10 +34,6 @@ export default async function AboutPage({ searchParams }: { searchParams: { save
           rows={4}
           help="One per line, as: Number | Label   (e.g. 10+ | Years Active)"
         />
-
-        <GroupHeading>Press quote (home page)</GroupHeading>
-        <TextareaSetting name="epk.pressQuote" label="Press quote" value={s["epk.pressQuote"]} rows={2} />
-        <TextSetting name="epk.pressAttribution" label="Attribution" value={s["epk.pressAttribution"]} placeholder="Press · 2024" />
 
         <button type="submit" className="admin-btn admin-btn-primary" style={{ marginTop: "18px" }}>
           Save changes

@@ -88,9 +88,6 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "epk.sound": "Afro-Cuban House · Latin Afrobeat · Caribbean Diaspora.",
   "epk.performance": "DJ sets · Live electronic · Festival mix sessions.",
   "epk.recognition": "Cubadisco 2015 · EYEIFE 2024 & 2025.",
-  "epk.pressQuote":
-    "Incredible mix of tradition and modernity in every performance.",
-  "epk.pressAttribution": "Press · 2024",
   "epk.soundTags":
     '["Afro-Cuban House","Latin Afrobeat","Caribbean Diaspora","Electronic Ritual","Afro-Caribbean Futurism","Immersive","Rhythmic"]',
   "epk.identityFacts":

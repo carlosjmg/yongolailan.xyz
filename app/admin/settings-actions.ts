@@ -43,7 +43,7 @@ function toPairs(input: string): string {
 /** About page — plain text fields plus the "Number | Label" stats grid. */
 export async function saveAboutForm(formData: FormData) {
   await assertAdmin();
-  const plainKeys = ["about.p1", "about.p2", "about.image", "epk.pressQuote", "epk.pressAttribution"];
+  const plainKeys = ["about.p1", "about.p2", "about.image"];
   const entries: Record<string, string> = {};
   for (const k of plainKeys) {
     const v = formData.get(k);

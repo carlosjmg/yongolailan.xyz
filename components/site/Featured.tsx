@@ -116,16 +116,8 @@ function FeaturedCard({ release }: { release: Release }) {
   );
 }
 
-export default function Featured({
-  releases,
-  pressQuote,
-  pressAttribution,
-}: {
-  releases: Release[];
-  pressQuote: string;
-  pressAttribution: string;
-}) {
-  if (releases.length === 0 && !pressQuote) return null;
+export default function Featured({ releases }: { releases: Release[] }) {
+  if (releases.length === 0) return null;
   return (
     <div style={{ background: "var(--bg)", padding: "0 clamp(24px, 6vw, 80px)" }}>
       <div style={{ maxWidth: "1400px", margin: "0 auto", paddingTop: "80px" }}>
@@ -155,41 +147,6 @@ export default function Featured({
               ))}
             </div>
           </>
-        )}
-        {pressQuote && (
-          <div
-            style={{
-              borderLeft: "2px solid var(--gold)",
-              padding: "24px 32px",
-              margin: "80px 0",
-              background: "oklch(10% 0.018 30)",
-            }}
-          >
-            <blockquote
-              style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontSize: "clamp(20px, 2.5vw, 32px)",
-                fontWeight: 300,
-                color: "oklch(82% 0.01 60)",
-                lineHeight: 1.4,
-                marginBottom: "16px",
-              }}
-            >
-              &ldquo;{pressQuote}&rdquo;
-            </blockquote>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--gold)",
-              }}
-            >
-              {pressAttribution}
-            </div>
-          </div>
         )}
       </div>
     </div>
