@@ -1,9 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import type { Photo } from "@prisma/client";
 import { Section, SectionHeader } from "./shared";
 import { toEmbedUrl } from "@/lib/video";
+import ShowMore from "./ShowMore";
+
+const PAGE_SIZE = 6;
 
 // "Live Performance" — a mixed gallery of performance photos and videos.
 // Each item is a photo, unless it has a video link, in which case it plays
@@ -153,6 +156,9 @@ export default function Photos({
   void email;
   // An item needs either a photo or a video link to show anything.
   const items = photos.filter((p) => p.image || p.videoUrl);
+  const [expanded, setExpanded] = useState(false);
+  const shown = expanded ? items : items.slice(0, PAGE_SIZE);
+  const hiddenCount = items.length - shown.length;
 
   return (
     <Section id="photos">
@@ -160,7 +166,7 @@ export default function Photos({
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "2px" }}>
         {items.length > 0
-          ? items.map((p) => <LiveItem key={p.id} item={p} />)
+          ? shown.map((p) => <LiveItem key={p.id} item={p} />)
           : FALLBACK.map((f, i) => (
               <div
                 key={i}
@@ -180,6 +186,8 @@ export default function Photos({
               </div>
             ))}
       </div>
+
+      <ShowMore expanded={expanded} hiddenCount={hiddenCount} onToggle={() => setExpanded((v) => !v)} />
     </Section>
   );
 }

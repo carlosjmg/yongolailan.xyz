@@ -42,12 +42,18 @@ export const COLLECTIONS: Record<string, Collection> = {
     listColumns: [
       { name: "title", label: "Title" },
       { name: "year", label: "Year" },
-      { name: "genre", label: "Genre" },
+      { name: "releaseType", label: "Type" },
     ],
     fields: [
       { name: "title", label: "Title", type: "text", required: true },
       { name: "year", label: "Year", type: "text", required: true, placeholder: "2024" },
-      { name: "genre", label: "Genre", type: "text", required: true, placeholder: "Afro-Cuban House" },
+      {
+        name: "releaseType",
+        label: "Type",
+        type: "select",
+        options: ["Single", "EP", "Album"],
+        help: "Used for the Album / EP / Single filter on the site.",
+      },
       { name: "description", label: "Description", type: "textarea", required: true },
       { name: "credits", label: "Credits", type: "text", placeholder: "Produced by Yongolailan · Caribbean Sea Sound" },
       { name: "coverImage", label: "Cover art", type: "image" },

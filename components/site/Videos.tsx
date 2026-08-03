@@ -1,9 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import type { Video } from "@prisma/client";
 import { SectionFullWidth, SectionHeader } from "./shared";
 import { toEmbedUrl } from "@/lib/video";
+import ShowMore from "./ShowMore";
+
+const PAGE_SIZE = 6;
 
 function VideoCard({ video }: { video: Video }) {
   const embed = toEmbedUrl(video.embedUrl);
@@ -107,6 +110,10 @@ export default function Videos({
   title: string;
   subtitle?: string;
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const shown = expanded ? videos : videos.slice(0, PAGE_SIZE);
+  const hiddenCount = videos.length - shown.length;
+
   return (
     <SectionFullWidth id="videos" dark>
       <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
@@ -127,11 +134,14 @@ export default function Videos({
           Coming Soon
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "clamp(24px, 3vw, 40px)" }}>
-          {videos.map((v) => (
-            <VideoCard key={v.id} video={v} />
-          ))}
-        </div>
+        <>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "clamp(24px, 3vw, 40px)" }}>
+            {shown.map((v) => (
+              <VideoCard key={v.id} video={v} />
+            ))}
+          </div>
+          <ShowMore expanded={expanded} hiddenCount={hiddenCount} onToggle={() => setExpanded((x) => !x)} />
+        </>
       )}
     </SectionFullWidth>
   );

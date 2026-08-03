@@ -23,7 +23,8 @@ model Release {
   id            String   @id @default(cuid())
   title         String
   year          String
-  genre         String
+  genre         String   @default("") // legacy — no longer shown on the site
+  releaseType   String   @default("Single") // Album | EP | Single
   description   String
   credits       String
   coverImage    String? // uploaded cover art URL

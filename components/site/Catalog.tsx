@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import type { Release } from "@prisma/client";
 import { SectionFullWidth, SectionHeader } from "./shared";
 import PlatformIcon from "./PlatformIcon";
+import ShowMore from "./ShowMore";
+
+const PAGE_SIZE = 6;
 
 const PLATFORMS: { key: keyof Release; label: string }[] = [
   { key: "spotifyUrl", label: "Spotify" },
@@ -181,7 +184,7 @@ function CatalogCard({ release }: { release: Release }) {
             color: release.accentColor,
           }}
         >
-          {release.genre}
+          {release.releaseType}
         </div>
 
         <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>
@@ -277,9 +280,22 @@ export default function Catalog({
   title: string;
   subtitle?: string;
 }) {
-  const genres = ["All", ...Array.from(new Set(releases.map((r) => r.genre)))];
+  // Album / EP / Single, in a fixed order, showing only the types actually used.
+  const TYPE_ORDER = ["Album", "EP", "Single"];
+  const used = new Set(releases.map((r) => r.releaseType));
+  const types = ["All", ...TYPE_ORDER.filter((t) => used.has(t))];
+
   const [filter, setFilter] = useState("All");
-  const shown = releases.filter((r) => filter === "All" || r.genre === filter);
+  const [expanded, setExpanded] = useState(false);
+
+  const matching = releases.filter((r) => filter === "All" || r.releaseType === filter);
+  const shown = expanded ? matching : matching.slice(0, PAGE_SIZE);
+  const hiddenCount = matching.length - shown.length;
+
+  const selectFilter = (t: string) => {
+    setFilter(t);
+    setExpanded(false);
+  };
 
   return (
     <SectionFullWidth id="catalog" dark>
@@ -289,12 +305,12 @@ export default function Catalog({
         subtitle={subtitle}
       />
 
-      {genres.length > 2 && (
+      {types.length > 2 && (
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "40px" }}>
-          {genres.map((g) => (
+          {types.map((g) => (
             <button
               key={g}
-              onClick={() => setFilter(g)}
+              onClick={() => selectFilter(g)}
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "10px",
@@ -321,6 +337,8 @@ export default function Catalog({
           <CatalogCard key={r.id} release={r} />
         ))}
       </div>
+
+      <ShowMore expanded={expanded} hiddenCount={hiddenCount} onToggle={() => setExpanded((v) => !v)} />
     </SectionFullWidth>
   );
 }
