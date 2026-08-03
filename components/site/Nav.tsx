@@ -91,7 +91,7 @@ export default function Nav({
           left: 0,
           right: 0,
           zIndex: 100,
-          padding: "0 clamp(20px, 4vw, 40px) 0 clamp(8px, 1.4vw, 16px)",
+          padding: "0 clamp(20px, 4vw, 40px) 0 clamp(2px, 0.5vw, 6px)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
