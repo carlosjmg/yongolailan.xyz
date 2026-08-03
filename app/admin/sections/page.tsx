@@ -9,7 +9,7 @@ const SECTIONS: { key: string; label: string; hasSubtitle: boolean }[] = [
   { key: "catalog", label: "Catalog / Music", hasSubtitle: true },
   { key: "portfolio", label: "Portfolio", hasSubtitle: true },
   { key: "videos", label: "Short Films & Videos", hasSubtitle: true },
-  { key: "photos", label: "Live Performance", hasSubtitle: true },
+  { key: "photos", label: "Live", hasSubtitle: true },
   { key: "merch", label: "Merch", hasSubtitle: true },
   { key: "about", label: "About", hasSubtitle: false },
   { key: "contact", label: "Contact", hasSubtitle: true },

@@ -12,7 +12,7 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
       { href: "/admin/portfolio", label: "Portfolio" },
       { href: "/admin/videos", label: "Videos" },
       { href: "/admin/games", label: "Games" },
-      { href: "/admin/photos", label: "Live Performance" },
+      { href: "/admin/photos", label: "Live" },
       { href: "/admin/links", label: "Links" },
       { href: "/admin/merch", label: "Merch" },
       { href: "/admin/awards", label: "Awards" },

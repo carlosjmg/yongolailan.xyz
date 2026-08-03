@@ -138,7 +138,7 @@ export const COLLECTIONS: Record<string, Collection> = {
   photos: {
     key: "photos",
     model: "photo",
-    label: "Live Performance",
+    label: "Live",
     singular: "live item",
     titleField: "caption",
     imageField: "image",

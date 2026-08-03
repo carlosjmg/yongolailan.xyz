@@ -21,7 +21,7 @@ export const SECTION_LABELS: Record<SectionKey, string> = {
   portfolio: "Portfolio",
   videos: "Short Films & Videos",
   epk: "EPK / Press",
-  photos: "Live Performance",
+  photos: "Live",
   merch: "Merch",
   about: "About",
   contact: "Contact",
