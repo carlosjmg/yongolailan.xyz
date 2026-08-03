@@ -80,7 +80,7 @@ export default function Merch({
                     fontWeight: 500,
                   }}
                 >
-                  Buy →
+                  Order →
                 </a>
               )}
             </div>
