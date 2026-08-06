@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Section, SectionHeader } from "./shared";
+import { CTAButton, Section, SectionHeader } from "./shared";
 
 export default function About({
   p1,
@@ -10,6 +10,7 @@ export default function About({
   eyebrow,
   title,
   subtitle,
+  epkPdf,
 }: {
   p1: string;
   p2: string;
@@ -17,6 +18,7 @@ export default function About({
   eyebrow: string;
   title: string;
   subtitle?: string;
+  epkPdf?: string;
 }) {
   return (
     <Section id="about">
@@ -30,6 +32,12 @@ export default function About({
           <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
           {p1 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "20px" }}>{p1}</p>}
           {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8 }}>{p2}</p>}
+
+          {epkPdf && (
+            <div style={{ marginTop: "32px" }}>
+              <CTAButton label="Download EPK (PDF)" primary href={epkPdf} />
+            </div>
+          )}
         </div>
       </div>
     </Section>

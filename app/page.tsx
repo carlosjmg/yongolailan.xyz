@@ -16,6 +16,7 @@ import Catalog from "@/components/site/Catalog";
 import Portfolio from "@/components/site/Portfolio";
 import Videos from "@/components/site/Videos";
 import Photos from "@/components/site/Photos";
+import Awards from "@/components/site/Awards";
 import Merch from "@/components/site/Merch";
 import About from "@/components/site/About";
 import Contact from "@/components/site/Contact";
@@ -41,17 +42,17 @@ export default async function HomePage() {
     getAwards(),
     getMerch(),
   ]);
-  void awards;
 
   const st = (k: Parameters<typeof sectionState>[1]) => sectionState(settings, k);
   const txt = (k: string) => sectionText(settings, k);
   const email = settings["contact.email"];
   const epkPdf = settings["epk.pdfUrl"];
 
+  // Menu order mirrors the order the sections appear on the page.
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
+    { id: "photos", label: "Live", key: "photos" },
     { id: "catalog", label: "Catalog", key: "catalog" },
     { id: "videos", label: "Films", key: "videos" },
-    { id: "photos", label: "Live", key: "photos" },
     { id: "merch", label: "Merch", key: "merch" },
     { id: "about", label: "About", key: "about" },
     { id: "contact", label: "Contact", key: "contact" },
@@ -67,6 +68,7 @@ export default async function HomePage() {
     .map(({ id, label }) => ({ id, label, href: id === "epk" ? epkPdf : undefined }));
 
   const secondaryDefs = [
+    { id: "awards", label: "Awards", key: "awards" as const },
     { id: "portfolio", label: "Portfolio", key: "portfolio" as const },
     { id: "links", label: "Links", key: "links" as const },
   ];
@@ -78,34 +80,48 @@ export default async function HomePage() {
     <>
       <Nav primary={primary} secondary={secondary} logo={settings["site.logo"]} logoSize={settings["site.logoSize"]} />
 
-      <Hero image={settings["hero.image"]} name={settings["hero.name"]} />
+      <Hero
+        image={settings["hero.image"]}
+        name={settings["hero.name"]}
+        roleLine={settings["hero.roleLine"]}
+      />
 
-      <Featured releases={featured} />
-
-      {st("catalog") === "on" && <Catalog releases={releases} {...txt("catalog")} />}
-      {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
-
-      {st("portfolio") === "on" && <Portfolio items={portfolio} {...txt("portfolio")} />}
-      {st("portfolio") === "soon" && <ComingSoon id="portfolio" {...txt("portfolio")} />}
-
-      {st("videos") === "on" && <Videos videos={videos} {...txt("videos")} />}
-      {st("videos") === "soon" && <ComingSoon id="videos" {...txt("videos")} />}
-
+      {/* 2 — Live performances */}
       {st("photos") === "on" && <Photos photos={photos} email={email} {...txt("photos")} />}
       {st("photos") === "soon" && <ComingSoon id="photos" {...txt("photos")} />}
 
+      {/* 3 — Latest release + selected catalog */}
+      <Featured releases={featured} />
+      {st("catalog") === "on" && <Catalog releases={releases} {...txt("catalog")} />}
+      {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
+
+      {/* 4 — Films & videos */}
+      {st("videos") === "on" && <Videos videos={videos} {...txt("videos")} />}
+      {st("videos") === "soon" && <ComingSoon id="videos" {...txt("videos")} />}
+
+      {/* 5 — Merch */}
       {st("merch") !== "off" && <Merch items={merch} {...txt("merch")} />}
 
+      {/* 6 — Awards & recognition */}
+      {st("awards") === "on" && <Awards awards={awards} {...txt("awards")} />}
+
+      {/* 7 — About, with the EPK download */}
       {st("about") === "on" && (
         <About
           p1={settings["about.p1"]}
           p2={settings["about.p2"]}
           image={settings["about.image"]}
+          epkPdf={epkPdf}
           {...txt("about")}
         />
       )}
       {st("about") === "soon" && <ComingSoon id="about" {...txt("about")} />}
 
+      {/* Portfolio still exists but sits after About, off the main flow. */}
+      {st("portfolio") === "on" && <Portfolio items={portfolio} {...txt("portfolio")} />}
+      {st("portfolio") === "soon" && <ComingSoon id="portfolio" {...txt("portfolio")} />}
+
+      {/* 8 — Contact / booking */}
       {st("contact") !== "off" && (
         <Contact
           email={email}

@@ -157,6 +157,8 @@ const AWARDS = [
   { title: "Cubadisco Award", year: "2015", note: "Electroacoustic category — Sueño Tropical", sortOrder: 0 },
   { title: "EYEIFE Festival", year: "2024", note: "Official Mention", sortOrder: 1 },
   { title: "EYEIFE Festival", year: "2025", note: "Official Mention", sortOrder: 2 },
+  { title: "Bolton Film Festival", year: "", note: "Official Selection", sortOrder: 3 },
+  { title: "Florence Film Festival", year: "", note: "Official Selection", sortOrder: 4 },
 ];
 
 const PHOTOS = [
