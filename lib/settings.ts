@@ -102,6 +102,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "site.domain": "yongolailan.xyz",
   "site.logo": "/images/Yongo-logo-blanco.webp",
   "site.logoSize": "40",
+  "site.ogImage": "",
   "epk.pdfUrl": "",
 
   "section.catalog": "on",

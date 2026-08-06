@@ -145,12 +145,13 @@ export default function Nav({
           })}
         </ul>
 
+        {/* Menu toggle — three waves (≋) that cross into an X when open. */}
         <button
           className="hamburger-btn"
           style={{
             display: "flex",
-            flexDirection: "column",
-            gap: "5px",
+            alignItems: "center",
+            justifyContent: "center",
             cursor: "pointer",
             background: "none",
             border: "none",
@@ -158,28 +159,29 @@ export default function Nav({
           }}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
-          <span
-            style={{
-              width: "24px",
-              height: "1.5px",
-              background: "var(--text)",
-              transition: "all 0.3s",
-              transform: mobileOpen ? "rotate(45deg) translate(4px, 4px)" : "none",
-            }}
-          />
-          <span
-            style={{ width: "24px", height: "1.5px", background: "var(--text)", transition: "all 0.3s", opacity: mobileOpen ? 0 : 1 }}
-          />
-          <span
-            style={{
-              width: "24px",
-              height: "1.5px",
-              background: "var(--text)",
-              transition: "all 0.3s",
-              transform: mobileOpen ? "rotate(-45deg) translate(4px, -4px)" : "none",
-            }}
-          />
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ffffff"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            aria-hidden
+          >
+            {mobileOpen ? (
+              <>
+                <path d="M5 5 L19 19" />
+                <path d="M19 5 L5 19" />
+              </>
+            ) : (
+              [6.5, 12, 17.5].map((y) => (
+                <path key={y} d={`M1.5 ${y} q 2.6 -2.4 5.25 0 t 5.25 0 t 5.25 0 t 5.25 0`} />
+              ))
+            )}
+          </svg>
         </button>
       </nav>
 

@@ -14,6 +14,7 @@ const KEYS = [
   "hero.image",
   "site.logo",
   "site.logoSize",
+  "site.ogImage",
   "epk.pdfUrl",
   "contact.email",
   "contact.whatsapp",
@@ -50,6 +51,15 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <div className="admin-help">Shown in the top-left of the site and footer. A white logo on a transparent background works best.</div>
         </div>
         <TextSetting name="site.logoSize" label="Logo size (px)" value={s["site.logoSize"]} type="number" help="How big the logo shows in the top-left. Try 40–72." />
+
+        <div className="admin-field">
+          <label className="admin-label">Social preview image</label>
+          <ImageUpload name="site.ogImage" defaultValue={s["site.ogImage"]} />
+          <div className="admin-help">
+            The artwork behind the preview card people see when your link is shared on WhatsApp, Instagram or X.
+            Leave empty to reuse the hero image. Wide artwork works best.
+          </div>
+        </div>
 
         <GroupHeading>EPK (Press Kit)</GroupHeading>
         <div className="admin-field">
