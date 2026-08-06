@@ -28,9 +28,9 @@ const body = Inter({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
 
 /**
- * Social preview: use the artwork set in the admin ("Social preview image",
- * falling back to the hero image). When neither is set, Next falls back to the
- * generated card in app/opengraph-image.tsx.
+ * Social preview: /api/og renders the artwork chosen in the admin ("Social
+ * preview image", falling back to the hero image) at 1200x630. The `v` token
+ * changes whenever the artwork does, so WhatsApp/X refresh their cached copy.
  */
 export async function generateMetadata(): Promise<Metadata> {
   let art = "";
@@ -38,10 +38,15 @@ export async function generateMetadata(): Promise<Metadata> {
     const s = await getAllSettings();
     art = s["site.ogImage"] || s["hero.image"] || "";
   } catch {
-    /* database unavailable — fall through to the generated card */
+    /* database unavailable — /api/og still returns its own fallback */
   }
-  const absolute = art ? (art.startsWith("http") ? art : `${siteUrl}${art.startsWith("/") ? "" : "/"}${art}`) : null;
-  const images = absolute ? [{ url: absolute, width: 1200, height: 630, alt: "Yongolailan" }] : undefined;
+  // Short, stable fingerprint of the current artwork URL.
+  let v = 0;
+  for (let i = 0; i < art.length; i++) v = (v * 31 + art.charCodeAt(i)) >>> 0;
+
+  const images = [
+    { url: `${siteUrl}/api/og?v=${v.toString(36)}`, width: 1200, height: 630, alt: "Yongolailan" },
+  ];
 
   const title = "Yongolailan — DJ · Producer · Live Electronic Performer";
   const description =
@@ -68,13 +73,13 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       siteName: "Yongolailan",
-      ...(images ? { images } : {}),
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(images ? { images: images.map((i) => i.url) } : {}),
+      images: images.map((i) => i.url),
     },
     icons: { icon: "/favicon.ico" },
   };
