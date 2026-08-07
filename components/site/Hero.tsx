@@ -39,8 +39,11 @@ export default function Hero({
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
+          // Same curve as before, just starting at neck height in the artwork
+          // (~72% down) instead of mid-torso. The midpoint keeps its original
+          // 53%-of-the-ramp position so the falloff shape is unchanged.
           background:
-            "linear-gradient(to bottom, transparent 45%, oklch(8% 0.018 30 / 0.55) 74%, oklch(8% 0.018 30) 100%)",
+            "linear-gradient(to bottom, transparent 72%, oklch(8% 0.018 30 / 0.55) 87%, oklch(8% 0.018 30) 100%)",
         }}
       />
 
