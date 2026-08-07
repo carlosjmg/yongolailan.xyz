@@ -129,8 +129,10 @@ select option {
     padding-left: 26px;
     padding-right: 26px;
   }
-  /* On phones the artwork carries the hero on its own. */
-  .hero-role {
+  /* On phones the artwork carries the hero on its own; the Booking call to
+     action moves to the foot of the menu instead. */
+  .hero-role,
+  .hero-booking {
     display: none;
   }
 }

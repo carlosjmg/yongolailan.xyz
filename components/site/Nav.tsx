@@ -14,11 +14,14 @@ export default function Nav({
   secondary,
   logo = "/images/Yongo-logo-blanco.webp",
   logoSize = 40,
+  bookingColor = "var(--gold)",
 }: {
   primary: NavItem[];
   secondary: NavItem[];
   logo?: string;
   logoSize?: number | string;
+  /** Hero colour chosen in the admin, so the Booking pill matches the hero. */
+  bookingColor?: string;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -231,6 +234,28 @@ export default function Nav({
               {item.label}
             </button>
           ))}
+
+          {/* The hero's Booking call to action, moved here on phones. */}
+          <button
+            onClick={() => handleNav("contact")}
+            style={{
+              alignSelf: "flex-start",
+              marginTop: "28px",
+              fontFamily: "var(--font-mono)",
+              fontSize: "12px",
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: bookingColor,
+              background: "transparent",
+              padding: "15px 38px",
+              border: `1px solid ${bookingColor}`,
+              borderRadius: "999px",
+              cursor: "pointer",
+              minHeight: "50px",
+            }}
+          >
+            Booking
+          </button>
         </div>
       )}
     </>

@@ -103,7 +103,9 @@ export default function Hero({
           </div>
         )}
 
+        {/* Phones get this button at the foot of the menu instead. */}
         <button
+          className="hero-booking"
           onClick={() => scrollToSection("contact")}
           style={{
             fontFamily: "var(--font-mono)",
@@ -116,14 +118,18 @@ export default function Hero({
             border: `1px solid ${roleColor}`,
             borderRadius: "999px",
             cursor: "pointer",
-            transition: "background 0.2s, color 0.2s",
+            transition: "background 0.2s, color 0.2s, border-color 0.2s",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = roleColor;
+            // Fills with the site orange on hover, whatever colour the button
+            // rests at — that accent is shared with every section heading.
+            e.currentTarget.style.background = "var(--gold)";
+            e.currentTarget.style.borderColor = "var(--gold)";
             e.currentTarget.style.color = "#0a0a0c";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = "transparent";
+            e.currentTarget.style.borderColor = roleColor;
             e.currentTarget.style.color = roleColor;
           }}
         >

@@ -54,6 +54,7 @@ export default async function HomePage() {
   const txt = (k: string) => sectionText(settings, k);
   const email = settings["contact.email"];
   const epkPdf = settings["epk.pdfUrl"];
+  const heroColor = safeHexColor(settings["hero.roleColor"], HERO_ROLE_COLOR_FALLBACK);
 
   // Menu order mirrors the order the sections appear on the page.
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
@@ -85,13 +86,19 @@ export default async function HomePage() {
 
   return (
     <>
-      <Nav primary={primary} secondary={secondary} logo={settings["site.logo"]} logoSize={settings["site.logoSize"]} />
+      <Nav
+        primary={primary}
+        secondary={secondary}
+        logo={settings["site.logo"]}
+        logoSize={settings["site.logoSize"]}
+        bookingColor={heroColor}
+      />
 
       <Hero
         image={settings["hero.image"]}
         name={settings["hero.name"]}
         roleLine={settings["hero.roleLine"]}
-        roleColor={safeHexColor(settings["hero.roleColor"], HERO_ROLE_COLOR_FALLBACK)}
+        roleColor={heroColor}
       />
 
       {/* 2 — Live performances */}
