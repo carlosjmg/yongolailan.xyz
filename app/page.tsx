@@ -110,10 +110,7 @@ export default async function HomePage() {
       {/* 5 — Merch */}
       {st("merch") !== "off" && <Merch items={merch} {...txt("merch")} />}
 
-      {/* 6 — Awards & recognition */}
-      {st("awards") === "on" && <Awards awards={awards} {...txt("awards")} />}
-
-      {/* 7 — About, with the EPK download */}
+      {/* 6 — About, with the EPK download */}
       {st("about") === "on" && (
         <About
           p1={settings["about.p1"]}
@@ -124,6 +121,9 @@ export default async function HomePage() {
         />
       )}
       {st("about") === "soon" && <ComingSoon id="about" {...txt("about")} />}
+
+      {/* 7 — Awards & recognition, closing out the artist's story */}
+      {st("awards") === "on" && <Awards awards={awards} {...txt("awards")} />}
 
       {/* Portfolio still exists but sits after About, off the main flow. */}
       {st("portfolio") === "on" && <Portfolio items={portfolio} {...txt("portfolio")} />}
