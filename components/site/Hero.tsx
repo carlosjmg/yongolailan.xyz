@@ -22,7 +22,7 @@ export default function Hero({
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end",
+        justifyContent: "flex-start",
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -63,7 +63,8 @@ export default function Hero({
           width: "100%",
           maxWidth: "1400px",
           margin: "0 auto",
-          padding: "0 clamp(24px, 6vw, 80px) clamp(52px, 8vw, 92px)",
+          // Sits just under the fixed 64px nav.
+          padding: "clamp(104px, 15vh, 168px) clamp(24px, 6vw, 80px) 0",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
