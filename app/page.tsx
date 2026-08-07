@@ -1,4 +1,11 @@
-import { getAllSettings, parseListSetting, sectionState, sectionText } from "@/lib/settings";
+import {
+  getAllSettings,
+  parseListSetting,
+  sectionState,
+  sectionText,
+  safeHexColor,
+  HERO_ROLE_COLOR_FALLBACK,
+} from "@/lib/settings";
 import {
   getAwards,
   getFeaturedReleases,
@@ -84,6 +91,7 @@ export default async function HomePage() {
         image={settings["hero.image"]}
         name={settings["hero.name"]}
         roleLine={settings["hero.roleLine"]}
+        roleColor={safeHexColor(settings["hero.roleColor"], HERO_ROLE_COLOR_FALLBACK)}
       />
 
       {/* 2 — Live performances */}

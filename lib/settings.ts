@@ -39,6 +39,8 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "hero.oneLiner":
     "Electronic ritual music shaped by Afro-diasporic rhythms and Caribbean roots.",
   "hero.image": "/images/ICE.webp",
+  // Empty means "use the site gold" — see HERO_ROLE_COLOR_FALLBACK.
+  "hero.roleColor": "",
 
   // ── Section headings (every title/subtitle on the site) ──
   "text.catalog.eyebrow": "Discography",
@@ -181,6 +183,18 @@ export function parseListSetting(value: string | undefined): string[] {
 export function sectionState(settings: Settings, key: SectionKey): SectionState {
   const v = settings[`section.${key}`];
   return v === "off" ? "off" : v === "soon" ? "soon" : "on";
+}
+
+/** The site gold, as hex — what the hero one-liner uses when no colour is set. */
+export const HERO_ROLE_COLOR_FALLBACK = "#eb881f";
+
+/**
+ * Only ever let a real hex colour reach an inline style, so a stray paste in
+ * the admin can't turn into arbitrary CSS.
+ */
+export function safeHexColor(value: string | undefined, fallback: string): string {
+  const v = (value || "").trim();
+  return /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v) ? v : fallback;
 }
 
 /** Safely parse a JSON-array setting (e.g. sound tags, identity facts). */
