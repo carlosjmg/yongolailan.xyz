@@ -92,7 +92,9 @@ export default function ColorSetting({
                   height: "16px",
                   borderRadius: "50%",
                   background: p.hex,
-                  boxShadow: "0 0 0 1px rgba(255,255,255,0.18) inset",
+                  // Outer ring, so a black swatch is still visible on the
+                  // dark admin background.
+                  boxShadow: "0 0 0 1px rgba(255,255,255,0.35)",
                   flexShrink: 0,
                 }}
               />

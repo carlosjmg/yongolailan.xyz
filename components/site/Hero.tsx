@@ -3,6 +3,15 @@
 import React from "react";
 import { scrollToSection } from "./shared";
 
+const FADE = "oklch(8% 0.018 30";
+
+/** smoothstep(0→1) sampled across 72%→100% of the hero height. */
+const HERO_FADE_STOPS = Array.from({ length: 13 }, (_, i) => {
+  const t = i / 12;
+  const alpha = 3 * t * t - 2 * t * t * t;
+  return `${FADE} / ${alpha.toFixed(4)}) ${(72 + 28 * t).toFixed(1)}%`;
+}).join(", ");
+
 // Full-bleed artwork with a restrained one-liner and a booking call to action
 // sitting at the bottom, over the gradient that carries into the next section.
 export default function Hero({
@@ -39,11 +48,14 @@ export default function Hero({
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
-          // Same curve as before, just starting at neck height in the artwork
-          // (~72% down) instead of mid-torso. The midpoint keeps its original
-          // 53%-of-the-ramp position so the falloff shape is unchanged.
-          background:
-            "linear-gradient(to bottom, transparent 72%, oklch(8% 0.018 30 / 0.55) 87%, oklch(8% 0.018 30) 100%)",
+          // Starts at neck height in the artwork (~72% down) and follows a
+          // smoothstep curve to fully opaque at the bottom. Sampled into many
+          // stops on purpose: a plain 3-stop ramp begins with a sudden change
+          // of slope, which the eye reads as a bright horizontal line (Mach
+          // band) straight across the photo. Smoothstep leaves the slope at
+          // zero on both ends, so the fade has no visible edge. Its midpoint
+          // still lands at 0.5 alpha, matching the original falloff.
+          background: `linear-gradient(to bottom, ${HERO_FADE_STOPS})`,
         }}
       />
 
@@ -78,6 +90,7 @@ export default function Hero({
       >
         {roleLine && (
           <div
+            className="hero-role"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: "clamp(11px, 1.35vw, 14px)",
@@ -117,6 +130,63 @@ export default function Hero({
           Booking
         </button>
       </div>
+
+      <ScrollCue color={roleColor} />
     </section>
+  );
+}
+
+/**
+ * Scroll affordance at the foot of the hero: a hairline that drains downward
+ * into a slowly bouncing chevron. Fades away as soon as the visitor starts
+ * scrolling, so it never lingers over the content below.
+ */
+function ScrollCue({ color }: { color: string }) {
+  const [hidden, setHidden] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => setHidden(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <button
+      aria-label="Scroll down"
+      onClick={() => window.scrollTo({ top: window.innerHeight, behavior: "smooth" })}
+      style={{
+        position: "absolute",
+        left: "50%",
+        bottom: "clamp(22px, 4vh, 40px)",
+        transform: "translateX(-50%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "10px",
+        padding: "10px 18px",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        opacity: hidden ? 0 : 0.75,
+        pointerEvents: hidden ? "none" : "auto",
+        transition: "opacity 0.45s ease",
+        minHeight: "auto",
+      }}
+    >
+      <span
+        aria-hidden
+        className="hero-cue-line"
+        style={{
+          width: "1px",
+          height: "clamp(26px, 4.5vh, 42px)",
+          background: `linear-gradient(to bottom, transparent, ${color})`,
+          animation: "cueDrain 2.4s ease-in-out infinite",
+        }}
+      />
+      <svg width="17" height="10" viewBox="0 0 17 10" fill="none" aria-hidden className="hero-cue-chevron" style={{ animation: "cueBounce 2.4s ease-in-out infinite" }}>
+        <path d="M1 1 L8.5 8.5 L16 1" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
   );
 }

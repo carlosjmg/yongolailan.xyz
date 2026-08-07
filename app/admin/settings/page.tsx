@@ -16,6 +16,7 @@ const ROLE_COLORS: ColorPreset[] = [
   { hex: "#fc5c64", name: "Sunglasses red", note: "Taken from your own artwork — contrast 5:1" },
   { hex: "#00bec7", name: "Ocean cyan", note: "The site's cool accent — contrast 7:1" },
   { hex: "#ffffff", name: "Pure white", note: "Maximum contrast — 16:1" },
+  { hex: "#000000", name: "Black", note: "Only readable over a light hero image — 1.3:1 on the current one" },
 ];
 
 const KEYS = [

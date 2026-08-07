@@ -51,6 +51,10 @@ export default function Nav({
     scrollToSection(id);
   };
 
+  // Buttons pick up the global 44px tap-target min-height and centre their
+  // label inside it; a plain <a> does not, which left the EPK link sitting
+  // ~1px lower than its neighbours. Boxing both the same way keeps every
+  // label on one line.
   const navLinkStyle: React.CSSProperties = {
     fontFamily: "var(--font-mono)",
     fontSize: "11px",
@@ -62,6 +66,10 @@ export default function Nav({
     padding: "4px 0",
     border: "none",
     background: "none",
+    display: "inline-flex",
+    alignItems: "center",
+    minHeight: "44px",
+    lineHeight: "normal",
   };
 
   const mobileLinkStyle: React.CSSProperties = {
@@ -70,7 +78,7 @@ export default function Nav({
     letterSpacing: "0.16em",
     textTransform: "uppercase",
     color: "oklch(72% 0.01 60)",
-    padding: "18px 0",
+    padding: "16px 2px",
     borderBottom: "1px solid oklch(18% 0.015 30)",
     borderTop: "none",
     borderLeft: "none",
@@ -79,7 +87,11 @@ export default function Nav({
     background: "none",
     textAlign: "left",
     width: "100%",
-    minHeight: "52px",
+    minHeight: "54px",
+    display: "flex",
+    alignItems: "center",
+    lineHeight: "normal",
+    textDecoration: "none",
   };
 
   return (
@@ -205,7 +217,7 @@ export default function Nav({
         >
           {primary.map((item) =>
             item.href ? (
-              <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer" style={{ ...mobileLinkStyle, textDecoration: "none", display: "block" }}>
+              <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer" style={mobileLinkStyle}>
                 {item.label}
               </a>
             ) : (
