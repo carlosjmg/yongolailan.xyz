@@ -6,6 +6,8 @@
   --text: oklch(92% 0.008 60);
   --text-dim: oklch(55% 0.01 60);
   --text-dimmer: oklch(38% 0.01 60);
+  /* Sampled from the sunglasses in the hero artwork. */
+  --flare: #fc5c64;
   --gold: oklch(72% 0.16 60);
   --gold-dim: oklch(60% 0.12 60);
   --cyan: oklch(72% 0.14 200);
@@ -82,6 +84,22 @@ select option {
   }
   50% {
     transform: translateX(-50%) translateY(6px);
+  }
+}
+
+/* ── Hero copy placement ────────────────────────────────────── */
+/* Desktop: tucked up near the nav on the left. Phones: dropped into the
+   open space below the logo so it clears the artwork's subject. */
+.hero-copy {
+  padding-top: clamp(80px, 11vh, 124px);
+  padding-left: clamp(18px, 3.2vw, 40px);
+  padding-right: clamp(24px, 6vw, 80px);
+}
+@media (max-width: 899px) {
+  .hero-copy {
+    padding-top: 34vh;
+    padding-left: 26px;
+    padding-right: 26px;
   }
 }
 
