@@ -140,10 +140,10 @@ function AwardItem({ award }: { award: Award }) {
           <div
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "0.82em",
+              fontSize: "0.76em",
               color: "var(--text-dim)",
-              lineHeight: 1.3,
-              marginTop: "0.35em",
+              lineHeight: 1.26,
+              marginTop: "0.4em",
             }}
           >
             {award.note}
@@ -152,10 +152,10 @@ function AwardItem({ award }: { award: Award }) {
         <div
           style={{
             fontFamily: "var(--font-mono)",
-            fontSize: "0.82em",
+            fontSize: "0.78em",
             letterSpacing: "0.16em",
             color: "var(--gold)",
-            marginTop: "0.5em",
+            marginTop: "0.55em",
           }}
         >
           {award.year}
