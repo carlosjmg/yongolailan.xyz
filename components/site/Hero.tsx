@@ -77,7 +77,7 @@ export default function Hero({
               fontSize: "clamp(11px, 1.35vw, 14px)",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "var(--flare)",
+              color: "var(--gold)",
             }}
           >
             {roleLine}
@@ -91,21 +91,21 @@ export default function Hero({
             fontSize: "11px",
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color: "var(--flare)",
+            color: "var(--gold)",
             background: "transparent",
             padding: "13px 34px",
-            border: "1px solid var(--flare)",
+            border: "1px solid var(--gold)",
             borderRadius: "999px",
             cursor: "pointer",
             transition: "background 0.2s, color 0.2s",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--flare)";
+            e.currentTarget.style.background = "var(--gold)";
             e.currentTarget.style.color = "#0a0a0c";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "var(--flare)";
+            e.currentTarget.style.color = "var(--gold)";
           }}
         >
           Booking

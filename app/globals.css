@@ -6,8 +6,6 @@
   --text: oklch(92% 0.008 60);
   --text-dim: oklch(55% 0.01 60);
   --text-dimmer: oklch(38% 0.01 60);
-  /* Sampled from the sunglasses in the hero artwork. */
-  --flare: #fc5c64;
   --gold: oklch(72% 0.16 60);
   --gold-dim: oklch(60% 0.12 60);
   --cyan: oklch(72% 0.14 200);
