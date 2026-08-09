@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function LabelLayout({ children }: { children: React.ReactNode }) {
   const s = await getAllSettings();
   const logo = s["label.logo"];
+  const logoSize = s["label.logoSize"] || "34";
   const name = s["label.name"] || "Caribbean Sea Sound";
   const location = s["label.location"] || "Brooklyn, New York";
   const domain = s["site.domain"] || "yongolailan.xyz";
@@ -20,7 +21,7 @@ export default async function LabelLayout({ children }: { children: React.ReactN
           <Link href="/caribbean-sea-sound" className="cssound-logo" aria-label={`${name} — home`}>
             {logo ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={logo} alt={name} />
+              <img src={logo} alt={name} style={{ height: `${logoSize}px` }} />
             ) : (
               <span className="cssound-logo-word">{name}</span>
             )}

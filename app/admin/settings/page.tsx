@@ -39,6 +39,7 @@ const KEYS = [
   "label.tagline",
   "label.intro",
   "label.logo",
+  "label.logoSize",
   "site.domain",
 ];
 
@@ -123,6 +124,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <ImageUpload name="label.logo" defaultValue={s["label.logo"]} />
           <div className="admin-help">Shown top-left on the Caribbean Sea Sound page. A dark logo on transparent works best (the page is white). Leave empty to show the label name as text.</div>
         </div>
+        <TextSetting name="label.logoSize" label="Caribbean Sea Sound logo size (px)" value={s["label.logoSize"]} type="number" help="Height of the label logo, top-left. Try 28–56." />
 
         <GroupHeading>Domain</GroupHeading>
         <TextSetting name="site.domain" label="Domain (shown in footer)" value={s["site.domain"]} />
