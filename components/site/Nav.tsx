@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { scrollToSection } from "./shared";
 
 export interface NavItem {
@@ -234,6 +235,12 @@ export default function Nav({
               {item.label}
             </button>
           ))}
+
+          {/* The label lives on its own page. This and the Catalog link are
+              the only two ways in. */}
+          <Link href="/caribbean-sea-sound" style={{ ...mobileLinkStyle, color: "var(--gold)" }} onClick={() => setMobileOpen(false)}>
+            Caribbean Sea Sound →
+          </Link>
 
           {/* The hero's Booking call to action, moved here on phones. */}
           <button

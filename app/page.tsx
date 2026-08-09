@@ -6,6 +6,7 @@ import {
   safeHexColor,
   HERO_ROLE_COLOR_FALLBACK,
 } from "@/lib/settings";
+import { homeJsonLd } from "@/lib/seo";
 import {
   getAwards,
   getFeaturedReleases,
@@ -84,8 +85,19 @@ export default async function HomePage() {
     .filter((d) => st(d.key) !== "off")
     .map(({ id, label }) => ({ id, label }));
 
+  const jsonLd = homeJsonLd({
+    siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz",
+    settings,
+    links,
+    releases,
+    awards,
+  });
+
   return (
     <>
+      {/* Tells search engines this domain IS Yongolailan / Caribbean Sea Sound. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       <Nav
         primary={primary}
         secondary={secondary}

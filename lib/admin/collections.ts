@@ -8,6 +8,11 @@ export interface Field {
   label: string;
   type: FieldType;
   options?: string[];
+  /**
+   * For a select whose choices are other records (e.g. picking which artist a
+   * production belongs to). The edit screen loads these at render time.
+   */
+  optionsFrom?: { model: string; labelField: string };
   required?: boolean;
   placeholder?: string;
   help?: string;
@@ -28,6 +33,8 @@ export interface Collection {
   hasPublished: boolean;
   fields: Field[];
   listColumns: ListColumn[];
+  /** Pulled into the list view so a column can show a related record's name. */
+  include?: Record<string, unknown>;
 }
 
 export const COLLECTIONS: Record<string, Collection> = {
@@ -226,6 +233,62 @@ export const COLLECTIONS: Record<string, Collection> = {
       { name: "image", label: "Photo", type: "image" },
       { name: "linkUrl", label: "Buy link", type: "url", placeholder: "https://... (where people buy it)" },
       { name: "price", label: "Price", type: "text", placeholder: "$30" },
+      { name: "published", label: "Visible on site", type: "boolean" },
+    ],
+  },
+
+  // ── Caribbean Sea Sound (own page, /caribbean-sea-sound) ──
+  "label-artists": {
+    key: "label-artists",
+    model: "labelArtist",
+    label: "Label — Artists",
+    singular: "artist",
+    titleField: "name",
+    imageField: "image",
+    hasPublished: true,
+    listColumns: [
+      { name: "name", label: "Artist" },
+      { name: "role", label: "Role / origin" },
+    ],
+    fields: [
+      { name: "name", label: "Artist name", type: "text", required: true, placeholder: "Cimafunk" },
+      { name: "role", label: "Role / origin", type: "text", placeholder: "Vocals · Havana, Cuba" },
+      { name: "bio", label: "Short bio", type: "textarea", help: "One or two sentences. Shown under the artist's name." },
+      { name: "image", label: "Photo", type: "image" },
+      { name: "linkUrl", label: "Artist link", type: "url", placeholder: "https://open.spotify.com/artist/…" },
+      { name: "published", label: "Visible on site", type: "boolean" },
+    ],
+  },
+
+  "label-productions": {
+    key: "label-productions",
+    model: "labelProduction",
+    label: "Label — Productions",
+    singular: "production",
+    titleField: "title",
+    imageField: "cover",
+    hasPublished: true,
+    include: { artist: true },
+    listColumns: [
+      { name: "title", label: "Track / release" },
+      { name: "artist.name", label: "Artist" },
+      { name: "year", label: "Year" },
+    ],
+    fields: [
+      {
+        name: "artistId",
+        label: "Artist",
+        type: "select",
+        optionsFrom: { model: "labelArtist", labelField: "name" },
+        required: true,
+        help: "Add the artist first under Label — Artists, then pick them here.",
+      },
+      { name: "title", label: "Track / release title", type: "text", required: true },
+      { name: "year", label: "Year", type: "text", placeholder: "2023" },
+      { name: "credit", label: "Your credit", type: "text", placeholder: "Produced, mixed & mastered" },
+      { name: "releaseType", label: "Type", type: "select", options: ["Single", "EP", "Album", "Remix", "Feature"] },
+      { name: "cover", label: "Cover art", type: "image" },
+      { name: "linkUrl", label: "Listen link", type: "url", placeholder: "https://open.spotify.com/track/…" },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],
   },

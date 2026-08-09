@@ -98,3 +98,24 @@ export async function getMerch() {
     return [];
   }
 }
+
+/**
+ * Caribbean Sea Sound roster: each published artist together with the
+ * published productions Yongolailan made for them, in admin order.
+ */
+export async function getLabelRoster() {
+  try {
+    return await prisma.labelArtist.findMany({
+      where: { published: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+      include: {
+        productions: {
+          where: { published: true },
+          orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+        },
+      },
+    });
+  } catch {
+    return [];
+  }
+}

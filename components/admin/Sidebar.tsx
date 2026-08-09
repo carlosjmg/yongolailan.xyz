@@ -19,6 +19,13 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
     ],
   },
   {
+    label: "Caribbean Sea Sound",
+    items: [
+      { href: "/admin/label-artists", label: "Artists" },
+      { href: "/admin/label-productions", label: "Productions" },
+    ],
+  },
+  {
     label: "Site",
     items: [
       { href: "/admin/settings", label: "Home & Hero" },

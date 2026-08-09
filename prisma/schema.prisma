@@ -177,3 +177,38 @@ model MerchItem {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+// ── Caribbean Sea Sound — label roster and production credits ─
+// Artists Yongolailan has produced for, each with the tracks he worked on.
+// Lives on its own page (/caribbean-sea-sound), not the home page.
+model LabelArtist {
+  id          String            @id @default(cuid())
+  name        String
+  role        String            @default("") // "Vocals · Havana"
+  bio         String            @default("")
+  image       String?
+  linkUrl     String?
+  published   Boolean           @default(true)
+  sortOrder   Int               @default(0)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  productions LabelProduction[]
+}
+
+model LabelProduction {
+  id          String      @id @default(cuid())
+  artistId    String
+  artist      LabelArtist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  title       String
+  year        String      @default("")
+  credit      String      @default("") // "Produced, mixed & mastered"
+  releaseType String      @default("Single")
+  cover       String?
+  linkUrl     String?
+  published   Boolean     @default(true)
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([artistId])
+}

@@ -48,25 +48,36 @@ export async function generateMetadata(): Promise<Metadata> {
     { url: `${siteUrl}/api/og?v=${v.toString(36)}`, width: 1200, height: 630, alt: "Yongolailan" },
   ];
 
-  const title = "Yongolailan — DJ · Producer · Live Electronic Performer";
+  // Both target terms sit in the title, and the description opens with the
+  // name so the search snippet leads with it.
+  const title = "Yongolailan — DJ, Producer & Founder of Caribbean Sea Sound";
   const description =
-    "Electronic ritual music shaped by Afro-diasporic rhythms and Caribbean roots. Cuban-born, based in New York City.";
+    "Yongolailan is a Cuban DJ, producer and live electronic performer based in New York City, and the founder of the Brooklyn record label Caribbean Sea Sound. Official site.";
 
   return {
     metadataBase: new URL(siteUrl),
     title: { default: title, template: "%s · Yongolailan" },
-    description:
-      "Yongolailan is a Cuban DJ, producer, and live electronic performer based in New York City. Electronic ritual music shaped by Afro-diasporic rhythms and Caribbean roots.",
+    description,
+    alternates: { canonical: siteUrl },
     keywords: [
       "Yongolailan",
-      "Cuban DJ",
-      "electronic producer",
-      "Afro-Cuban",
       "Caribbean Sea Sound",
-      "New York",
-      "live electronic",
+      "Caribbean Sea Sound record label",
+      "Yongolailan DJ",
+      "Yongolailan producer",
+      "Cuban DJ New York",
+      "Afro-Cuban house",
+      "Latin Afrobeat",
+      "live electronic performer",
     ],
-    authors: [{ name: "Yongolailan" }],
+    authors: [{ name: "Yongolailan", url: siteUrl }],
+    creator: "Yongolailan",
+    publisher: "Caribbean Sea Sound",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    },
     openGraph: {
       type: "website",
       url: siteUrl,

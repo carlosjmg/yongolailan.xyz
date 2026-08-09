@@ -1,6 +1,6 @@
 import { getAllSettings, HERO_ROLE_COLOR_FALLBACK } from "@/lib/settings";
 import { saveSettingsForm } from "../settings-actions";
-import { TextSetting, GroupHeading, SavedNote } from "@/components/admin/fields";
+import { TextSetting, TextareaSetting, GroupHeading, SavedNote } from "@/components/admin/fields";
 import ImageUpload from "@/components/admin/ImageUpload";
 import FileUpload from "@/components/admin/FileUpload";
 import ColorSetting, { type ColorPreset } from "@/components/admin/ColorSetting";
@@ -35,6 +35,7 @@ const KEYS = [
   "contact.whatsappUrl",
   "label.name",
   "label.location",
+  "label.intro",
   "site.domain",
 ];
 
@@ -98,6 +99,13 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
         <GroupHeading>Label &amp; domain</GroupHeading>
         <TextSetting name="label.name" label="Label name" value={s["label.name"]} />
         <TextSetting name="label.location" label="Label location" value={s["label.location"]} />
+        <TextareaSetting
+          name="label.intro"
+          label="Caribbean Sea Sound — intro paragraph"
+          value={s["label.intro"]}
+          rows={5}
+          help="The opening text on the Caribbean Sea Sound page. Artists and productions are managed under Caribbean Sea Sound in the sidebar."
+        />
         <TextSetting name="site.domain" label="Domain (shown in footer)" value={s["site.domain"]} />
 
         <button type="submit" className="admin-btn admin-btn-primary" style={{ marginTop: "18px" }}>

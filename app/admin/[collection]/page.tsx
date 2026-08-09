@@ -13,6 +13,14 @@ function cell(value: unknown): string {
   return s.length > 48 ? s.slice(0, 47) + "…" : s;
 }
 
+/** Column names may reach into an included relation, e.g. "artist.name". */
+function valueAt(record: Record<string, unknown>, path: string): unknown {
+  return path.split(".").reduce<unknown>((acc, key) => {
+    if (acc && typeof acc === "object") return (acc as Record<string, unknown>)[key];
+    return undefined;
+  }, record);
+}
+
 export default async function CollectionListPage({ params }: { params: { collection: string } }) {
   const col = getCollection(params.collection);
   if (!col) notFound();
@@ -61,7 +69,7 @@ export default async function CollectionListPage({ params }: { params: { collect
                     </td>
                   )}
                   {col.listColumns.map((c) => (
-                    <td key={c.name}>{cell(r[c.name])}</td>
+                    <td key={c.name}>{cell(valueAt(r, c.name))}</td>
                   ))}
                   {col.hasPublished && (
                     <td>

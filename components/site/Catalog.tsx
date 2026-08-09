@@ -5,6 +5,7 @@ import type { Release } from "@prisma/client";
 import { SectionFullWidth, SectionHeader } from "./shared";
 import PlatformIcon from "./PlatformIcon";
 import ShowMore from "./ShowMore";
+import Link from "next/link";
 
 const PAGE_SIZE = 6;
 
@@ -339,6 +340,30 @@ export default function Catalog({
       </div>
 
       <ShowMore expanded={expanded} hiddenCount={hiddenCount} onToggle={() => setExpanded((v) => !v)} />
+
+      {/* One of the two ways into the label page (the other is the mobile
+          menu). Sits outside ShowMore, which hides itself when everything
+          already fits. */}
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "22px" }}>
+        <Link
+          href="/caribbean-sea-sound"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            textDecoration: "none",
+            padding: "10px 4px",
+            borderBottom: "1px solid transparent",
+            transition: "border-color 0.2s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.borderBottomColor = "var(--gold)")}
+          onMouseLeave={(e) => (e.currentTarget.style.borderBottomColor = "transparent")}
+        >
+          Productions for other artists · Caribbean Sea Sound →
+        </Link>
+      </div>
     </SectionFullWidth>
   );
 }
