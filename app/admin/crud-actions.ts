@@ -6,9 +6,23 @@ import { prisma } from "@/lib/prisma";
 import { isAuthenticated } from "@/lib/session";
 import { getCollection } from "@/lib/admin/collections";
 import { delegateFor } from "@/lib/admin/data";
+import { slugify } from "@/lib/utils";
 
 async function assertAdmin() {
   if (!(await isAuthenticated())) throw new Error("Unauthorized");
+}
+
+/** A slug unique within the model, derived from `source` (e.g. an artist name). */
+async function uniqueSlug(model: string, source: string, currentId: string | null): Promise<string> {
+  const base = slugify(source) || "item";
+  const delegate = delegateFor(model);
+  let slug = base;
+  for (let i = 2; i < 500; i++) {
+    const clash = await delegate.findFirst({ where: { slug }, select: { id: true } });
+    if (!clash || clash.id === currentId) return slug;
+    slug = `${base}-${i}`;
+  }
+  return `${base}-${Date.now()}`;
 }
 
 export async function saveRecord(collectionKey: string, id: string | null, formData: FormData) {
@@ -38,6 +52,12 @@ export async function saveRecord(collectionKey: string, id: string | null, formD
       // and reads as "absent" everywhere on the site.
       data[f.name] = "";
     }
+  }
+
+  // Keep a URL-safe slug in sync for collections that route by it.
+  if (col.slugFrom) {
+    const source = String(data[col.slugFrom] ?? "");
+    data.slug = await uniqueSlug(col.model, source, id);
   }
 
   if (id) {

@@ -1,34 +1,32 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
 import { getLabelRoster } from "@/lib/data";
-import LabelRoster from "@/components/site/LabelRoster";
+import LabelDirectory, { type DirectoryArtist } from "@/components/site/LabelDirectory";
 
 export const dynamic = "force-dynamic";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
 
 export const metadata: Metadata = {
-  title: "Caribbean Sea Sound — Record Label",
+  title: { absolute: "Caribbean Sea Sound — Independent Music Label" },
   description:
-    "Caribbean Sea Sound is the Brooklyn record label founded by Yongolailan, connecting Caribbean cultural heritage with international music production. Artists, productions and credits.",
+    "Caribbean Sea Sound is an independent music platform and label founded in Brooklyn in 2016, showcasing artists from the Caribbean and across the Americas.",
   keywords: [
     "Caribbean Sea Sound",
     "Caribbean Sea Sound record label",
+    "independent music label Brooklyn",
+    "Caribbean music label",
     "Yongolailan label",
-    "Brooklyn record label",
-    "Afro-Cuban production",
-    "Cuban music production",
   ],
   alternates: { canonical: `${siteUrl}/caribbean-sea-sound` },
   openGraph: {
     type: "website",
     url: `${siteUrl}/caribbean-sea-sound`,
-    title: "Caribbean Sea Sound — Record Label",
+    title: "Caribbean Sea Sound — Independent Music Label",
     description:
-      "The Brooklyn record label founded by Yongolailan. Artists, productions and credits.",
-    siteName: "Yongolailan",
+      "An independent music platform and label founded in Brooklyn in 2016. Artists from the Caribbean and across the Americas.",
+    siteName: "Caribbean Sea Sound",
   },
 };
 
@@ -36,127 +34,53 @@ export default async function CaribbeanSeaSoundPage() {
   noStore();
   const [settings, artists] = await Promise.all([getAllSettings(), getLabelRoster()]);
 
-  const labelName = settings["label.name"] || "Caribbean Sea Sound";
-  const labelLocation = settings["label.location"] || "Brooklyn, New York";
+  const name = settings["label.name"] || "Caribbean Sea Sound";
+  const location = settings["label.location"] || "Brooklyn, New York";
+  const tagline = settings["label.tagline"] || "Independent label & music platform · Brooklyn · Est. 2016";
   const intro = settings["label.intro"] || "";
 
-  // Structured data so search engines read this as the label's own entity,
-  // tied back to Yongolailan as its founder.
+  const directory: DirectoryArtist[] = artists.map((a) => ({
+    id: a.id,
+    name: a.name,
+    slug: a.slug,
+    role: a.role,
+    shortDescription: a.shortDescription,
+    image: a.image ?? null,
+  }));
+
+  // Entity data: the label plus every artist as a sub-organization.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MusicGroup",
-    name: labelName,
+    name,
     alternateName: "Caribbean Sea Sound Records",
     url: `${siteUrl}/caribbean-sea-sound`,
-    description: intro || `Record label founded by Yongolailan in ${labelLocation}.`,
-    foundingLocation: { "@type": "Place", name: labelLocation },
+    description: intro,
+    foundingLocation: { "@type": "Place", name: location },
+    foundingDate: "2016",
     founder: { "@type": "Person", name: "Yongolailan", url: siteUrl },
-    subOrganization: artists.map((a) => ({ "@type": "MusicGroup", name: a.name })),
+    subOrganization: artists.map((a) => ({
+      "@type": "MusicGroup",
+      name: a.name,
+      url: `${siteUrl}/caribbean-sea-sound/artists/${a.slug}`,
+    })),
   };
 
   return (
-    <main style={{ minHeight: "100vh", background: "var(--bg)" }}>
+    <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <header
-        style={{
-          padding: "clamp(96px, 12vh, 150px) clamp(20px, 6vw, 80px) clamp(48px, 6vw, 76px)",
-          maxWidth: "1400px",
-          margin: "0 auto",
-        }}
-      >
-        <Link
-          href="/"
-          style={{
-            display: "inline-block",
-            fontFamily: "var(--font-mono)",
-            fontSize: "11px",
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            color: "var(--text-dim)",
-            textDecoration: "none",
-            marginBottom: "clamp(34px, 5vw, 54px)",
-          }}
-        >
-          ← Yongolailan
-        </Link>
+      <div className="cssound-shell">
+        <section className="cssound-intro">
+          <div>
+            <div className="cssound-eyebrow">{tagline}</div>
+            <h1>{name}</h1>
+          </div>
+          <p className="cssound-intro-lede">{intro}</p>
+        </section>
 
-        <div
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "11px",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--gold)",
-            marginBottom: "14px",
-          }}
-        >
-          Record Label · {labelLocation}
-        </div>
-
-        <h1
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(40px, 7vw, 92px)",
-            fontWeight: 300,
-            lineHeight: 1,
-            letterSpacing: "-0.02em",
-            color: "var(--text)",
-          }}
-        >
-          {labelName}
-        </h1>
-
-        {intro && (
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "clamp(15px, 1.6vw, 18px)",
-              lineHeight: 1.7,
-              color: "var(--text-dim)",
-              maxWidth: "62ch",
-              marginTop: "clamp(20px, 2.5vw, 30px)",
-            }}
-          >
-            {intro}
-          </p>
-        )}
-      </header>
-
-      <section
-        style={{
-          padding: "0 clamp(20px, 6vw, 80px) clamp(80px, 10vw, 130px)",
-          maxWidth: "1400px",
-          margin: "0 auto",
-        }}
-      >
-        <LabelRoster artists={artists} />
-      </section>
-
-      <footer
-        style={{
-          borderTop: "1px solid var(--border)",
-          padding: "36px clamp(20px, 6vw, 80px)",
-          maxWidth: "1400px",
-          margin: "0 auto",
-          fontFamily: "var(--font-mono)",
-          fontSize: "10px",
-          letterSpacing: "0.14em",
-          textTransform: "uppercase",
-          color: "var(--text-dimmer)",
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "12px",
-        }}
-      >
-        <span>
-          {labelName} · {labelLocation}
-        </span>
-        <Link href="/" style={{ color: "var(--text-dim)", textDecoration: "none" }}>
-          yongolailan.xyz
-        </Link>
-      </footer>
+        <LabelDirectory artists={directory} />
+      </div>
     </main>
   );
 }

@@ -5,6 +5,7 @@ import { getRecord, getFieldOptions } from "@/lib/admin/data";
 import { saveRecord } from "../../crud-actions";
 import ImageUpload from "@/components/admin/ImageUpload";
 import ColorField from "@/components/admin/ColorField";
+import AudioUpload from "@/components/admin/AudioUpload";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +45,8 @@ function FieldRenderer({
   let control: React.ReactNode;
   if (field.type === "image") {
     control = <ImageUpload name={field.name} defaultValue={value as string} />;
+  } else if (field.type === "audio") {
+    control = <AudioUpload name={field.name} defaultValue={value as string} />;
   } else if (field.type === "color") {
     control = <ColorField name={field.name} defaultValue={value as string} />;
   } else if (field.type === "textarea") {

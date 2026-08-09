@@ -35,7 +35,9 @@ const KEYS = [
   "contact.whatsappUrl",
   "label.name",
   "label.location",
+  "label.tagline",
   "label.intro",
+  "label.logo",
   "site.domain",
 ];
 
@@ -96,16 +98,24 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
         <TextSetting name="contact.whatsapp" label="WhatsApp / phone (display)" value={s["contact.whatsapp"]} placeholder="+1 (646) 547-7443" />
         <TextSetting name="contact.whatsappUrl" label="WhatsApp link" value={s["contact.whatsappUrl"]} placeholder="https://wa.me/16465477443" />
 
-        <GroupHeading>Label &amp; domain</GroupHeading>
+        <GroupHeading>Caribbean Sea Sound (label page)</GroupHeading>
         <TextSetting name="label.name" label="Label name" value={s["label.name"]} />
         <TextSetting name="label.location" label="Label location" value={s["label.location"]} />
+        <TextSetting name="label.tagline" label="Tagline (small line under the header)" value={s["label.tagline"]} />
         <TextareaSetting
           name="label.intro"
-          label="Caribbean Sea Sound — intro paragraph"
+          label="Intro paragraph"
           value={s["label.intro"]}
           rows={5}
-          help="The opening text on the Caribbean Sea Sound page. Artists and productions are managed under Caribbean Sea Sound in the sidebar."
+          help="The opening text on the Caribbean Sea Sound page. Artists and songs are managed under Caribbean Sea Sound in the sidebar."
         />
+        <div className="admin-field">
+          <label className="admin-label">Caribbean Sea Sound logo</label>
+          <ImageUpload name="label.logo" defaultValue={s["label.logo"]} />
+          <div className="admin-help">Shown top-left on the Caribbean Sea Sound page. A dark logo on transparent works best (the page is white). Leave empty to show the label name as text.</div>
+        </div>
+
+        <GroupHeading>Domain</GroupHeading>
         <TextSetting name="site.domain" label="Domain (shown in footer)" value={s["site.domain"]} />
 
         <button type="submit" className="admin-btn admin-btn-primary" style={{ marginTop: "18px" }}>

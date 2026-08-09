@@ -66,6 +66,7 @@ model Video {
   description String?
   embedUrl    String
   thumbnail   String?
+  featured    Boolean  @default(false) // curated highlight
   published   Boolean  @default(true)
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
@@ -182,33 +183,44 @@ model MerchItem {
 // Artists Yongolailan has produced for, each with the tracks he worked on.
 // Lives on its own page (/caribbean-sea-sound), not the home page.
 model LabelArtist {
-  id          String            @id @default(cuid())
-  name        String
-  role        String            @default("") // "Vocals · Havana"
-  bio         String            @default("")
-  image       String?
-  linkUrl     String?
-  published   Boolean           @default(true)
-  sortOrder   Int               @default(0)
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  productions LabelProduction[]
+  id               String            @id @default(cuid())
+  name             String
+  // URL slug for /caribbean-sea-sound/artists/[slug]. Unique is enforced in
+  // app code (saveRecord) so an empty default can never collide on db push.
+  slug             String            @default("")
+  role             String            @default("") // "Vocals · Havana"
+  shortDescription String            @default("") // one-liner shown in the directory
+  bio              String            @default("") // full biography on the artist page
+  image            String? // directory image (hover preview)
+  profileImage     String? // larger image on the artist's own page
+  websiteUrl       String?
+  instagramUrl     String?
+  linkUrl          String? // generic "listen/artist" link
+  published        Boolean           @default(true) // is_active
+  sortOrder        Int               @default(0)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  productions      LabelProduction[]
 }
 
 model LabelProduction {
-  id          String      @id @default(cuid())
-  artistId    String
-  artist      LabelArtist @relation(fields: [artistId], references: [id], onDelete: Cascade)
-  title       String
-  year        String      @default("")
-  credit      String      @default("") // "Produced, mixed & mastered"
-  releaseType String      @default("Single")
-  cover       String?
-  linkUrl     String?
-  published   Boolean     @default(true)
-  sortOrder   Int         @default(0)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id              String      @id @default(cuid())
+  artistId        String
+  artist          LabelArtist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  title           String
+  featuredArtists String      @default("") // free-text "feat." credit
+  year            String      @default("")
+  releaseDate     String      @default("") // optional full date
+  credit          String      @default("") // "Produced, mixed & mastered"
+  description     String      @default("")
+  releaseType     String      @default("Single")
+  cover           String? // cover artwork
+  audioFile       String? // uploaded audio (MP3 / M4A) for the on-site player
+  linkUrl         String? // optional external streaming link
+  published       Boolean     @default(true)
+  sortOrder       Int         @default(0)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 
   @@index([artistId])
 }

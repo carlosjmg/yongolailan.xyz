@@ -40,7 +40,8 @@ export async function getVideos() {
   try {
     return await prisma.video.findMany({
       where: { published: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+      // Featured curation floats to the front; manual order breaks ties.
+      orderBy: [{ featured: "desc" }, { sortOrder: "asc" }, { createdAt: "asc" }],
     });
   } catch {
     return [];
@@ -100,14 +101,14 @@ export async function getMerch() {
 }
 
 /**
- * Caribbean Sea Sound roster: each published artist together with the
- * published productions Yongolailan made for them, in admin order.
+ * Caribbean Sea Sound roster: every published artist, alphabetical by name so
+ * new artists slot in automatically. Productions are attached for anywhere that
+ * needs them (the directory itself only uses the artist fields).
  */
 export async function getLabelRoster() {
   try {
-    return await prisma.labelArtist.findMany({
+    const artists = await prisma.labelArtist.findMany({
       where: { published: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
       include: {
         productions: {
           where: { published: true },
@@ -115,6 +116,39 @@ export async function getLabelRoster() {
         },
       },
     });
+    // Sort in the app, locale-aware and accent-insensitive, so the order is
+    // identical on SQLite and Postgres (DB collations disagree on í vs i).
+    return artists.sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }));
+  } catch {
+    return [];
+  }
+}
+
+/** A single published artist by slug, with their published songs. */
+export async function getLabelArtistBySlug(slug: string) {
+  try {
+    return await prisma.labelArtist.findFirst({
+      where: { slug, published: true },
+      include: {
+        productions: {
+          where: { published: true },
+          orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+        },
+      },
+    });
+  } catch {
+    return null;
+  }
+}
+
+/** Slugs of published artists — for the sitemap. */
+export async function getLabelArtistSlugs(): Promise<string[]> {
+  try {
+    const rows = await prisma.labelArtist.findMany({
+      where: { published: true, NOT: { slug: "" } },
+      select: { slug: true },
+    });
+    return rows.map((r) => r.slug);
   } catch {
     return [];
   }

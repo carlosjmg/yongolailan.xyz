@@ -107,7 +107,9 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "label.name": "Caribbean Sea Sound",
   "label.location": "Brooklyn, New York",
   "label.intro":
-    "Caribbean Sea Sound is a Brooklyn-based record label founded by Yongolailan, built as a platform for connecting Caribbean cultural heritage with international music production. These are the artists it works with, and the records made with them.",
+    "Caribbean Sea Sound is an independent music platform and label founded in Brooklyn in 2016. Created as a space for discovery, collaboration and artistic exchange, it has showcased artists from the Caribbean and across the Americas.",
+  "label.logo": "",
+  "label.tagline": "Independent label & music platform · Brooklyn · Est. 2016",
   "site.domain": "yongolailan.xyz",
   "site.logo": "/images/Yongo-logo-blanco.webp",
   "site.logoSize": "40",

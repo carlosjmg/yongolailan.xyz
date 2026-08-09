@@ -1,7 +1,15 @@
 // Configuration that drives the generic admin CRUD screens. Each "collection"
 // maps a URL key (e.g. /admin/catalog) to a Prisma model and a set of fields.
 
-export type FieldType = "text" | "textarea" | "url" | "boolean" | "color" | "image" | "select";
+export type FieldType =
+  | "text"
+  | "textarea"
+  | "url"
+  | "boolean"
+  | "color"
+  | "image"
+  | "audio"
+  | "select";
 
 export interface Field {
   name: string;
@@ -35,6 +43,8 @@ export interface Collection {
   listColumns: ListColumn[];
   /** Pulled into the list view so a column can show a related record's name. */
   include?: Record<string, unknown>;
+  /** When set, saveRecord keeps a URL-safe slug in sync with this field. */
+  slugFrom?: string;
 }
 
 export const COLLECTIONS: Record<string, Collection> = {
@@ -116,6 +126,7 @@ export const COLLECTIONS: Record<string, Collection> = {
       { name: "description", label: "Description", type: "textarea" },
       { name: "embedUrl", label: "Video link", type: "url", required: true, help: "YouTube or Vimeo link." },
       { name: "thumbnail", label: "Thumbnail", type: "image" },
+      { name: "featured", label: "Featured (show first)", type: "boolean", help: "Featured videos are highlighted and sorted to the front." },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],
   },
@@ -246,16 +257,36 @@ export const COLLECTIONS: Record<string, Collection> = {
     titleField: "name",
     imageField: "image",
     hasPublished: true,
+    slugFrom: "name",
     listColumns: [
       { name: "name", label: "Artist" },
       { name: "role", label: "Role / origin" },
     ],
     fields: [
-      { name: "name", label: "Artist name", type: "text", required: true, placeholder: "Cimafunk" },
+      { name: "name", label: "Artist name", type: "text", required: true, placeholder: "Arema Arega" },
       { name: "role", label: "Role / origin", type: "text", placeholder: "Vocals · Havana, Cuba" },
-      { name: "bio", label: "Short bio", type: "textarea", help: "One or two sentences. Shown under the artist's name." },
-      { name: "image", label: "Photo", type: "image" },
-      { name: "linkUrl", label: "Artist link", type: "url", placeholder: "https://open.spotify.com/artist/…" },
+      {
+        name: "shortDescription",
+        label: "Short description (directory)",
+        type: "textarea",
+        help: "One line shown under the photo in the artist directory. Keep it short.",
+      },
+      { name: "bio", label: "Full biography", type: "textarea", help: "Longer bio shown on the artist's own page." },
+      {
+        name: "image",
+        label: "Directory image",
+        type: "image",
+        help: "Shown when someone hovers/taps the artist in the directory.",
+      },
+      {
+        name: "profileImage",
+        label: "Profile image (artist page)",
+        type: "image",
+        help: "A second, larger photo used on the artist's own page. Optional.",
+      },
+      { name: "websiteUrl", label: "Website", type: "url", placeholder: "https://…" },
+      { name: "instagramUrl", label: "Instagram", type: "url", placeholder: "https://instagram.com/…" },
+      { name: "linkUrl", label: "Listen link", type: "url", placeholder: "https://open.spotify.com/artist/…" },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],
   },
@@ -263,14 +294,14 @@ export const COLLECTIONS: Record<string, Collection> = {
   "label-productions": {
     key: "label-productions",
     model: "labelProduction",
-    label: "Label — Productions",
-    singular: "production",
+    label: "Label — Songs",
+    singular: "song",
     titleField: "title",
     imageField: "cover",
     hasPublished: true,
     include: { artist: true },
     listColumns: [
-      { name: "title", label: "Track / release" },
+      { name: "title", label: "Song" },
       { name: "artist.name", label: "Artist" },
       { name: "year", label: "Year" },
     ],
@@ -283,12 +314,21 @@ export const COLLECTIONS: Record<string, Collection> = {
         required: true,
         help: "Add the artist first under Label — Artists, then pick them here.",
       },
-      { name: "title", label: "Track / release title", type: "text", required: true },
+      { name: "title", label: "Song title", type: "text", required: true },
+      { name: "featuredArtists", label: "Featured artists", type: "text", placeholder: "feat. Someone", help: "Optional." },
+      { name: "cover", label: "Cover artwork", type: "image", help: "Square works best. Optimised automatically." },
+      {
+        name: "audioFile",
+        label: "Audio file",
+        type: "audio",
+        help: "Upload an MP3 or M4A. It plays in the on-site player. Large files upload straight to storage.",
+      },
       { name: "year", label: "Year", type: "text", placeholder: "2023" },
+      { name: "releaseDate", label: "Release date (optional)", type: "text", placeholder: "2023-06-15" },
       { name: "credit", label: "Your credit", type: "text", placeholder: "Produced, mixed & mastered" },
+      { name: "description", label: "Description (optional)", type: "textarea" },
       { name: "releaseType", label: "Type", type: "select", options: ["Single", "EP", "Album", "Remix", "Feature"] },
-      { name: "cover", label: "Cover art", type: "image" },
-      { name: "linkUrl", label: "Listen link", type: "url", placeholder: "https://open.spotify.com/track/…" },
+      { name: "linkUrl", label: "External link (optional)", type: "url", placeholder: "https://open.spotify.com/track/…" },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],
   },

@@ -5,7 +5,8 @@
   "description": "Yongolailan — official artist website, admin backend and newsletter.",
   "scripts": {
     "dev": "node --dns-result-order=ipv4first node_modules/next/dist/bin/next dev",
-    "build": "prisma generate && (prisma db push --skip-generate || echo skip-dbpush) && next build",
+    "build": "prisma generate && (prisma db push --skip-generate || echo skip-dbpush) && (tsx prisma/seed-label.ts || echo skip-labelseed) && next build",
+    "db:seed:label": "tsx prisma/seed-label.ts",
     "start": "node --dns-result-order=ipv4first node_modules/next/dist/bin/next start",
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
