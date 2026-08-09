@@ -12,10 +12,6 @@ export interface DirectoryArtist {
   image: string | null;
 }
 
-function pad(n: number) {
-  return String(n + 1).padStart(2, "0");
-}
-
 /** Description that always begins with the artist's name, in bold. */
 function Description({ a }: { a: DirectoryArtist }) {
   return (
@@ -49,19 +45,17 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
       {/* ── Desktop ── */}
       <div className="cssound-section-label">
         <span>Artists</span>
-        <span>{pad(artists.length - 1)}</span>
       </div>
 
       <div className="cssound-directory">
         <ul className="cssound-list">
-          {artists.map((a, i) => (
+          {artists.map((a) => (
             <li key={a.id} className={`cssound-row ${a.id === activeId ? "is-active" : ""}`}>
               <Link
                 href={`/caribbean-sea-sound/artists/${a.slug}`}
                 onMouseEnter={() => setActiveId(a.id)}
                 onFocus={() => setActiveId(a.id)}
               >
-                <span className="cssound-row-num mono">{pad(i)}</span>
                 <span className="cssound-row-name">{a.name}</span>
                 <span className="cssound-row-go mono" aria-hidden>
                   View →
@@ -88,7 +82,7 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
 
       {/* ── Touch accordion ── */}
       <ul className="cssound-accordion">
-        {artists.map((a, i) => {
+        {artists.map((a) => {
           const open = openId === a.id;
           return (
             <li key={a.id} className={`cssound-acc-row ${open ? "is-open" : ""}`}>
@@ -98,7 +92,6 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
                 aria-expanded={open}
                 onClick={() => setOpenId(open ? null : a.id)}
               >
-                <span className="cssound-acc-num mono">{pad(i)}</span>
                 <span className="cssound-acc-name">{a.name}</span>
                 <span className="cssound-acc-sign" aria-hidden>
                   {open ? "×" : "+"}

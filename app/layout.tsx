@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Mono, Inter } from "next/font/google";
+import { Cormorant_Garamond, DM_Mono, Inter, Jost } from "next/font/google";
 import "./globals.css";
 import { getAllSettings } from "@/lib/settings";
 
@@ -22,6 +22,15 @@ const body = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-body",
+  display: "swap",
+});
+
+// Geometric, Futura-like sans — the Bauhaus voice of the Caribbean Sea Sound
+// section. Only used there (via --font-bauhaus), never on the main site.
+const bauhaus = Jost({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-bauhaus",
   display: "swap",
 });
 
@@ -102,7 +111,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${mono.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${mono.variable} ${body.variable} ${bauhaus.variable}`}>
       <body>{children}</body>
     </html>
   );

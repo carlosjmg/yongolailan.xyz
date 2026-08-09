@@ -29,6 +29,7 @@ const KEYS = [
   "site.logo",
   "site.logoSize",
   "site.ogImage",
+  "catalog.pinned",
   "epk.pdfUrl",
   "contact.email",
   "contact.whatsapp",
@@ -85,6 +86,14 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
             Leave empty to reuse the hero image. Wide artwork works best.
           </div>
         </div>
+
+        <GroupHeading>Catalog</GroupHeading>
+        <TextSetting
+          name="catalog.pinned"
+          label="Show these releases first"
+          value={s["catalog.pinned"]}
+          help="Comma-separated release titles, shown first in the Music Catalog in this order. The rest follow in their normal order."
+        />
 
         <GroupHeading>EPK (Press Kit)</GroupHeading>
         <div className="admin-field">

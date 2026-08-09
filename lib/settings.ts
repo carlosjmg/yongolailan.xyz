@@ -43,6 +43,8 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "hero.roleColor": "",
 
   // ── Section headings (every title/subtitle on the site) ──
+  // Titles listed here are shown first in the Music Catalog, in this order.
+  "catalog.pinned": "Sueño Tropical, Havanece, Chinatown Downtown",
   "text.catalog.eyebrow": "Discography",
   "text.catalog.title": "Catalog",
   "text.catalog.subtitle":

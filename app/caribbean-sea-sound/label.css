@@ -22,7 +22,8 @@
 
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-body), "Inter", system-ui, sans-serif;
+  /* Jost: a geometric, Futura-like Bauhaus sans. Mono labels keep DM Mono. */
+  font-family: var(--font-bauhaus), var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   line-height: 1.5;
@@ -143,10 +144,11 @@
   flex-shrink: 0;
 }
 .cssound-intro h1 {
-  font-size: clamp(30px, 4.2vw, 60px);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  font-weight: 600;
+  font-size: clamp(32px, 4.6vw, 66px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+  text-transform: uppercase;
   margin-top: 22px;
 }
 .cssound-intro-lede {
@@ -192,7 +194,7 @@
 }
 .cssound-row a {
   display: grid;
-  grid-template-columns: 42px 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: baseline;
   gap: 16px;
   padding: clamp(14px, 1.4vw, 20px) 0;
@@ -299,7 +301,7 @@
 }
 .cssound-acc-head {
   display: grid;
-  grid-template-columns: 34px 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: 14px;
   width: 100%;

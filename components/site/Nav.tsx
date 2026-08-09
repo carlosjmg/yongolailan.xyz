@@ -126,7 +126,14 @@ export default function Nav({
         <img
           src={logo}
           alt="Yongolailan"
-          style={{ height: `${logoSize}px`, opacity: 0.95, filter: "brightness(1.1)", cursor: "pointer" }}
+          style={{
+            height: `${logoSize}px`,
+            opacity: 0.95,
+            filter: "brightness(1.1)",
+            cursor: "pointer",
+            // Nudged down ~3.5 mm from the nav centreline, per request.
+            transform: "translateY(3.5mm)",
+          }}
           onClick={() => handleNav("home")}
         />
 
@@ -159,9 +166,22 @@ export default function Nav({
               </li>
             );
           })}
+
+          {/* Desktop-only entry to the label, shown as a single word. */}
+          <li>
+            <Link
+              href="/caribbean-sea-sound"
+              style={{ ...navLinkStyle, color: "rgba(255,255,255,0.9)", textDecoration: "none" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.9)")}
+            >
+              Label
+            </Link>
+          </li>
         </ul>
 
-        {/* Menu toggle — three waves (≋) that cross into an X when open. */}
+        {/* Menu toggle — three waves (≋) that ripple continuously, crossing
+            into an X when open. */}
         <button
           className="hamburger-btn"
           style={{
@@ -193,8 +213,13 @@ export default function Nav({
                 <path d="M19 5 L5 19" />
               </>
             ) : (
-              [6.5, 12, 17.5].map((y) => (
-                <path key={y} d={`M1.5 ${y} q 2.6 -2.4 5.25 0 t 5.25 0 t 5.25 0 t 5.25 0`} />
+              [6.5, 12, 17.5].map((y, i) => (
+                <path
+                  key={y}
+                  className="wave-line"
+                  style={{ animationDelay: `${i * 0.22}s` }}
+                  d={`M1.5 ${y} q 2.6 -2.4 5.25 0 t 5.25 0 t 5.25 0 t 5.25 0`}
+                />
               ))
             )}
           </svg>
@@ -253,7 +278,7 @@ export default function Nav({
             )
           )}
           {secondary.map((item) => (
-            <button key={item.id} style={{ ...mobileLinkStyle, color: "oklch(50% 0.01 60)" }} onClick={() => handleNav(item.id)}>
+            <button key={item.id} style={mobileLinkStyle} onClick={() => handleNav(item.id)}>
               {item.label}
             </button>
           ))}

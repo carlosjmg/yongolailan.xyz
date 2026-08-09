@@ -55,6 +55,17 @@ export default async function HomePage() {
   const txt = (k: string) => sectionText(settings, k);
   const email = settings["contact.email"];
   const epkPdf = settings["epk.pdfUrl"];
+
+  // Pin the titles from the "catalog.pinned" setting to the front of the
+  // catalog, in that order; the rest keep their admin order. Matching is
+  // accent- and case-insensitive so "Sueño Tropical" matches "Sueno tropical".
+  const norm = (s: string) => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
+  const pinned = parseListSetting(settings["catalog.pinned"]).map(norm);
+  const rank = (title: string) => {
+    const i = pinned.indexOf(norm(title));
+    return i === -1 ? pinned.length : i;
+  };
+  const orderedReleases = [...releases].sort((a, b) => rank(a.title) - rank(b.title));
   const heroColor = safeHexColor(settings["hero.roleColor"], HERO_ROLE_COLOR_FALLBACK);
 
   // Menu order mirrors the order the sections appear on the page.
@@ -76,8 +87,8 @@ export default async function HomePage() {
     })
     .map(({ id, label }) => ({ id, label, href: id === "epk" ? epkPdf : undefined }));
 
+  // Awards is intentionally not in the phone menu (still on the page itself).
   const secondaryDefs = [
-    { id: "awards", label: "Awards", key: "awards" as const },
     { id: "portfolio", label: "Portfolio", key: "portfolio" as const },
     { id: "links", label: "Links", key: "links" as const },
   ];
@@ -119,7 +130,7 @@ export default async function HomePage() {
 
       {/* 3 — Latest release + selected catalog */}
       <Featured releases={featured} />
-      {st("catalog") === "on" && <Catalog releases={releases} {...txt("catalog")} />}
+      {st("catalog") === "on" && <Catalog releases={orderedReleases} {...txt("catalog")} />}
       {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
 
       {/* 4 — Films & videos */}

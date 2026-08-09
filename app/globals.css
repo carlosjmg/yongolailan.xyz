@@ -137,6 +137,29 @@ select option {
   }
 }
 
+/* ── Animated wave menu icon (mobile) ───────────────────────── */
+/* The three lines bob with a staggered phase so they look like rippling
+   water, continuously, while the menu is closed. */
+@keyframes waveRipple {
+  0%,
+  100% {
+    transform: translateY(-1.1px);
+  }
+  50% {
+    transform: translateY(1.1px);
+  }
+}
+.wave-line {
+  animation: waveRipple 1.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wave-line {
+    animation: none;
+  }
+}
+
 /* ── About → Caribbean Sea Sound button (desktop only) ──────── */
 .about-label-cta:hover {
   color: var(--gold);
