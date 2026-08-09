@@ -219,6 +219,28 @@ export default function Nav({
             overflowY: "auto",
           }}
         >
+          {/* Booking sits first on phones, above the rest of the menu. */}
+          <button
+            onClick={() => handleNav("contact")}
+            style={{
+              alignSelf: "flex-start",
+              marginBottom: "24px",
+              fontFamily: "var(--font-mono)",
+              fontSize: "12px",
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: bookingColor,
+              background: "transparent",
+              padding: "15px 38px",
+              border: `1px solid ${bookingColor}`,
+              borderRadius: "999px",
+              cursor: "pointer",
+              minHeight: "50px",
+            }}
+          >
+            Booking
+          </button>
+
           {primary.map((item) =>
             item.href ? (
               <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer" style={mobileLinkStyle}>
@@ -237,32 +259,10 @@ export default function Nav({
           ))}
 
           {/* The label lives on its own page. This and the Catalog link are
-              the only two ways in. */}
+              the only two ways in on phones. */}
           <Link href="/caribbean-sea-sound" style={{ ...mobileLinkStyle, color: "var(--gold)" }} onClick={() => setMobileOpen(false)}>
             Caribbean Sea Sound →
           </Link>
-
-          {/* The hero's Booking call to action, moved here on phones. */}
-          <button
-            onClick={() => handleNav("contact")}
-            style={{
-              alignSelf: "flex-start",
-              marginTop: "28px",
-              fontFamily: "var(--font-mono)",
-              fontSize: "12px",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: bookingColor,
-              background: "transparent",
-              padding: "15px 38px",
-              border: `1px solid ${bookingColor}`,
-              borderRadius: "999px",
-              cursor: "pointer",
-              minHeight: "50px",
-            }}
-          >
-            Booking
-          </button>
         </div>
       )}
     </>

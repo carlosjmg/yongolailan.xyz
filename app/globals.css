@@ -137,6 +137,17 @@ select option {
   }
 }
 
+/* ── About → Caribbean Sea Sound button (desktop only) ──────── */
+.about-label-cta:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+@media (max-width: 899px) {
+  .about-label-cta {
+    display: none !important;
+  }
+}
+
 /* ── Responsive nav ─────────────────────────────────────────── */
 @media (min-width: 900px) {
   .hamburger-btn {

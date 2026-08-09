@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { CTAButton, Section, SectionHeader } from "./shared";
 
 export default function About({
@@ -33,11 +34,30 @@ export default function About({
           {p1 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "20px" }}>{p1}</p>}
           {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8 }}>{p2}</p>}
 
-          {epkPdf && (
-            <div style={{ marginTop: "32px" }}>
-              <CTAButton label="Download EPK (PDF)" primary href={epkPdf} />
-            </div>
-          )}
+          <div style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "14px", alignItems: "center" }}>
+            {epkPdf && <CTAButton label="Download EPK (PDF)" primary href={epkPdf} />}
+
+            {/* Desktop-only route into the label page (mobile uses the menu). */}
+            <Link
+              href="/caribbean-sea-sound"
+              className="about-label-cta"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                padding: "13px 28px",
+                border: "1px solid oklch(35% 0.015 30)",
+                borderRadius: "2px",
+                color: "var(--text-dim)",
+                textDecoration: "none",
+                lineHeight: 1.2,
+                transition: "color 0.2s, border-color 0.2s",
+              }}
+            >
+              Caribbean Sea Sound →
+            </Link>
+          </div>
         </div>
       </div>
     </Section>
