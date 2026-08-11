@@ -80,8 +80,6 @@ export default function Hero({
         style={{
           position: "relative",
           width: "100%",
-          maxWidth: "1400px",
-          margin: "0 auto",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",

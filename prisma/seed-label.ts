@@ -19,8 +19,10 @@ const ARTISTS = [
   "Reynier Aldana",
   "Rocío Sixto",
   "Rucosmic",
+  "Undertrumpet",
   "Víctor Rosso",
   "Victoria Amazónica",
+  "Yelfris Valdez",
   "Yongolailan",
   "Yunfa",
 ];

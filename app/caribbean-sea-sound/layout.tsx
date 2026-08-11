@@ -26,9 +26,6 @@ export default async function LabelLayout({ children }: { children: React.ReactN
               <span className="cssound-logo-word">{name}</span>
             )}
           </Link>
-          <Link href="/" className="cssound-back">
-            ← Yongolailan
-          </Link>
         </div>
       </header>
 

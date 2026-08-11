@@ -290,6 +290,17 @@
 }
 
 /* ── Mobile accordion (hidden on desktop) ──────────────────── */
+/* Navy "Artists" heading shown only on phones, above the list. */
+.cssound-acc-label {
+  display: none;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--deep);
+  padding: 4px 0 16px;
+  border-top: 2px solid var(--deep);
+  margin-top: 8px;
+}
 .cssound-accordion {
   display: none;
   list-style: none;
@@ -617,6 +628,9 @@
   .cssound-directory,
   .cssound-section-label {
     display: none;
+  }
+  .cssound-acc-label {
+    display: block;
   }
   .cssound-accordion {
     display: block;

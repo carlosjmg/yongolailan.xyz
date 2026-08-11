@@ -81,6 +81,7 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
       </div>
 
       {/* ── Touch accordion ── */}
+      <div className="cssound-acc-label mono">Artists</div>
       <ul className="cssound-accordion">
         {artists.map((a) => {
           const open = openId === a.id;

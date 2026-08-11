@@ -6,7 +6,7 @@ import { SectionFullWidth, SectionHeader } from "./shared";
 import { toEmbedUrl } from "@/lib/video";
 import ShowMore from "./ShowMore";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 3;
 
 function VideoCard({ video }: { video: Video }) {
   const embed = toEmbedUrl(video.embedUrl);

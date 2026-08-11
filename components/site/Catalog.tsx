@@ -7,7 +7,7 @@ import PlatformIcon from "./PlatformIcon";
 import ShowMore from "./ShowMore";
 import Link from "next/link";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 3;
 
 const PLATFORMS: { key: keyof Release; label: string }[] = [
   { key: "spotifyUrl", label: "Spotify" },

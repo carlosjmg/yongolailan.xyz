@@ -6,7 +6,7 @@ import { Section, SectionHeader } from "./shared";
 import { toEmbedUrl } from "@/lib/video";
 import ShowMore from "./ShowMore";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 3;
 
 // "Live" — a mixed gallery of performance photos and videos. Each item is a
 // photo, unless it has a video link, in which case it plays inline. Titles sit
