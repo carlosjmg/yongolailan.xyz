@@ -120,7 +120,8 @@ select option {
    open space below the logo so it clears the artwork's subject. */
 .hero-copy {
   padding-top: clamp(80px, 11vh, 124px);
-  padding-left: clamp(18px, 3.2vw, 40px);
+  /* Aligned with the logo, then nudged 1cm to the right per request. */
+  padding-left: calc(clamp(18px, 3.2vw, 40px) + 1cm);
   padding-right: clamp(24px, 6vw, 80px);
 }
 @media (max-width: 899px) {

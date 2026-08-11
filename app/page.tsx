@@ -70,8 +70,8 @@ export default async function HomePage() {
 
   // Menu order mirrors the order the sections appear on the page.
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
-    { id: "photos", label: "Live", key: "photos" },
     { id: "catalog", label: "Catalog", key: "catalog" },
+    { id: "photos", label: "Live", key: "photos" },
     { id: "videos", label: "Films", key: "videos" },
     { id: "merch", label: "Merch", key: "merch" },
     { id: "about", label: "About", key: "about" },
@@ -124,14 +124,14 @@ export default async function HomePage() {
         roleColor={heroColor}
       />
 
-      {/* 2 — Live performances */}
-      {st("photos") === "on" && <Photos photos={photos} email={email} {...txt("photos")} />}
-      {st("photos") === "soon" && <ComingSoon id="photos" {...txt("photos")} />}
-
-      {/* 3 — Latest release + selected catalog */}
+      {/* 2 — Latest release + music catalog */}
       <Featured releases={featured} />
       {st("catalog") === "on" && <Catalog releases={orderedReleases} {...txt("catalog")} />}
       {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
+
+      {/* 3 — Live performances */}
+      {st("photos") === "on" && <Photos photos={photos} email={email} {...txt("photos")} />}
+      {st("photos") === "soon" && <ComingSoon id="photos" {...txt("photos")} />}
 
       {/* 4 — Films & videos */}
       {st("videos") === "on" && <Videos videos={videos} {...txt("videos")} />}
