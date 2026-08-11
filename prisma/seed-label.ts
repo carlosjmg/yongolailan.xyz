@@ -1,10 +1,11 @@
 import { prisma } from "../lib/prisma";
 import { slugify } from "../lib/utils";
 
-// Caribbean Sea Sound roster. Alphabetised by the site at render time, so the
-// order here doesn't matter. No bios/photos/songs are invented — records are
-// created empty for the artist to fill from the admin. Runs on every deploy
-// but is fully idempotent and never overwrites edited content.
+// Caribbean Sea Sound initial roster — used ONLY to populate a fresh, empty
+// database. Once any artist exists, the admin is the single source of truth and
+// this never touches the roster again (so it can't fight edits, re-add deleted
+// artists, or create duplicates). It always backfills a missing slug, which is
+// harmless and keeps every artist reachable.
 const ARTISTS = [
   "Arema Arega",
   "Bumbly",
@@ -15,7 +16,7 @@ const ARTISTS = [
   "Kento Ishimoto",
   "Machiran",
   "Mari Paz",
-  "Mucharima y Los Niches",
+  "Mucharrima y Los Niches",
   "Reynier Aldana",
   "Rocío Sixto",
   "Rucosmic",
@@ -27,91 +28,33 @@ const ARTISTS = [
   "Yunfa",
 ];
 
-// One-off name corrections. Applied only when the old name still exists and the
-// new name is free, so re-running (or the artist renaming again) is a no-op.
-const RENAMES: [string, string][] = [
-  ["Kento", "Kento Ishimoto"],
-  ["Negrones", "Mucharima y Los Niches"],
-];
-
-// Artists to drop — but only while still empty, so nothing you've filled in is
-// ever deleted.
-const REMOVALS = ["Yoly Mayor"];
-
-function uniqueSlug(base: string, takenBy: Map<string, string>, id: string): string {
-  let slug = base || "artist";
-  for (let i = 2; i < 500; i++) {
-    const owner = takenBy.get(slug);
-    if (!owner || owner === id) {
-      takenBy.set(slug, id);
-      return slug;
-    }
-    slug = `${base}-${i}`;
-  }
-  return `${base}-${Date.now()}`;
-}
-
 async function main() {
-  const all = await prisma.labelArtist.findMany({
-    include: { _count: { select: { productions: true } } },
-  });
-  const byName = new Map(all.map((a) => [a.name, a]));
-  const takenBy = new Map<string, string>();
-  for (const a of all) if (a.slug) takenBy.set(a.slug, a.id);
+  const all = await prisma.labelArtist.findMany({ select: { id: true, name: true, slug: true } });
 
-  // Backfill any missing slug so every artist is reachable.
+  // Backfill slugs for any artist that lacks one (safe on any DB).
+  const taken = new Set(all.map((a) => a.slug).filter(Boolean));
   let fixed = 0;
   for (const a of all) {
     if (a.slug) continue;
-    const slug = uniqueSlug(slugify(a.name), takenBy, a.id);
+    let slug = slugify(a.name) || "artist";
+    let n = 2;
+    while (taken.has(slug)) slug = `${slugify(a.name)}-${n++}`;
+    taken.add(slug);
     await prisma.labelArtist.update({ where: { id: a.id }, data: { slug } });
-    a.slug = slug;
     fixed++;
   }
 
-  // Renames.
-  let renamed = 0;
-  for (const [oldName, newName] of RENAMES) {
-    const old = byName.get(oldName);
-    if (!old || byName.has(newName)) continue;
-    const slug = uniqueSlug(slugify(newName), takenBy, old.id);
-    await prisma.labelArtist.update({ where: { id: old.id }, data: { name: newName, slug } });
-    byName.delete(oldName);
-    byName.set(newName, { ...old, name: newName, slug });
-    renamed++;
+  // Only seed the roster on a completely empty table.
+  if (all.length > 0) {
+    console.log(`[seed-label] roster already has ${all.length} artist(s) — leaving it to the admin (backfilled ${fixed} slug).`);
+    return;
   }
 
-  // Removals — only if the record is still empty.
-  let removed = 0;
-  const kept: string[] = [];
-  for (const name of REMOVALS) {
-    const a = byName.get(name);
-    if (!a) continue;
-    const empty = !a.bio && !a.shortDescription && !a.image && !a.profileImage && a._count.productions === 0;
-    if (!empty) {
-      kept.push(name);
-      continue;
-    }
-    await prisma.labelArtist.delete({ where: { id: a.id } });
-    byName.delete(name);
-    removed++;
-  }
-
-  // Create anything still missing (e.g. Cimafunk).
-  let created = 0;
   for (let i = 0; i < ARTISTS.length; i++) {
     const name = ARTISTS[i];
-    if (byName.has(name)) continue;
-    const slug = uniqueSlug(slugify(name), takenBy, "new");
-    await prisma.labelArtist.create({ data: { name, slug, sortOrder: i, published: true } });
-    byName.set(name, { name } as never);
-    created++;
+    await prisma.labelArtist.create({ data: { name, slug: slugify(name), sortOrder: i, published: true } });
   }
-
-  console.log(
-    `[seed-label] created ${created}, renamed ${renamed}, removed ${removed}, backfilled ${fixed} slug(s)` +
-      (kept.length ? `; kept (had content): ${kept.join(", ")}` : "")
-  );
+  console.log(`[seed-label] fresh DB — created ${ARTISTS.length} artists.`);
 }
 
 main()
