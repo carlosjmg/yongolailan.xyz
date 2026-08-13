@@ -15,15 +15,22 @@ export default function Nav({
   secondary,
   logo = "/images/Yongo-logo-blanco.webp",
   logoSize = 40,
+  logoOffsetX = 0,
+  logoOffsetY = 13,
   bookingColor = "var(--gold)",
 }: {
   primary: NavItem[];
   secondary: NavItem[];
   logo?: string;
   logoSize?: number | string;
+  /** Admin-controlled logo nudge, in px. X: +right/−left, Y: +down/−up. */
+  logoOffsetX?: number | string;
+  logoOffsetY?: number | string;
   /** Hero colour chosen in the admin, so the Booking pill matches the hero. */
   bookingColor?: string;
 }) {
+  const nx = Number(logoOffsetX) || 0;
+  const ny = Number(logoOffsetY) || 0;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("home");
@@ -143,8 +150,8 @@ export default function Nav({
             opacity: 0.95,
             filter: "brightness(1.1)",
             cursor: "pointer",
-            // Nudged down ~3.5 mm from the nav centreline, per request.
-            transform: "translateY(3.5mm)",
+            // Position nudged from the admin (Home & Hero → logo position).
+            transform: `translate(${nx}px, ${ny}px)`,
           }}
           onClick={() => handleNav("home")}
         />

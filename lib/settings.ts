@@ -116,6 +116,10 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "site.domain": "yongolailan.xyz",
   "site.logo": "/images/Yongo-logo-blanco.webp",
   "site.logoSize": "40",
+  // Logo nudge in the top-left, in pixels. X: + right / − left. Y: + down /
+  // − up. Y defaults to ~3.5mm (13px), the position it currently sits at.
+  "site.logoOffsetX": "0",
+  "site.logoOffsetY": "13",
   "site.ogImage": "",
   "epk.pdfUrl": "",
 

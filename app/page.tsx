@@ -114,6 +114,8 @@ export default async function HomePage() {
         secondary={secondary}
         logo={settings["site.logo"]}
         logoSize={settings["site.logoSize"]}
+        logoOffsetX={settings["site.logoOffsetX"]}
+        logoOffsetY={settings["site.logoOffsetY"]}
         bookingColor={heroColor}
       />
 
