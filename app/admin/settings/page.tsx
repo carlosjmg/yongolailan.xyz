@@ -31,6 +31,8 @@ const KEYS = [
   "site.logoSizeMobile",
   "site.logoOffsetX",
   "site.logoOffsetY",
+  "site.logoOffsetXMobile",
+  "site.logoOffsetYMobile",
   "site.ogImage",
   "catalog.pinned",
   "epk.pdfUrl",
