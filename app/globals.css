@@ -172,13 +172,18 @@ select option {
   }
 }
 
-/* ── Logo size (separate desktop / mobile via CSS vars from the admin) ── */
+/* ── Logo size & position (separate desktop / mobile, set from the admin) ── */
 .nav-logo {
   height: var(--logo-h, 40px);
+  transform: translate(var(--logo-tx, 0px), var(--logo-ty, 13px));
 }
 @media (max-width: 899px) {
   .nav-logo {
     height: var(--logo-h-mobile, var(--logo-h, 40px));
+    transform: translate(
+      var(--logo-tx-mobile, var(--logo-tx, 0px)),
+      var(--logo-ty-mobile, var(--logo-ty, 13px))
+    );
   }
 }
 

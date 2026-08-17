@@ -88,12 +88,22 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
             <TextSetting name="site.logoSizeMobile" label="Logo size — mobile (px)" value={s["site.logoSizeMobile"]} type="number" help="Logo height on phones. Leave empty to match the desktop size." />
           </div>
         </div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Logo position — desktop</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoOffsetX" label="Move logo left / right (px)" value={s["site.logoOffsetX"]} type="number" help="Positive = right, negative = left. 0 = default." />
+            <TextSetting name="site.logoOffsetX" label="Left / right — desktop (px)" value={s["site.logoOffsetX"]} type="number" help="Positive = right, negative = left. 0 = default." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoOffsetY" label="Move logo up / down (px)" value={s["site.logoOffsetY"]} type="number" help="Positive = down, negative = up. Try values from -10 to 30." />
+            <TextSetting name="site.logoOffsetY" label="Up / down — desktop (px)" value={s["site.logoOffsetY"]} type="number" help="Positive = down, negative = up. Try -10 to 30." />
+          </div>
+        </div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Logo position — mobile</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="site.logoOffsetXMobile" label="Left / right — mobile (px)" value={s["site.logoOffsetXMobile"]} type="number" help="Leave empty to match desktop. 0 = no horizontal offset." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="site.logoOffsetYMobile" label="Up / down — mobile (px)" value={s["site.logoOffsetYMobile"]} type="number" help="Leave empty to match desktop. 0 = no vertical offset." />
           </div>
         </div>
 

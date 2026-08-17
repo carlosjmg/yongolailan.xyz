@@ -18,6 +18,8 @@ export default function Nav({
   logoSizeMobile = "",
   logoOffsetX = 0,
   logoOffsetY = 13,
+  logoOffsetXMobile = "",
+  logoOffsetYMobile = "",
   bookingColor = "var(--gold)",
 }: {
   primary: NavItem[];
@@ -29,11 +31,23 @@ export default function Nav({
   /** Admin-controlled logo nudge, in px. X: +right/−left, Y: +down/−up. */
   logoOffsetX?: number | string;
   logoOffsetY?: number | string;
+  /** Phone overrides; empty falls back to the desktop offset (0 is valid). */
+  logoOffsetXMobile?: number | string;
+  logoOffsetYMobile?: number | string;
   /** Hero colour chosen in the admin, so the Booking pill matches the hero. */
   bookingColor?: string;
 }) {
   const nx = Number(logoOffsetX) || 0;
   const ny = Number(logoOffsetY) || 0;
+  // Empty = inherit the desktop value; an explicit 0 is respected.
+  const mobileNum = (v: number | string, fallback: number) => {
+    const s = String(v ?? "").trim();
+    if (s === "") return fallback;
+    const n = Number(s);
+    return Number.isNaN(n) ? fallback : n;
+  };
+  const nxMobile = mobileNum(logoOffsetXMobile, nx);
+  const nyMobile = mobileNum(logoOffsetYMobile, ny);
   const desktopH = Number(logoSize) || 40;
   const mobileH = Number(logoSizeMobile) > 0 ? Number(logoSizeMobile) : desktopH;
   const [scrolled, setScrolled] = useState(false);
@@ -153,15 +167,18 @@ export default function Nav({
           className="nav-logo"
           style={
             {
-              // Height is applied from these vars in CSS, so a media query can
-              // give phones a different size (inline height couldn't be
-              // overridden by a media query). Position nudged from the admin.
+              // Height and position come from these vars in CSS so a media
+              // query can give phones different values (inline styles can't be
+              // overridden by a media query). All set from the admin.
               "--logo-h": `${desktopH}px`,
               "--logo-h-mobile": `${mobileH}px`,
+              "--logo-tx": `${nx}px`,
+              "--logo-ty": `${ny}px`,
+              "--logo-tx-mobile": `${nxMobile}px`,
+              "--logo-ty-mobile": `${nyMobile}px`,
               opacity: 0.95,
               filter: "brightness(1.1)",
               cursor: "pointer",
-              transform: `translate(${nx}px, ${ny}px)`,
             } as React.CSSProperties
           }
           onClick={() => handleNav("home")}

@@ -117,6 +117,8 @@ export default async function HomePage() {
         logoSizeMobile={settings["site.logoSizeMobile"]}
         logoOffsetX={settings["site.logoOffsetX"]}
         logoOffsetY={settings["site.logoOffsetY"]}
+        logoOffsetXMobile={settings["site.logoOffsetXMobile"]}
+        logoOffsetYMobile={settings["site.logoOffsetYMobile"]}
         bookingColor={heroColor}
       />
 

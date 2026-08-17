@@ -120,8 +120,11 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "site.logoSizeMobile": "",
   // Logo nudge in the top-left, in pixels. X: + right / − left. Y: + down /
   // − up. Y defaults to ~3.5mm (13px), the position it currently sits at.
+  // The *Mobile keys override on phones; empty = use the desktop value.
   "site.logoOffsetX": "0",
   "site.logoOffsetY": "13",
+  "site.logoOffsetXMobile": "",
+  "site.logoOffsetYMobile": "",
   "site.ogImage": "",
   "epk.pdfUrl": "",
 
