@@ -172,6 +172,16 @@ select option {
   }
 }
 
+/* ── Logo size (separate desktop / mobile via CSS vars from the admin) ── */
+.nav-logo {
+  height: var(--logo-h, 40px);
+}
+@media (max-width: 899px) {
+  .nav-logo {
+    height: var(--logo-h-mobile, var(--logo-h, 40px));
+  }
+}
+
 /* ── Responsive nav ─────────────────────────────────────────── */
 @media (min-width: 900px) {
   .hamburger-btn {

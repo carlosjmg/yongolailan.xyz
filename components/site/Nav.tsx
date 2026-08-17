@@ -15,6 +15,7 @@ export default function Nav({
   secondary,
   logo = "/images/Yongo-logo-blanco.webp",
   logoSize = 40,
+  logoSizeMobile = "",
   logoOffsetX = 0,
   logoOffsetY = 13,
   bookingColor = "var(--gold)",
@@ -23,6 +24,8 @@ export default function Nav({
   secondary: NavItem[];
   logo?: string;
   logoSize?: number | string;
+  /** Logo height on phones; empty/0 falls back to the desktop size. */
+  logoSizeMobile?: number | string;
   /** Admin-controlled logo nudge, in px. X: +right/−left, Y: +down/−up. */
   logoOffsetX?: number | string;
   logoOffsetY?: number | string;
@@ -31,6 +34,8 @@ export default function Nav({
 }) {
   const nx = Number(logoOffsetX) || 0;
   const ny = Number(logoOffsetY) || 0;
+  const desktopH = Number(logoSize) || 40;
+  const mobileH = Number(logoSizeMobile) > 0 ? Number(logoSizeMobile) : desktopH;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("home");
@@ -145,14 +150,20 @@ export default function Nav({
         <img
           src={logo}
           alt="Yongolailan"
-          style={{
-            height: `${logoSize}px`,
-            opacity: 0.95,
-            filter: "brightness(1.1)",
-            cursor: "pointer",
-            // Position nudged from the admin (Home & Hero → logo position).
-            transform: `translate(${nx}px, ${ny}px)`,
-          }}
+          className="nav-logo"
+          style={
+            {
+              // Height is applied from these vars in CSS, so a media query can
+              // give phones a different size (inline height couldn't be
+              // overridden by a media query). Position nudged from the admin.
+              "--logo-h": `${desktopH}px`,
+              "--logo-h-mobile": `${mobileH}px`,
+              opacity: 0.95,
+              filter: "brightness(1.1)",
+              cursor: "pointer",
+              transform: `translate(${nx}px, ${ny}px)`,
+            } as React.CSSProperties
+          }
           onClick={() => handleNav("home")}
         />
 

@@ -28,6 +28,7 @@ const KEYS = [
   "hero.image",
   "site.logo",
   "site.logoSize",
+  "site.logoSizeMobile",
   "site.logoOffsetX",
   "site.logoOffsetY",
   "site.ogImage",
@@ -79,7 +80,14 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <ImageUpload name="site.logo" defaultValue={s["site.logo"]} />
           <div className="admin-help">Shown in the top-left of the site and footer. A white logo on a transparent background works best.</div>
         </div>
-        <TextSetting name="site.logoSize" label="Logo size (px)" value={s["site.logoSize"]} type="number" help="How big the logo shows in the top-left. Try 40–72." />
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="site.logoSize" label="Logo size — desktop (px)" value={s["site.logoSize"]} type="number" help="Logo height on computers. Try 40–72." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="site.logoSizeMobile" label="Logo size — mobile (px)" value={s["site.logoSizeMobile"]} type="number" help="Logo height on phones. Leave empty to match the desktop size." />
+          </div>
+        </div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
             <TextSetting name="site.logoOffsetX" label="Move logo left / right (px)" value={s["site.logoOffsetX"]} type="number" help="Positive = right, negative = left. 0 = default." />
