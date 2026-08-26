@@ -24,8 +24,13 @@ export default async function LabelLayout({ children }: { children: React.ReactN
               <img src={logo} alt={name} style={{ height: `${logoSize}px` }} />
             ) : null}
           </Link>
-          {/* The name, moved here from the page body — far right, one line. */}
-          <Link href="/caribbean-sea-sound" className="cssound-wordmark">
+          {/* The name, moved here from the page body — far right, one line,
+              sized to match the logo (shrinks on narrow screens to fit). */}
+          <Link
+            href="/caribbean-sea-sound"
+            className="cssound-wordmark"
+            style={{ fontSize: `min(${logoSize}px, 6.2vw)` }}
+          >
             {name}
           </Link>
         </div>
