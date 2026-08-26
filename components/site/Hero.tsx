@@ -19,13 +19,20 @@ export default function Hero({
   name,
   roleLine,
   roleColor,
+  copyX = 0,
+  copyY = 0,
 }: {
   image: string;
   name: string;
   roleLine?: string;
   /** Chosen in the admin (Home & Hero). Already validated as a hex colour. */
   roleColor: string;
+  /** Admin nudge for the one-liner + Booking, desktop only, in px. */
+  copyX?: number | string;
+  copyY?: number | string;
 }) {
+  const cx = Number(copyX) || 0;
+  const cy = Number(copyY) || 0;
   return (
     <section
       id="home"
@@ -84,6 +91,8 @@ export default function Hero({
           flexDirection: "column",
           alignItems: "flex-start",
           gap: "22px",
+          // Admin nudge (desktop). On phones the copy is hidden, so this is moot.
+          transform: `translate(${cx}px, ${cy}px)`,
         }}
       >
         {roleLine && (

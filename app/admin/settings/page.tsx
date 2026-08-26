@@ -1,6 +1,7 @@
 import { getAllSettings, HERO_ROLE_COLOR_FALLBACK } from "@/lib/settings";
+import { HEADER_FONTS } from "@/lib/fonts";
 import { saveSettingsForm } from "../settings-actions";
-import { TextSetting, TextareaSetting, GroupHeading, SavedNote } from "@/components/admin/fields";
+import { TextSetting, TextareaSetting, SelectSetting, GroupHeading, SavedNote } from "@/components/admin/fields";
 import ImageUpload from "@/components/admin/ImageUpload";
 import FileUpload from "@/components/admin/FileUpload";
 import ColorSetting, { type ColorPreset } from "@/components/admin/ColorSetting";
@@ -24,8 +25,14 @@ const KEYS = [
   "hero.eyebrow",
   "hero.roleLine",
   "hero.roleColor",
+  "hero.copyX",
+  "hero.copyY",
   "hero.oneLiner",
   "hero.image",
+  "headers.font",
+  "headers.titleScale",
+  "headers.eyebrowScale",
+  "headers.subtitleScale",
   "site.logo",
   "site.logoSize",
   "site.logoSizeMobile",
@@ -72,6 +79,15 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           help="Pick a suggested colour, or use the picker / hex box for any colour you like. Hover a suggestion to see why it works. Leave the box empty to go back to the site gold."
         />
         <TextSetting name="hero.oneLiner" label="One-liner (italic)" value={s["hero.oneLiner"]} />
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>One-liner &amp; Booking position — desktop</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="hero.copyX" label="Left / right (px)" value={s["hero.copyX"]} type="number" help="Positive = right, negative = left. 0 = default." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="hero.copyY" label="Up / down (px)" value={s["hero.copyY"]} type="number" help="Positive = down, negative = up. 0 = default." />
+          </div>
+        </div>
         <div className="admin-field">
           <label className="admin-label">Hero / background image</label>
           <ImageUpload name="hero.image" defaultValue={s["hero.image"]} />
@@ -115,6 +131,29 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <div className="admin-help">
             The artwork behind the preview card people see when your link is shared on WhatsApp, Instagram or X.
             Leave empty to reuse the hero image. Wide artwork works best.
+          </div>
+        </div>
+
+        <GroupHeading>Section headers (all sections)</GroupHeading>
+        <p className="admin-help" style={{ marginTop: "-8px", marginBottom: "14px" }}>
+          Controls the small label, big title and subtitle on every section (Catalog, Live, Films, Merch…). One change updates them all.
+        </p>
+        <SelectSetting
+          name="headers.font"
+          label="Title font"
+          value={s["headers.font"]}
+          options={HEADER_FONTS.map((f) => ({ value: f.key, label: f.label }))}
+          help="The font of the big section titles."
+        />
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 150px" }}>
+            <TextSetting name="headers.titleScale" label="Title size (%)" value={s["headers.titleScale"]} type="number" help="100 = normal. 120 = 20% bigger." />
+          </div>
+          <div style={{ flex: "1 1 150px" }}>
+            <TextSetting name="headers.eyebrowScale" label="Label size (%)" value={s["headers.eyebrowScale"]} type="number" help="The small line above the title." />
+          </div>
+          <div style={{ flex: "1 1 150px" }}>
+            <TextSetting name="headers.subtitleScale" label="Subtitle size (%)" value={s["headers.subtitleScale"]} type="number" />
           </div>
         </div>
 

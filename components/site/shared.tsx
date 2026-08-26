@@ -74,13 +74,15 @@ export function SectionHeader({
   subtitle?: string;
   light?: boolean;
 }) {
+  // Sizes and the title font come from CSS vars set once on the page from the
+  // admin (Home & Hero → section headers), so one change restyles every header.
   return (
     <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
       {eyebrow && (
         <div
           style={{
             fontFamily: "var(--font-mono)",
-            fontSize: "11px",
+            fontSize: "calc(11px * var(--header-eyebrow-scale, 100) / 100)",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
             color: "var(--gold)",
@@ -92,8 +94,8 @@ export function SectionHeader({
       )}
       <h2
         style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "clamp(36px, 5vw, 72px)",
+          fontFamily: "var(--header-font, var(--font-display))",
+          fontSize: "calc(clamp(36px, 5vw, 72px) * var(--header-title-scale, 100) / 100)",
           fontWeight: 300,
           lineHeight: 1,
           color: light ? "oklch(95% 0.005 60)" : "var(--text)",
@@ -107,7 +109,7 @@ export function SectionHeader({
         <p
           style={{
             fontFamily: "var(--font-body)",
-            fontSize: "clamp(14px, 1.4vw, 17px)",
+            fontSize: "calc(clamp(14px, 1.4vw, 17px) * var(--header-subtitle-scale, 100) / 100)",
             color: "var(--text-dim)",
             maxWidth: "560px",
             lineHeight: 1.7,

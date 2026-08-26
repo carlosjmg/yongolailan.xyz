@@ -6,7 +6,7 @@ import { Section, SectionHeader } from "./shared";
 import { toEmbedUrl } from "@/lib/video";
 import ShowMore from "./ShowMore";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 6;
 
 // "Live" — a mixed gallery of performance photos and videos. Each item is a
 // photo, unless it has a video link, in which case it plays inline. Titles sit
@@ -34,8 +34,9 @@ function ItemTitle({ text }: { text: string }) {
   );
 }
 
+// Same 16/9 box as the Films cards, so Live media matches them exactly.
 const mediaBoxStyle: React.CSSProperties = {
-  aspectRatio: "16/10",
+  aspectRatio: "16 / 9",
   position: "relative",
   overflow: "hidden",
   background: "var(--bg2)",
@@ -47,7 +48,7 @@ function LiveItem({ item }: { item: Photo }) {
   const caption = item.caption || item.title || "";
 
   return (
-    <div className="photo-wide" style={{ gridColumn: "span 2", display: "flex", flexDirection: "column", gap: "14px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
       <div style={mediaBoxStyle}>
         {embed ? (
           <iframe
@@ -142,7 +143,7 @@ export default function Photos({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
           gap: "clamp(24px, 3vw, 40px)",
         }}
       >
@@ -151,8 +152,7 @@ export default function Photos({
           : FALLBACK.map((f, i) => (
               <div
                 key={i}
-                className="photo-wide"
-                style={{ gridColumn: "span 2", display: "flex", flexDirection: "column", gap: "14px" }}
+                style={{ display: "flex", flexDirection: "column", gap: "14px" }}
               >
                 <div style={mediaBoxStyle}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}

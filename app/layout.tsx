@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Mono, Inter, Jost } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  DM_Mono,
+  Inter,
+  Jost,
+  Playfair_Display,
+  EB_Garamond,
+  Space_Grotesk,
+  Oswald,
+  Bebas_Neue,
+  Anton,
+} from "next/font/google";
 import "./globals.css";
 import { getAllSettings } from "@/lib/settings";
 
@@ -33,6 +44,19 @@ const bauhaus = Jost({
   variable: "--font-bauhaus",
   display: "swap",
 });
+
+// Optional section-header fonts, chosen in the admin. preload:false so a font
+// only downloads when it's actually the selected one.
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-playfair", display: "swap", preload: false });
+const ebgaramond = EB_Garamond({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-ebgaramond", display: "swap", preload: false });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-spacegrotesk", display: "swap", preload: false });
+const oswald = Oswald({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-oswald", display: "swap", preload: false });
+const bebas = Bebas_Neue({ subsets: ["latin"], weight: ["400"], variable: "--font-bebas", display: "swap", preload: false });
+const anton = Anton({ subsets: ["latin"], weight: ["400"], variable: "--font-anton", display: "swap", preload: false });
+
+const fontVars = [display, mono, body, bauhaus, playfair, ebgaramond, spaceGrotesk, oswald, bebas, anton]
+  .map((f) => f.variable)
+  .join(" ");
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
 
@@ -111,7 +135,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${mono.variable} ${body.variable} ${bauhaus.variable}`}>
+    <html lang="en" className={fontVars}>
       <body>{children}</body>
     </html>
   );

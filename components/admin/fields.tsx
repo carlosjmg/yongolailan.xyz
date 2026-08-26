@@ -52,6 +52,36 @@ export function TextareaSetting({
   );
 }
 
+export function SelectSetting({
+  name,
+  label,
+  value,
+  options,
+  help,
+}: {
+  name: string;
+  label: string;
+  value?: string | null;
+  options: { value: string; label: string }[];
+  help?: string;
+}) {
+  return (
+    <div className="admin-field">
+      <label className="admin-label" htmlFor={name}>
+        {label}
+      </label>
+      <select id={name} name={name} defaultValue={value ?? options[0]?.value} className="admin-select">
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      {help && <div className="admin-help">{help}</div>}
+    </div>
+  );
+}
+
 export function GroupHeading({ children }: { children: React.ReactNode }) {
   return (
     <div

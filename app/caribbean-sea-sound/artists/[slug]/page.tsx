@@ -122,7 +122,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
             {artist.role ? <div className="cssound-artist-role mono">{artist.role}</div> : null}
             {artist.bio ? <p className="cssound-artist-bio">{artist.bio}</p> : null}
 
-            {(artist.websiteUrl || artist.instagramUrl || artist.linkUrl) && (
+            {(artist.websiteUrl || artist.instagramUrl || artist.merchUrl || artist.linkUrl) && (
               <div className="cssound-artist-links">
                 {artist.websiteUrl ? (
                   <a className="cssound-artist-link mono" href={artist.websiteUrl} target="_blank" rel="noopener noreferrer">
@@ -132,6 +132,11 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
                 {artist.instagramUrl ? (
                   <a className="cssound-artist-link mono" href={artist.instagramUrl} target="_blank" rel="noopener noreferrer">
                     Instagram ↗
+                  </a>
+                ) : null}
+                {artist.merchUrl ? (
+                  <a className="cssound-artist-link mono" href={artist.merchUrl} target="_blank" rel="noopener noreferrer">
+                    Merch ↗
                   </a>
                 ) : null}
                 {artist.linkUrl ? (

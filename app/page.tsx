@@ -7,6 +7,7 @@ import {
   HERO_ROLE_COLOR_FALLBACK,
 } from "@/lib/settings";
 import { homeJsonLd } from "@/lib/seo";
+import { headerFontVar } from "@/lib/fonts";
 import {
   getAwards,
   getFeaturedReleases,
@@ -68,6 +69,19 @@ export default async function HomePage() {
   const orderedReleases = [...releases].sort((a, b) => rank(a.title) - rank(b.title));
   const heroColor = safeHexColor(settings["hero.roleColor"], HERO_ROLE_COLOR_FALLBACK);
 
+  // Section-header styling, set once as CSS vars so every heading updates at once.
+  const num = (v: string | undefined, d: number) => {
+    const n = Number(v);
+    return Number.isFinite(n) && n > 0 ? n : d;
+  };
+  const headerVars =
+    `:root{` +
+    `--header-font:var(${headerFontVar(settings["headers.font"])});` +
+    `--header-title-scale:${num(settings["headers.titleScale"], 100)};` +
+    `--header-eyebrow-scale:${num(settings["headers.eyebrowScale"], 100)};` +
+    `--header-subtitle-scale:${num(settings["headers.subtitleScale"], 100)};` +
+    `}`;
+
   // Menu order mirrors the order the sections appear on the page.
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
     { id: "catalog", label: "Catalog", key: "catalog" },
@@ -108,6 +122,8 @@ export default async function HomePage() {
     <>
       {/* Tells search engines this domain IS Yongolailan / Caribbean Sea Sound. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* Section-header font & sizes chosen in the admin. */}
+      <style dangerouslySetInnerHTML={{ __html: headerVars }} />
 
       <Nav
         primary={primary}
@@ -127,6 +143,8 @@ export default async function HomePage() {
         name={settings["hero.name"]}
         roleLine={settings["hero.roleLine"]}
         roleColor={heroColor}
+        copyX={settings["hero.copyX"]}
+        copyY={settings["hero.copyY"]}
       />
 
       {/* 2 — Latest release + music catalog */}

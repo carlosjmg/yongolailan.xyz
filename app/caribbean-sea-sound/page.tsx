@@ -71,11 +71,9 @@ export default async function CaribbeanSeaSoundPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="cssound-shell">
-        <section className="cssound-intro">
-          <div>
-            <div className="cssound-eyebrow">{tagline}</div>
-            <h1>{name}</h1>
-          </div>
+        {/* The big name moved to the header wordmark (top-right). */}
+        <section className="cssound-intro cssound-intro--notitle">
+          <div className="cssound-eyebrow">{tagline}</div>
           <p className="cssound-intro-lede">{intro}</p>
         </section>
 

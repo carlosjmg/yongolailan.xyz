@@ -286,6 +286,7 @@ export const COLLECTIONS: Record<string, Collection> = {
       },
       { name: "websiteUrl", label: "Website", type: "url", placeholder: "https://…" },
       { name: "instagramUrl", label: "Instagram", type: "url", placeholder: "https://instagram.com/…" },
+      { name: "merchUrl", label: "Merch link", type: "url", placeholder: "https://… (where fans buy their merch)" },
       { name: "linkUrl", label: "Listen link", type: "url", placeholder: "https://open.spotify.com/artist/…" },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],

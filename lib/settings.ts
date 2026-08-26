@@ -41,6 +41,15 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "hero.image": "/images/ICE.webp",
   // Empty means "use the site gold" — see HERO_ROLE_COLOR_FALLBACK.
   "hero.roleColor": "",
+  // Nudge the one-liner + Booking button on desktop, in px (+right/+down).
+  "hero.copyX": "0",
+  "hero.copyY": "0",
+
+  // ── Section header styling (applies to every section heading) ──
+  "headers.font": "cormorant", // one of lib/fonts HEADER_FONTS keys — the big title
+  "headers.titleScale": "100", // % of the default size
+  "headers.eyebrowScale": "100",
+  "headers.subtitleScale": "100",
 
   // ── Section headings (every title/subtitle on the site) ──
   // Titles listed here are shown first in the Music Catalog, in this order.

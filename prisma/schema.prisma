@@ -195,6 +195,7 @@ model LabelArtist {
   profileImage     String? // larger image on the artist's own page
   websiteUrl       String?
   instagramUrl     String?
+  merchUrl         String? // link to the artist's merch
   linkUrl          String? // generic "listen/artist" link
   published        Boolean           @default(true) // is_active
   sortOrder        Int               @default(0)

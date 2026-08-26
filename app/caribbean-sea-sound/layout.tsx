@@ -22,9 +22,11 @@ export default async function LabelLayout({ children }: { children: React.ReactN
             {logo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={logo} alt={name} style={{ height: `${logoSize}px` }} />
-            ) : (
-              <span className="cssound-logo-word">{name}</span>
-            )}
+            ) : null}
+          </Link>
+          {/* The name, moved here from the page body — far right, one line. */}
+          <Link href="/caribbean-sea-sound" className="cssound-wordmark">
+            {name}
           </Link>
         </div>
       </header>
