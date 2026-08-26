@@ -67,7 +67,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "text.videos.subtitle":
     "Music videos, short films, and live sessions — visual storytelling rooted in Afro-Caribbean culture.",
   "text.photos.eyebrow": "On Stage",
-  "text.photos.title": "Live Performance",
+  "text.photos.title": "Live Performance & DJ Sessions",
   "text.photos.subtitle":
     "Photos and video from live shows, festivals, and sessions.",
   "text.merch.eyebrow": "Merchandise",

@@ -85,8 +85,8 @@ export default async function HomePage() {
   // Menu order mirrors the order the sections appear on the page.
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
     { id: "catalog", label: "Catalog", key: "catalog" },
-    { id: "photos", label: "Live", key: "photos" },
     { id: "videos", label: "Films", key: "videos" },
+    { id: "photos", label: "Live", key: "photos" },
     { id: "merch", label: "Merch", key: "merch" },
     { id: "about", label: "About", key: "about" },
     { id: "contact", label: "Contact", key: "contact" },
@@ -152,13 +152,13 @@ export default async function HomePage() {
       {st("catalog") === "on" && <Catalog releases={orderedReleases} {...txt("catalog")} />}
       {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
 
-      {/* 3 — Live performances */}
-      {st("photos") === "on" && <Photos photos={photos} email={email} {...txt("photos")} />}
-      {st("photos") === "soon" && <ComingSoon id="photos" {...txt("photos")} />}
-
-      {/* 4 — Films & videos */}
+      {/* 3 — Films & videos */}
       {st("videos") === "on" && <Videos videos={videos} {...txt("videos")} />}
       {st("videos") === "soon" && <ComingSoon id="videos" {...txt("videos")} />}
+
+      {/* 4 — Live performances */}
+      {st("photos") === "on" && <Photos photos={photos} email={email} {...txt("photos")} />}
+      {st("photos") === "soon" && <ComingSoon id="photos" {...txt("photos")} />}
 
       {/* 5 — Merch */}
       {st("merch") !== "off" && <Merch items={merch} {...txt("merch")} />}
