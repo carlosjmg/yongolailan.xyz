@@ -3,7 +3,6 @@ import { prisma } from "./prisma";
 // Sections that can be shown / hidden / marked "coming soon" from the admin.
 export const SECTION_KEYS = [
   "catalog",
-  "portfolio",
   "videos",
   "epk",
   "photos",
@@ -19,7 +18,6 @@ export type SectionState = "on" | "off" | "soon";
 
 export const SECTION_LABELS: Record<SectionKey, string> = {
   catalog: "Catalog",
-  portfolio: "Portfolio",
   videos: "Short Films & Videos",
   epk: "EPK / Press",
   photos: "Live",
@@ -58,10 +56,6 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "text.catalog.title": "Catalog",
   "text.catalog.subtitle":
     "A growing archive of electronic ritual music rooted in Afro-Caribbean tradition.",
-  "text.portfolio.eyebrow": "Portfolio",
-  "text.portfolio.title": "Creative Work",
-  "text.portfolio.subtitle":
-    "Music, film, games, and digital experiences rooted in Caribbean culture.",
   "text.videos.eyebrow": "Film & Motion",
   "text.videos.title": "Short Films & Videos",
   "text.videos.subtitle":
@@ -141,7 +135,6 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "epk.pdfUrl": "",
 
   "section.catalog": "on",
-  "section.portfolio": "on",
   "section.epk": "on",
   "section.photos": "on",
   "section.merch": "soon",

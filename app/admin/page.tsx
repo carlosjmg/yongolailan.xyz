@@ -5,9 +5,8 @@ import { isEmailConfigured } from "@/lib/email";
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const [releases, portfolio, videos, games, photos, links, merch, unread] = await Promise.all([
+  const [releases, videos, games, photos, links, merch, unread] = await Promise.all([
     prisma.release.count(),
-    prisma.portfolioItem.count(),
     prisma.video.count(),
     prisma.game.count(),
     prisma.photo.count(),
@@ -18,7 +17,6 @@ export default async function Dashboard() {
 
   const stats: { href: string; num: number | string; label: string }[] = [
     { href: "/admin/catalog", num: releases, label: "Releases" },
-    { href: "/admin/portfolio", num: portfolio, label: "Portfolio items" },
     { href: "/admin/videos", num: videos, label: "Videos" },
     { href: "/admin/games", num: games, label: "Games" },
     { href: "/admin/photos", num: photos, label: "Photos" },

@@ -5,8 +5,6 @@ export function delegateFor(model: string): any {
   switch (model) {
     case "release":
       return prisma.release;
-    case "portfolioItem":
-      return prisma.portfolioItem;
     case "video":
       return prisma.video;
     case "game":

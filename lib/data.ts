@@ -25,17 +25,6 @@ export async function getFeaturedReleases() {
   }
 }
 
-export async function getPortfolio() {
-  try {
-    return await prisma.portfolioItem.findMany({
-      where: { published: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-    });
-  } catch {
-    return [];
-  }
-}
-
 export async function getVideos() {
   try {
     return await prisma.video.findMany({

@@ -7,7 +7,6 @@ export const dynamic = "force-dynamic";
 // Every section heading on the site, in the order it appears.
 const SECTIONS: { key: string; label: string; hasSubtitle: boolean }[] = [
   { key: "catalog", label: "Catalog / Music", hasSubtitle: true },
-  { key: "portfolio", label: "Portfolio", hasSubtitle: true },
   { key: "videos", label: "Short Films & Videos", hasSubtitle: true },
   { key: "photos", label: "Live", hasSubtitle: true },
   { key: "merch", label: "Merch", hasSubtitle: true },

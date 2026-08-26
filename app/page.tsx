@@ -14,7 +14,6 @@ import {
   getLinks,
   getMerch,
   getPhotos,
-  getPortfolio,
   getReleases,
   getVideos,
 } from "@/lib/data";
@@ -22,7 +21,6 @@ import Nav, { type NavItem } from "@/components/site/Nav";
 import Hero from "@/components/site/Hero";
 import Featured from "@/components/site/Featured";
 import Catalog from "@/components/site/Catalog";
-import Portfolio from "@/components/site/Portfolio";
 import Videos from "@/components/site/Videos";
 import Photos from "@/components/site/Photos";
 import Awards from "@/components/site/Awards";
@@ -40,11 +38,10 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   noStore();
-  const [settings, releases, featured, portfolio, videos, photos, links, awards, merch] = await Promise.all([
+  const [settings, releases, featured, videos, photos, links, awards, merch] = await Promise.all([
     getAllSettings(),
     getReleases(),
     getFeaturedReleases(),
-    getPortfolio(),
     getVideos(),
     getPhotos(),
     getLinks(),
@@ -102,10 +99,7 @@ export default async function HomePage() {
     .map(({ id, label }) => ({ id, label, href: id === "epk" ? epkPdf : undefined }));
 
   // Awards is intentionally not in the phone menu (still on the page itself).
-  const secondaryDefs = [
-    { id: "portfolio", label: "Portfolio", key: "portfolio" as const },
-    { id: "links", label: "Links", key: "links" as const },
-  ];
+  const secondaryDefs = [{ id: "links", label: "Links", key: "links" as const }];
   const secondary: NavItem[] = secondaryDefs
     .filter((d) => st(d.key) !== "off")
     .map(({ id, label }) => ({ id, label }));
@@ -177,10 +171,6 @@ export default async function HomePage() {
 
       {/* 7 — Awards & recognition, closing out the artist's story */}
       {st("awards") === "on" && <Awards awards={awards} {...txt("awards")} />}
-
-      {/* Portfolio still exists but sits after About, off the main flow. */}
-      {st("portfolio") === "on" && <Portfolio items={portfolio} {...txt("portfolio")} />}
-      {st("portfolio") === "soon" && <ComingSoon id="portfolio" {...txt("portfolio")} />}
 
       {/* 8 — Contact / booking */}
       {st("contact") !== "off" && (

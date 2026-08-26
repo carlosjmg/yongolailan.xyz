@@ -86,32 +86,6 @@ export const COLLECTIONS: Record<string, Collection> = {
     ],
   },
 
-  portfolio: {
-    key: "portfolio",
-    model: "portfolioItem",
-    label: "Portfolio",
-    singular: "portfolio item",
-    titleField: "title",
-    imageField: "image",
-    hasPublished: true,
-    listColumns: [
-      { name: "title", label: "Title" },
-      { name: "area", label: "Area" },
-      { name: "tag", label: "Tag" },
-    ],
-    fields: [
-      { name: "area", label: "Area", type: "select", options: ["music", "films", "games", "web"], required: true },
-      { name: "title", label: "Title", type: "text", required: true },
-      { name: "subtitle", label: "Subtitle", type: "text" },
-      { name: "description", label: "Description", type: "textarea", required: true },
-      { name: "tag", label: "Tag", type: "text", placeholder: "Record Label · Production" },
-      { name: "linkUrl", label: "Link", type: "url" },
-      { name: "image", label: "Image", type: "image" },
-      { name: "color", label: "Accent color", type: "color" },
-      { name: "published", label: "Visible on site", type: "boolean" },
-    ],
-  },
-
   videos: {
     key: "videos",
     model: "video",

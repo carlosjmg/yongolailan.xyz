@@ -9,7 +9,6 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
     label: "Content",
     items: [
       { href: "/admin/catalog", label: "Catalog / Music" },
-      { href: "/admin/portfolio", label: "Portfolio" },
       { href: "/admin/videos", label: "Videos" },
       { href: "/admin/games", label: "Games" },
       { href: "/admin/photos", label: "Live" },
