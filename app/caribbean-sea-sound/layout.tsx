@@ -10,6 +10,8 @@ export default async function LabelLayout({ children }: { children: React.ReactN
   const s = await getAllSettings();
   const logo = s["label.logo"];
   const logoSize = s["label.logoSize"] || "34";
+  // Wordmark size: explicit setting, otherwise match the logo.
+  const wordmarkSize = Number(s["label.wordmarkSize"]) > 0 ? Number(s["label.wordmarkSize"]) : Number(logoSize) || 34;
   const name = s["label.name"] || "Caribbean Sea Sound";
   const location = s["label.location"] || "Brooklyn, New York";
   const domain = s["site.domain"] || "yongolailan.xyz";
@@ -29,7 +31,7 @@ export default async function LabelLayout({ children }: { children: React.ReactN
           <Link
             href="/caribbean-sea-sound"
             className="cssound-wordmark"
-            style={{ fontSize: `min(${logoSize}px, 6.2vw)` }}
+            style={{ fontSize: `min(${wordmarkSize}px, 6.2vw)` }}
           >
             {name}
           </Link>

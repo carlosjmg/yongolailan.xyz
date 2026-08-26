@@ -52,6 +52,7 @@ const KEYS = [
   "label.intro",
   "label.logo",
   "label.logoSize",
+  "label.wordmarkSize",
   "site.domain",
 ];
 
@@ -194,6 +195,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <div className="admin-help">Shown top-left on the Caribbean Sea Sound page. A dark logo on transparent works best (the page is white). Leave empty to show the label name as text.</div>
         </div>
         <TextSetting name="label.logoSize" label="Caribbean Sea Sound logo size (px)" value={s["label.logoSize"]} type="number" help="Height of the label logo, top-left. Try 28–56." />
+        <TextSetting name="label.wordmarkSize" label="Caribbean Sea Sound text size (px)" value={s["label.wordmarkSize"]} type="number" help="Size of the 'Caribbean Sea Sound' text top-right. Leave empty to match the logo size." />
 
         <GroupHeading>Domain</GroupHeading>
         <TextSetting name="site.domain" label="Domain (shown in footer)" value={s["site.domain"]} />

@@ -121,6 +121,9 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
     "Caribbean Sea Sound is an independent music platform and label founded in Brooklyn in 2016. Created as a space for discovery, collaboration and artistic exchange, it has showcased artists from the Caribbean and across the Americas.",
   "label.logo": "",
   "label.logoSize": "34",
+  // Font size (px) of the "Caribbean Sea Sound" wordmark in the header.
+  // Empty = match the logo size.
+  "label.wordmarkSize": "",
   "label.tagline": "Independent label & music platform · Brooklyn · Est. 2016",
   "site.domain": "yongolailan.xyz",
   "site.logo": "/images/Yongo-logo-blanco.webp",
