@@ -118,6 +118,8 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Font size (px) of the "Caribbean Sea Sound" wordmark in the header.
   // Empty = match the logo size.
   "label.wordmarkSize": "",
+  // Cover size (px) of each song/production shown on an artist's page.
+  "label.songCoverSize": "96",
   // Nudge the label logo in the header, in px. X: +right/−left, Y: +down/−up.
   // The *Mobile keys override on phones; empty = use the desktop value.
   "label.logoOffsetX": "0",

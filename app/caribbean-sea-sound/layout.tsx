@@ -29,8 +29,20 @@ export default async function LabelLayout({ children }: { children: React.ReactN
   const lxM = mobileNum(s["label.logoOffsetXMobile"], lx);
   const lyM = mobileNum(s["label.logoOffsetYMobile"], ly);
 
+  // Song/production cover size. Mobile keeps the original 96→68 proportion.
+  const coverSize = Number(s["label.songCoverSize"]) > 0 ? Number(s["label.songCoverSize"]) : 96;
+  const coverSizeMobile = Math.round(coverSize * 0.71);
+
   return (
-    <div className="cssound">
+    <div
+      className="cssound"
+      style={
+        {
+          "--song-cover": `${coverSize}px`,
+          "--song-cover-m": `${coverSizeMobile}px`,
+        } as CSSProperties
+      }
+    >
       <header className="cssound-header">
         <div className="cssound-header-inner">
           <Link href="/caribbean-sea-sound" className="cssound-logo" aria-label={`${name} — home`}>
