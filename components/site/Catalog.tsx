@@ -188,9 +188,11 @@ function CatalogCard({ release }: { release: Release }) {
           {release.releaseType}
         </div>
 
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>
-          {release.description}
-        </p>
+        {release.description && (
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>
+            {release.description}
+          </p>
+        )}
 
         {release.credits && (
           <div
@@ -240,11 +242,12 @@ function CatalogCard({ release }: { release: Release }) {
               </a>
             ))}
           </div>
-          {listen && (
+          {release.bandcampUrl && (
             <a
-              href={listen}
+              href={release.bandcampUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Buy ${release.title} on Bandcamp`}
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "10px",
@@ -261,7 +264,7 @@ function CatalogCard({ release }: { release: Release }) {
                 textDecoration: "none",
               }}
             >
-              Listen →
+              Buy →
             </a>
           )}
         </div>

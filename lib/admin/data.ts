@@ -26,13 +26,22 @@ export function delegateFor(model: string): any {
   }
 }
 
+// Accent- and case-insensitive, so it matches the public directory exactly
+// and is identical on SQLite and Postgres (DB collations disagree on í vs i).
+function byName(field: string) {
+  return (a: Record<string, unknown>, b: Record<string, unknown>) =>
+    String(a[field] ?? "").localeCompare(String(b[field] ?? ""), "es", { sensitivity: "base" });
+}
+
 export async function getRecords(collectionKey: string): Promise<any[]> {
   const col = getCollection(collectionKey);
   if (!col) return [];
-  return delegateFor(col.model).findMany({
+  const rows = await delegateFor(col.model).findMany({
     orderBy: { sortOrder: "asc" },
     ...(col.include ? { include: col.include } : {}),
   });
+  if (col.alphabetical) rows.sort(byName(col.titleField));
+  return rows;
 }
 
 /** Choices for a select whose options come from another table. */
@@ -41,10 +50,14 @@ export async function getFieldOptions(
   labelField: string
 ): Promise<{ value: string; label: string }[]> {
   const rows = await delegateFor(model).findMany({ orderBy: { sortOrder: "asc" } });
-  return rows.map((r: Record<string, unknown>) => ({
-    value: String(r.id),
-    label: String(r[labelField] ?? r.id),
-  }));
+  return rows
+    .map((r: Record<string, unknown>) => ({
+      value: String(r.id),
+      label: String(r[labelField] ?? r.id),
+    }))
+    .sort((a: { label: string }, b: { label: string }) =>
+      a.label.localeCompare(b.label, "es", { sensitivity: "base" })
+    );
 }
 
 export async function getRecord(collectionKey: string, id: string): Promise<any | null> {

@@ -45,6 +45,8 @@ export interface Collection {
   include?: Record<string, unknown>;
   /** When set, saveRecord keeps a URL-safe slug in sync with this field. */
   slugFrom?: string;
+  /** List the records A–Z by titleField (and hide manual reordering). */
+  alphabetical?: boolean;
 }
 
 export const COLLECTIONS: Record<string, Collection> = {
@@ -71,7 +73,7 @@ export const COLLECTIONS: Record<string, Collection> = {
         options: ["Single", "EP", "Album"],
         help: "Used for the Album / EP / Single filter on the site.",
       },
-      { name: "description", label: "Description", type: "textarea", required: true },
+      { name: "description", label: "Description (optional)", type: "textarea" },
       { name: "credits", label: "Credits", type: "text", placeholder: "Produced by Yongolailan · Caribbean Sea Sound" },
       { name: "coverImage", label: "Cover art", type: "image" },
       { name: "accentColor", label: "Accent color", type: "color", help: "Used for this release's accents." },
@@ -232,6 +234,7 @@ export const COLLECTIONS: Record<string, Collection> = {
     imageField: "image",
     hasPublished: true,
     slugFrom: "name",
+    alphabetical: true,
     listColumns: [
       { name: "name", label: "Artist" },
       { name: "role", label: "Role / origin" },

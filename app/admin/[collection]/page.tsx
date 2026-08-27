@@ -36,7 +36,8 @@ export default async function CollectionListPage({ params }: { params: { collect
         </Link>
       </div>
       <p className="admin-sub">
-        {records.length} {records.length === 1 ? col.singular : col.label.toLowerCase()}. Use ↑ ↓ to reorder how they appear on the site.
+        {records.length} {records.length === 1 ? col.singular : col.label.toLowerCase()}.{" "}
+        {col.alphabetical ? "Listed A–Z automatically." : "Use ↑ ↓ to reorder how they appear on the site."}
       </p>
 
       {records.length === 0 ? (
@@ -51,7 +52,7 @@ export default async function CollectionListPage({ params }: { params: { collect
                   <th key={c.name}>{c.label}</th>
                 ))}
                 {col.hasPublished && <th>Status</th>}
-                <th>Order</th>
+                {!col.alphabetical && <th>Order</th>}
                 <th></th>
               </tr>
             </thead>
@@ -77,16 +78,18 @@ export default async function CollectionListPage({ params }: { params: { collect
                       {r.featured && <span className="admin-tag soon" style={{ marginLeft: "5px" }}>Featured</span>}
                     </td>
                   )}
-                  <td>
-                    <div className="admin-row-actions">
-                      <form action={reorderRecord.bind(null, col.key, r.id, "up")}>
-                        <button className="admin-btn admin-btn-sm" disabled={i === 0} aria-label="Move up">↑</button>
-                      </form>
-                      <form action={reorderRecord.bind(null, col.key, r.id, "down")}>
-                        <button className="admin-btn admin-btn-sm" disabled={i === records.length - 1} aria-label="Move down">↓</button>
-                      </form>
-                    </div>
-                  </td>
+                  {!col.alphabetical && (
+                    <td>
+                      <div className="admin-row-actions">
+                        <form action={reorderRecord.bind(null, col.key, r.id, "up")}>
+                          <button className="admin-btn admin-btn-sm" disabled={i === 0} aria-label="Move up">↑</button>
+                        </form>
+                        <form action={reorderRecord.bind(null, col.key, r.id, "down")}>
+                          <button className="admin-btn admin-btn-sm" disabled={i === records.length - 1} aria-label="Move down">↓</button>
+                        </form>
+                      </div>
+                    </td>
+                  )}
                   <td>
                     <div className="admin-row-actions">
                       <Link href={`/admin/${col.key}/${r.id}`} className="admin-btn admin-btn-sm">Edit</Link>

@@ -94,6 +94,15 @@
   height: 34px;
   width: auto;
   display: block;
+  transform: translate(var(--llogo-tx, 0px), var(--llogo-ty, 0px));
+}
+@media (max-width: 767px) {
+  .cssound-logo img {
+    transform: translate(
+      var(--llogo-tx-mobile, var(--llogo-tx, 0px)),
+      var(--llogo-ty-mobile, var(--llogo-ty, 0px))
+    );
+  }
 }
 .cssound-logo-word {
   font-family: var(--font-mono), monospace;
@@ -312,6 +321,25 @@
 .cssound-preview-desc b {
   color: var(--ink);
   font-weight: 600;
+}
+
+/* Artist blurb: name, then Role / Origin, then short description — stacked. */
+.cssound-blurb-name {
+  display: block;
+  color: var(--ink);
+  font-weight: 600;
+}
+.cssound-blurb-role {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sea);
+  margin-top: 7px;
+}
+.cssound-blurb-sub {
+  display: block;
+  margin-top: 8px;
 }
 
 /* ── Mobile accordion (hidden on desktop) ──────────────────── */

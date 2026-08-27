@@ -118,6 +118,12 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Font size (px) of the "Caribbean Sea Sound" wordmark in the header.
   // Empty = match the logo size.
   "label.wordmarkSize": "",
+  // Nudge the label logo in the header, in px. X: +right/−left, Y: +down/−up.
+  // The *Mobile keys override on phones; empty = use the desktop value.
+  "label.logoOffsetX": "0",
+  "label.logoOffsetY": "0",
+  "label.logoOffsetXMobile": "",
+  "label.logoOffsetYMobile": "",
   "label.tagline": "Independent label & music platform · Brooklyn · Est. 2016",
   "site.domain": "yongolailan.xyz",
   "site.logo": "/images/Yongo-logo-blanco.webp",

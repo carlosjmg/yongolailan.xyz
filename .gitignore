@@ -42,3 +42,7 @@ yarn-error.log*
 
 # TypeScript incremental build cache
 tsconfig.tsbuildinfo
+
+# Local asset staging & prisma provider backup (never commit)
+/Label/
+prisma/schema.prisma.bak

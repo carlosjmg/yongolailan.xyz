@@ -12,12 +12,14 @@ export interface DirectoryArtist {
   image: string | null;
 }
 
-/** Description that always begins with the artist's name, in bold. */
-function Description({ a }: { a: DirectoryArtist }) {
+/** Name, then the Role / Origin, then the short description — each on its own
+ *  line, below the artist's photo. */
+function Blurb({ a }: { a: DirectoryArtist }) {
   return (
     <>
-      <b>{a.name}</b>
-      {a.shortDescription ? ` — ${a.shortDescription}` : ""}
+      <b className="cssound-blurb-name">{a.name}</b>
+      {a.role ? <span className="cssound-blurb-role mono">{a.role}</span> : null}
+      {a.shortDescription ? <span className="cssound-blurb-sub">{a.shortDescription}</span> : null}
     </>
   );
 }
@@ -74,9 +76,9 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
               <div className="cssound-preview-empty">No image yet</div>
             )}
           </div>
-          <p className="cssound-preview-desc">
-            <Description a={active} />
-          </p>
+          <div className="cssound-preview-desc">
+            <Blurb a={active} />
+          </div>
         </div>
       </div>
 
@@ -104,9 +106,9 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
                     // eslint-disable-next-line @next/next/no-img-element
                     <img className="cssound-acc-img" src={a.image} alt={a.name} loading="lazy" />
                   )}
-                  <p className="cssound-acc-desc">
-                    <Description a={a} />
-                  </p>
+                  <div className="cssound-acc-desc">
+                    <Blurb a={a} />
+                  </div>
                   <Link href={`/caribbean-sea-sound/artists/${a.slug}`} className="cssound-acc-link">
                     View artist →
                   </Link>

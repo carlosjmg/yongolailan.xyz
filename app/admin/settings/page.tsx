@@ -53,6 +53,10 @@ const KEYS = [
   "label.logo",
   "label.logoSize",
   "label.wordmarkSize",
+  "label.logoOffsetX",
+  "label.logoOffsetY",
+  "label.logoOffsetXMobile",
+  "label.logoOffsetYMobile",
   "site.domain",
 ];
 
@@ -196,6 +200,24 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
         </div>
         <TextSetting name="label.logoSize" label="Caribbean Sea Sound logo size (px)" value={s["label.logoSize"]} type="number" help="Height of the label logo, top-left. Try 28–56." />
         <TextSetting name="label.wordmarkSize" label="Caribbean Sea Sound text size (px)" value={s["label.wordmarkSize"]} type="number" help="Size of the 'Caribbean Sea Sound' text top-right. Leave empty to match the logo size." />
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Label logo position — desktop</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="label.logoOffsetX" label="Left / right — desktop (px)" value={s["label.logoOffsetX"]} type="number" help="Positive = right, negative = left." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="label.logoOffsetY" label="Up / down — desktop (px)" value={s["label.logoOffsetY"]} type="number" help="Positive = down, negative = up." />
+          </div>
+        </div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Label logo position — mobile</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="label.logoOffsetXMobile" label="Left / right — mobile (px)" value={s["label.logoOffsetXMobile"]} type="number" help="Move the logo left/right on phones. Leave empty to match desktop; 0 = no offset." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="label.logoOffsetYMobile" label="Up / down — mobile (px)" value={s["label.logoOffsetYMobile"]} type="number" help="Leave empty to match desktop; 0 = no offset." />
+          </div>
+        </div>
 
         <GroupHeading>Domain</GroupHeading>
         <TextSetting name="site.domain" label="Domain (shown in footer)" value={s["site.domain"]} />

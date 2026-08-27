@@ -1,4 +1,5 @@
 import "./label.css";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { getAllSettings } from "@/lib/settings";
 
@@ -16,6 +17,18 @@ export default async function LabelLayout({ children }: { children: React.ReactN
   const location = s["label.location"] || "Brooklyn, New York";
   const domain = s["site.domain"] || "yongolailan.xyz";
 
+  // Logo nudge (px). Empty mobile value inherits the desktop one; 0 is respected.
+  const lx = Number(s["label.logoOffsetX"]) || 0;
+  const ly = Number(s["label.logoOffsetY"]) || 0;
+  const mobileNum = (v: string | undefined, fallback: number) => {
+    const t = String(v ?? "").trim();
+    if (t === "") return fallback;
+    const n = Number(t);
+    return Number.isNaN(n) ? fallback : n;
+  };
+  const lxM = mobileNum(s["label.logoOffsetXMobile"], lx);
+  const lyM = mobileNum(s["label.logoOffsetYMobile"], ly);
+
   return (
     <div className="cssound">
       <header className="cssound-header">
@@ -23,7 +36,21 @@ export default async function LabelLayout({ children }: { children: React.ReactN
           <Link href="/caribbean-sea-sound" className="cssound-logo" aria-label={`${name} — home`}>
             {logo ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={logo} alt={name} style={{ height: `${logoSize}px` }} />
+              <img
+                src={logo}
+                alt={name}
+                style={
+                  {
+                    height: `${logoSize}px`,
+                    // Transform comes from these vars in CSS so a media query
+                    // can give phones a different nudge.
+                    "--llogo-tx": `${lx}px`,
+                    "--llogo-ty": `${ly}px`,
+                    "--llogo-tx-mobile": `${lxM}px`,
+                    "--llogo-ty-mobile": `${lyM}px`,
+                  } as CSSProperties
+                }
+              />
             ) : null}
           </Link>
           {/* The name, moved here from the page body — far right, one line,
