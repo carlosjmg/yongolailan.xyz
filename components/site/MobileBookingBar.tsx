@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { scrollToSection } from "./shared";
 
-export default function MobileBookingBar({ email }: { email: string }) {
+export default function MobileBookingBar({ email, showBooking = true }: { email: string; showBooking?: boolean }) {
   const [visible, setVisible] = useState(false);
   const [near, setNear] = useState(false);
 
@@ -62,25 +62,27 @@ export default function MobileBookingBar({ email }: { email: string }) {
       >
         Email
       </a>
-      <button
-        onClick={() => scrollToSection("contact")}
-        style={{
-          flex: 1.4,
-          minHeight: "48px",
-          fontFamily: "var(--font-mono)",
-          fontSize: "11px",
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          color: "oklch(8% 0.018 30)",
-          background: "var(--gold)",
-          border: "none",
-          borderRadius: "2px",
-          cursor: "pointer",
-          fontWeight: 500,
-        }}
-      >
-        Booking →
-      </button>
+      {showBooking && (
+        <button
+          onClick={() => scrollToSection("contact")}
+          style={{
+            flex: 1.4,
+            minHeight: "48px",
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "oklch(8% 0.018 30)",
+            background: "var(--gold)",
+            border: "none",
+            borderRadius: "2px",
+            cursor: "pointer",
+            fontWeight: 500,
+          }}
+        >
+          Booking →
+        </button>
+      )}
     </div>
   );
 }

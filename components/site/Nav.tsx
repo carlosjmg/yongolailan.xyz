@@ -21,9 +21,11 @@ export default function Nav({
   logoOffsetXMobile = "",
   logoOffsetYMobile = "",
   bookingColor = "var(--gold)",
+  showBooking = true,
 }: {
   primary: NavItem[];
   secondary: NavItem[];
+  showBooking?: boolean;
   logo?: string;
   logoSize?: number | string;
   /** Logo height on phones; empty/0 falls back to the desktop size. */
@@ -286,26 +288,28 @@ export default function Nav({
           }}
         >
           {/* Booking sits first on phones, above the rest of the menu. */}
-          <button
-            onClick={() => handleNav("contact")}
-            style={{
-              alignSelf: "flex-start",
-              marginBottom: "24px",
-              fontFamily: "var(--font-mono)",
-              fontSize: "12px",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: bookingColor,
-              background: "transparent",
-              padding: "15px 38px",
-              border: `1px solid ${bookingColor}`,
-              borderRadius: "999px",
-              cursor: "pointer",
-              minHeight: "50px",
-            }}
-          >
-            Booking
-          </button>
+          {showBooking && (
+            <button
+              onClick={() => handleNav("contact")}
+              style={{
+                alignSelf: "flex-start",
+                marginBottom: "24px",
+                fontFamily: "var(--font-mono)",
+                fontSize: "12px",
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: bookingColor,
+                background: "transparent",
+                padding: "15px 38px",
+                border: `1px solid ${bookingColor}`,
+                borderRadius: "999px",
+                cursor: "pointer",
+                minHeight: "50px",
+              }}
+            >
+              Booking
+            </button>
+          )}
 
           {primary.map((item) =>
             item.href ? (

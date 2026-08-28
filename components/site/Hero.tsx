@@ -23,12 +23,15 @@ export default function Hero({
   copyY = 0,
   bookingX = 0,
   bookingY = 0,
+  showBooking = true,
 }: {
   image: string;
   name: string;
   roleLine?: string;
   /** Chosen in the admin (Home & Hero). Already validated as a hex colour. */
   roleColor: string;
+  /** Admin toggle: whether the Booking button appears at all. */
+  showBooking?: boolean;
   /** Admin nudge for the one-liner + Booking group, desktop only, in px. */
   copyX?: number | string;
   copyY?: number | string;
@@ -118,6 +121,7 @@ export default function Hero({
         )}
 
         {/* Phones get this button at the foot of the menu instead. */}
+        {showBooking && (
         <button
           className="hero-booking"
           onClick={() => scrollToSection("contact")}
@@ -151,6 +155,7 @@ export default function Hero({
         >
           Booking
         </button>
+        )}
       </div>
 
       <ScrollCue color={roleColor} />

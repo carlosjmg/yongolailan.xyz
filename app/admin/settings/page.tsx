@@ -29,6 +29,7 @@ const KEYS = [
   "hero.copyY",
   "hero.bookingX",
   "hero.bookingY",
+  "hero.showBooking",
   "hero.oneLiner",
   "hero.image",
   "headers.font",
@@ -87,6 +88,16 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           help="Pick a suggested colour, or use the picker / hex box for any colour you like. Hover a suggestion to see why it works. Leave the box empty to go back to the site gold."
         />
         <TextSetting name="hero.oneLiner" label="One-liner (italic)" value={s["hero.oneLiner"]} />
+        <SelectSetting
+          name="hero.showBooking"
+          label="Booking button"
+          value={s["hero.showBooking"]}
+          options={[
+            { value: "on", label: "Show" },
+            { value: "off", label: "Hide" },
+          ]}
+          help="Show or hide the Booking button on the home page (also removes it from the phone menu and the sticky bottom bar). The Email button stays."
+        />
         <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>One-liner + Booking together — desktop</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>

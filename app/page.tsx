@@ -53,6 +53,7 @@ export default async function HomePage() {
   const txt = (k: string) => sectionText(settings, k);
   const email = settings["contact.email"];
   const epkPdf = settings["epk.pdfUrl"];
+  const showBooking = settings["hero.showBooking"] !== "off";
 
   // Pin the titles from the "catalog.pinned" setting to the front of the
   // catalog, in that order; the rest keep their admin order. Matching is
@@ -131,6 +132,7 @@ export default async function HomePage() {
         logoOffsetXMobile={settings["site.logoOffsetXMobile"]}
         logoOffsetYMobile={settings["site.logoOffsetYMobile"]}
         bookingColor={heroColor}
+        showBooking={showBooking}
       />
 
       <Hero
@@ -142,6 +144,7 @@ export default async function HomePage() {
         copyY={settings["hero.copyY"]}
         bookingX={settings["hero.bookingX"]}
         bookingY={settings["hero.bookingY"]}
+        showBooking={showBooking}
       />
 
       {/* 2 — Latest release + music catalog */}
@@ -203,7 +206,7 @@ export default async function HomePage() {
         oneLiner={settings["hero.oneLiner"]}
       />
 
-      <MobileBookingBar email={email} />
+      <MobileBookingBar email={email} showBooking={showBooking} />
     </>
   );
 }

@@ -45,6 +45,8 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Extra nudge for JUST the Booking button, independent of the one-liner (desktop).
   "hero.bookingX": "0",
   "hero.bookingY": "0",
+  // Show/hide the Booking button (hero, mobile menu, mobile sticky bar). "off" hides.
+  "hero.showBooking": "on",
 
   // ── Section header styling (applies to every section heading) ──
   "headers.font": "cormorant", // one of lib/fonts HEADER_FONTS keys — the big title
