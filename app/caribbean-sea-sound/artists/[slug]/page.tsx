@@ -120,6 +120,17 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
           <div>
             <h1 className="cssound-artist-name">{artist.name}</h1>
             {artist.role ? <div className="cssound-artist-role mono">{artist.role}</div> : null}
+
+            {/* Songs sit right under the Role / Origin (and, on phones, before
+                the bio and photo). No "Produced by …" label. */}
+            <section className="cssound-songs">
+              {artist.productions.length === 0 ? (
+                <p className="cssound-songs-empty">Songs coming soon.</p>
+              ) : (
+                artist.productions.map((p) => <Song key={p.id} song={p} />)
+              )}
+            </section>
+
             {artist.bio ? <p className="cssound-artist-bio">{artist.bio}</p> : null}
 
             {(artist.websiteUrl || artist.instagramUrl || artist.merchUrl || artist.linkUrl) && (
@@ -153,15 +164,6 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
             <img className="cssound-artist-photo" src={photo} alt={artist.name} />
           ) : null}
         </div>
-
-        <section className="cssound-songs">
-          <div className="cssound-songs-label mono">Produced by Yongolailan · Caribbean Sea Sound</div>
-          {artist.productions.length === 0 ? (
-            <p className="cssound-songs-empty">Songs coming soon.</p>
-          ) : (
-            artist.productions.map((p) => <Song key={p.id} song={p} />)
-          )}
-        </section>
       </div>
     </main>
   );

@@ -505,7 +505,9 @@
 
 /* ── Songs ─────────────────────────────────────────────────── */
 .cssound-songs {
-  margin-top: clamp(56px, 8vw, 96px);
+  /* Now sits directly under the Role / Origin, so only a small gap. */
+  margin-top: clamp(20px, 3vw, 30px);
+  border-top: 1px solid var(--line-strong);
 }
 .cssound-songs-label {
   font-family: var(--font-mono), monospace;
