@@ -90,7 +90,7 @@ function VideoCard({ video }: { video: Video }) {
           {video.title}
         </h3>
         {video.description && (
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>
+          <p style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>
             {video.description}
           </p>
         )}

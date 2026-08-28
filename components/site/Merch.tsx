@@ -57,7 +57,7 @@ export default function Merch({
             <div style={{ padding: "18px 18px 22px", display: "flex", flexDirection: "column", gap: "8px", flex: 1 }}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "20px", color: "var(--text)", lineHeight: 1.15 }}>{m.title}</div>
               {m.description && (
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>{m.description}</p>
+                <p style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>{m.description}</p>
               )}
               {m.price && <div style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: "var(--gold)", letterSpacing: "0.05em" }}>{m.price}</div>}
               {m.linkUrl && (

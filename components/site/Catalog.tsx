@@ -199,7 +199,7 @@ function CatalogCard({ release }: { release: Release }) {
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: "10px",
-              color: "var(--text-dimmer)",
+              color: "var(--text-dim)",
               borderTop: "1px solid var(--border)",
               paddingTop: "12px",
               marginTop: "4px",
