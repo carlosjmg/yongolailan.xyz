@@ -11,7 +11,7 @@ export default function About({
   eyebrow,
   title,
   subtitle,
-  epkPdf,
+  hasEpk,
 }: {
   p1: string;
   p2: string;
@@ -19,7 +19,7 @@ export default function About({
   eyebrow: string;
   title: string;
   subtitle?: string;
-  epkPdf?: string;
+  hasEpk?: boolean;
 }) {
   return (
     <Section id="about">
@@ -35,7 +35,7 @@ export default function About({
           {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8 }}>{p2}</p>}
 
           <div style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "14px", alignItems: "center" }}>
-            {epkPdf && <CTAButton label="Download EPK (PDF)" primary href={epkPdf} />}
+            {hasEpk && <CTAButton label="Download EPK (PDF)" primary href="/yongolailan-epk" />}
 
             {/* Desktop-only route into the label page (mobile uses the menu). */}
             <Link

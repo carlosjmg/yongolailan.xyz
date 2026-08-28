@@ -92,11 +92,11 @@ export default async function HomePage() {
   ];
   const primary: NavItem[] = primaryDefs
     .filter((d) => {
-      // EPK only appears when a PDF is set — the link opens it directly.
+      // EPK only appears when a PDF is set — the link opens the clean URL.
       if (d.id === "epk") return Boolean(epkPdf);
       return !d.key || st(d.key) !== "off";
     })
-    .map(({ id, label }) => ({ id, label, href: id === "epk" ? epkPdf : undefined }));
+    .map(({ id, label }) => ({ id, label, href: id === "epk" ? "/yongolailan-epk" : undefined }));
 
   // Awards is intentionally not in the phone menu (still on the page itself).
   const secondaryDefs = [{ id: "links", label: "Links", key: "links" as const }];
@@ -163,7 +163,7 @@ export default async function HomePage() {
           p1={settings["about.p1"]}
           p2={settings["about.p2"]}
           image={settings["about.image"]}
-          epkPdf={epkPdf}
+          hasEpk={Boolean(epkPdf)}
           {...txt("about")}
         />
       )}
