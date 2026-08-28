@@ -97,7 +97,7 @@ export default async function HomePage() {
       if (d.id === "epk") return Boolean(epkPdf);
       return !d.key || st(d.key) !== "off";
     })
-    .map(({ id, label }) => ({ id, label, href: id === "epk" ? "/yongolailan-epk" : undefined }));
+    .map(({ id, label }) => ({ id, label, href: id === "epk" ? "https://www.yongolailan.xyz/yongolailan-epk" : undefined }));
 
   // Awards is intentionally not in the phone menu (still on the page itself).
   const secondaryDefs = [{ id: "links", label: "Links", key: "links" as const }];
