@@ -133,6 +133,7 @@ export default async function HomePage() {
         logoOffsetYMobile={settings["site.logoOffsetYMobile"]}
         bookingColor={heroColor}
         showBooking={showBooking}
+        menuSize={settings["nav.menuSize"]}
       />
 
       <Hero

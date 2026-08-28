@@ -22,10 +22,13 @@ export default function Nav({
   logoOffsetYMobile = "",
   bookingColor = "var(--gold)",
   showBooking = true,
+  menuSize = 11,
 }: {
   primary: NavItem[];
   secondary: NavItem[];
   showBooking?: boolean;
+  /** Font size (px) of the desktop top-menu links. Phones keep their own size. */
+  menuSize?: number | string;
   logo?: string;
   logoSize?: number | string;
   /** Logo height on phones; empty/0 falls back to the desktop size. */
@@ -52,6 +55,8 @@ export default function Nav({
   const nyMobile = mobileNum(logoOffsetYMobile, ny);
   const desktopH = Number(logoSize) || 40;
   const mobileH = Number(logoSizeMobile) > 0 ? Number(logoSizeMobile) : desktopH;
+  // Desktop menu-link size (px). Clamped so a stray value can't break the bar.
+  const menuFont = Math.min(28, Math.max(8, Number(menuSize) || 11));
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("home");
@@ -89,7 +94,7 @@ export default function Nav({
   // label on one line.
   const navLinkStyle: React.CSSProperties = {
     fontFamily: "var(--font-mono)",
-    fontSize: "11px",
+    fontSize: `${menuFont}px`,
     letterSpacing: "0.12em",
     textTransform: "uppercase",
     color: "rgba(255,255,255,0.9)",

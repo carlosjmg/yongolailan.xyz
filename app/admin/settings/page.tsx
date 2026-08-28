@@ -43,6 +43,7 @@ const KEYS = [
   "site.logoOffsetY",
   "site.logoOffsetXMobile",
   "site.logoOffsetYMobile",
+  "nav.menuSize",
   "site.ogImage",
   "catalog.pinned",
   "epk.pdfUrl",
@@ -150,6 +151,12 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           </div>
           <div style={{ flex: "1 1 180px" }}>
             <TextSetting name="site.logoOffsetYMobile" label="Up / down — mobile (px)" value={s["site.logoOffsetYMobile"]} type="number" help="Leave empty to match desktop. 0 = no vertical offset." />
+          </div>
+        </div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Top menu — desktop</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="nav.menuSize" label="Menu text size — desktop (px)" value={s["nav.menuSize"]} type="number" help="Size of the top menu links on computers. Default 11. Try 11–16. (Phones are unaffected.)" />
           </div>
         </div>
 

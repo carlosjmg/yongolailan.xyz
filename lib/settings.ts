@@ -47,6 +47,8 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "hero.bookingY": "0",
   // Show/hide the Booking button (hero, mobile menu, mobile sticky bar). "off" hides.
   "hero.showBooking": "on",
+  // Font size (px) of the top menu links on desktop. Phones use their own size.
+  "nav.menuSize": "11",
 
   // ── Section header styling (applies to every section heading) ──
   "headers.font": "cormorant", // one of lib/fonts HEADER_FONTS keys — the big title
