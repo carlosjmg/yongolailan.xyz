@@ -21,18 +21,25 @@ export default function Hero({
   roleColor,
   copyX = 0,
   copyY = 0,
+  bookingX = 0,
+  bookingY = 0,
 }: {
   image: string;
   name: string;
   roleLine?: string;
   /** Chosen in the admin (Home & Hero). Already validated as a hex colour. */
   roleColor: string;
-  /** Admin nudge for the one-liner + Booking, desktop only, in px. */
+  /** Admin nudge for the one-liner + Booking group, desktop only, in px. */
   copyX?: number | string;
   copyY?: number | string;
+  /** Extra nudge for JUST the Booking button (relative to the group), desktop. */
+  bookingX?: number | string;
+  bookingY?: number | string;
 }) {
   const cx = Number(copyX) || 0;
   const cy = Number(copyY) || 0;
+  const bx = Number(bookingX) || 0;
+  const by = Number(bookingY) || 0;
   return (
     <section
       id="home"
@@ -125,6 +132,8 @@ export default function Hero({
             border: `1px solid ${roleColor}`,
             borderRadius: "999px",
             cursor: "pointer",
+            // Independent nudge for just the button (desktop; hidden on phones).
+            transform: `translate(${bx}px, ${by}px)`,
             transition: "background 0.2s, color 0.2s, border-color 0.2s",
           }}
           onMouseEnter={(e) => {

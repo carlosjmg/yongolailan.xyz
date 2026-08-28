@@ -79,11 +79,12 @@ export default async function HomePage() {
     `--header-subtitle-scale:${num(settings["headers.subtitleScale"], 100)};` +
     `}`;
 
-  // Menu order mirrors the order the sections appear on the page.
+  // Menu order and labels (chosen for the menu; the page sections keep their
+  // own order — Films before Live — on purpose).
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
-    { id: "catalog", label: "Catalog", key: "catalog" },
-    { id: "videos", label: "Films", key: "videos" },
+    { id: "catalog", label: "Music", key: "catalog" },
     { id: "photos", label: "Live", key: "photos" },
+    { id: "videos", label: "Films", key: "videos" },
     { id: "merch", label: "Merch", key: "merch" },
     { id: "about", label: "About", key: "about" },
     { id: "contact", label: "Contact", key: "contact" },
@@ -139,6 +140,8 @@ export default async function HomePage() {
         roleColor={heroColor}
         copyX={settings["hero.copyX"]}
         copyY={settings["hero.copyY"]}
+        bookingX={settings["hero.bookingX"]}
+        bookingY={settings["hero.bookingY"]}
       />
 
       {/* 2 — Latest release + music catalog */}

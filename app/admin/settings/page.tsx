@@ -27,6 +27,8 @@ const KEYS = [
   "hero.roleColor",
   "hero.copyX",
   "hero.copyY",
+  "hero.bookingX",
+  "hero.bookingY",
   "hero.oneLiner",
   "hero.image",
   "headers.font",
@@ -85,13 +87,22 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           help="Pick a suggested colour, or use the picker / hex box for any colour you like. Hover a suggestion to see why it works. Leave the box empty to go back to the site gold."
         />
         <TextSetting name="hero.oneLiner" label="One-liner (italic)" value={s["hero.oneLiner"]} />
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>One-liner &amp; Booking position — desktop</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>One-liner + Booking together — desktop</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="hero.copyX" label="Left / right (px)" value={s["hero.copyX"]} type="number" help="Positive = right, negative = left. 0 = default." />
+            <TextSetting name="hero.copyX" label="Left / right (px)" value={s["hero.copyX"]} type="number" help="Moves the one-liner AND the Booking button. Positive = right, negative = left." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="hero.copyY" label="Up / down (px)" value={s["hero.copyY"]} type="number" help="Positive = down, negative = up. 0 = default." />
+            <TextSetting name="hero.copyY" label="Up / down (px)" value={s["hero.copyY"]} type="number" help="Moves both. Positive = down, negative = up." />
+          </div>
+        </div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Booking button only — desktop</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="hero.bookingX" label="Left / right (px)" value={s["hero.bookingX"]} type="number" help="Moves ONLY the Booking button, independent of the one-liner. 0 = stays with it." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="hero.bookingY" label="Up / down (px)" value={s["hero.bookingY"]} type="number" help="Positive = down, negative = up. 0 = default." />
           </div>
         </div>
         <div className="admin-field">

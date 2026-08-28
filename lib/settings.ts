@@ -42,6 +42,9 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Nudge the one-liner + Booking button on desktop, in px (+right/+down).
   "hero.copyX": "0",
   "hero.copyY": "0",
+  // Extra nudge for JUST the Booking button, independent of the one-liner (desktop).
+  "hero.bookingX": "0",
+  "hero.bookingY": "0",
 
   // ── Section header styling (applies to every section heading) ──
   "headers.font": "cormorant", // one of lib/fonts HEADER_FONTS keys — the big title
