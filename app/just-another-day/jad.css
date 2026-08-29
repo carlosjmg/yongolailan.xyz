@@ -61,20 +61,6 @@
   gap: 22px;
 }
 
-.jad-back {
-  align-self: flex-start;
-  font-family: var(--font-mono), monospace;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--jad-muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.jad-back:hover {
-  color: var(--jad-orange);
-}
-
 .jad-eyebrow {
   margin-top: clamp(6px, 4vh, 34px);
   font-family: var(--font-mono), monospace;
@@ -218,19 +204,6 @@
   transform: translateY(-3px);
   outline: none;
 }
-/* Bandcamp — first and most important (name-your-price / donations). */
-.jad-plat--primary {
-  background: var(--jad-orange);
-  border-color: var(--jad-orange);
-  color: #0a0a0c;
-  width: 60px;
-  height: 60px;
-  box-shadow: 0 0 30px -6px rgba(242, 106, 31, 0.55);
-}
-.jad-plat--primary:hover,
-.jad-plat--primary:focus-visible {
-  filter: brightness(1.1);
-}
 /* No link yet: still visible, still names itself on hover, just muted. */
 .jad-plat.is-disabled {
   opacity: 0.4;
@@ -242,12 +215,6 @@
   border-color: rgba(255, 255, 255, 0.16);
   color: var(--jad-text);
   transform: none;
-}
-.jad-plat--primary.is-disabled {
-  opacity: 0.5;
-  background: var(--jad-orange);
-  border-color: var(--jad-orange);
-  color: #0a0a0c;
 }
 
 /* Tooltip: the platform name, on hover / keyboard focus. */
@@ -287,16 +254,22 @@
   color: var(--jad-orange-soft);
   font-weight: 500;
 }
+.jad-note a {
+  color: var(--jad-orange);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--jad-line);
+  transition: border-color 0.2s;
+}
+.jad-note a:hover {
+  border-bottom-color: var(--jad-orange);
+}
 
 /* ── Small screens ───────────────────────────────────────────── */
 @media (max-width: 480px) {
   .jad-plat {
     width: 50px;
     height: 50px;
-  }
-  .jad-plat--primary {
-    width: 54px;
-    height: 54px;
   }
 }
 

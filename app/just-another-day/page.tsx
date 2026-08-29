@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
 import AudioPlayer from "@/components/site/AudioPlayer";
@@ -60,6 +59,7 @@ export default async function JustAnotherDayPage() {
   noStore();
   const settings = await getAllSettings();
   const info = settings["jad.info"] || "";
+  const bandcamp = (settings["jad.bandcamp"] || "").trim();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -112,10 +112,6 @@ export default async function JustAnotherDayPage() {
           {TITLE} — {ARTISTS}
         </h1>
 
-        <Link href="/caribbean-sea-sound/artists/arema-arega" className="jad-back">
-          ← Arema Arega
-        </Link>
-
         <div className="jad-eyebrow">New Single</div>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -133,12 +129,10 @@ export default async function JustAnotherDayPage() {
         <div className="jad-platforms">
           {PLATFORMS.map((p) => {
             const url = (settings[`jad.${p.key}`] || "").trim();
-            const primary = p.key === "bandcamp";
-            const cls =
-              "jad-plat" + (primary ? " jad-plat--primary" : "") + (url ? "" : " is-disabled");
+            const cls = "jad-plat" + (url ? "" : " is-disabled");
             const inner = (
               <>
-                <PlatformIcon name={p.icon} size={primary ? 26 : 22} />
+                <PlatformIcon name={p.icon} size={22} />
                 <span className="jad-tip">{p.name}</span>
               </>
             );
@@ -169,7 +163,15 @@ export default async function JustAnotherDayPage() {
         </div>
 
         <p className="jad-note">
-          <b>Bandcamp — name your price.</b> Pay what you want and support the release directly.
+          In{" "}
+          {bandcamp ? (
+            <a href={bandcamp} target="_blank" rel="noopener noreferrer">
+              Bandcamp
+            </a>
+          ) : (
+            <b>Bandcamp</b>
+          )}
+          , support this release directly.
         </p>
       </div>
     </main>
