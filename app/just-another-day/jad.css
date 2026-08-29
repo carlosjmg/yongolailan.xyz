@@ -264,6 +264,12 @@
 .jad-note a:hover {
   border-bottom-color: var(--jad-orange);
 }
+.jad-bandcamp {
+  display: inline-block;
+  margin-top: 8px;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+}
 
 /* ── Small screens ───────────────────────────────────────────── */
 @media (max-width: 480px) {
