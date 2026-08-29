@@ -150,15 +150,15 @@ export default async function HomePage() {
 
       {/* 2 — Latest release + music catalog */}
       <Featured releases={featured} />
-      {st("catalog") === "on" && <Catalog releases={orderedReleases} {...txt("catalog")} />}
+      {st("catalog") === "on" && <Catalog releases={orderedReleases} creditsSize={settings["catalog.creditsSize"]} {...txt("catalog")} />}
       {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
 
       {/* 3 — Films & videos */}
-      {st("videos") === "on" && <Videos videos={videos} {...txt("videos")} />}
+      {st("videos") === "on" && <Videos videos={videos} descSize={settings["videos.descSize"]} {...txt("videos")} />}
       {st("videos") === "soon" && <ComingSoon id="videos" {...txt("videos")} />}
 
       {/* 4 — Live performances */}
-      {st("photos") === "on" && <Photos photos={photos} email={email} {...txt("photos")} />}
+      {st("photos") === "on" && <Photos photos={photos} email={email} captionSize={settings["photos.captionSize"]} {...txt("photos")} />}
       {st("photos") === "soon" && <ComingSoon id="photos" {...txt("photos")} />}
 
       {/* 5 — Merch */}

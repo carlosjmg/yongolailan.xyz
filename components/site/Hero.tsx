@@ -106,7 +106,8 @@ export default function Hero({
         }}
       >
         {roleLine && (
-          <div
+          <WaveLine
+            text={roleLine}
             className="hero-role"
             style={{
               fontFamily: "var(--font-mono)",
@@ -115,9 +116,7 @@ export default function Hero({
               textTransform: "uppercase",
               color: roleColor,
             }}
-          >
-            {roleLine}
-          </div>
+          />
         )}
 
         {/* Phones get this button at the foot of the menu instead. */}
@@ -160,6 +159,92 @@ export default function Hero({
 
       <ScrollCue color={roleColor} />
     </section>
+  );
+}
+
+/**
+ * The hero role line, drawn glyph-by-glyph so it ripples under the cursor:
+ * the letter nearest the pointer lifts a few pixels, its neighbours less, on a
+ * smooth Gaussian falloff — a very subtle wave. Desktop-only in practice (the
+ * line is hidden on phones and the effect keys off pointer movement). Marked
+ * aria-hidden because the visually-hidden <h1> already carries the same text.
+ */
+function WaveLine({
+  text,
+  className,
+  style,
+}: {
+  text: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const frame = React.useRef<number | null>(null);
+
+  const applyWave = (clientX: number) => {
+    const el = ref.current;
+    if (!el) return;
+    const glyphs = el.querySelectorAll<HTMLElement>("[data-glyph]");
+    if (!glyphs.length) return;
+    // Scale the ripple to the current type size so it looks the same at any
+    // viewport: a subtle ~0.42em peak lift, spread over ~2–3 letters.
+    const fontPx = parseFloat(getComputedStyle(el).fontSize) || 14;
+    const amp = fontPx * 0.42;
+    const first = glyphs[0].getBoundingClientRect();
+    const last = glyphs[glyphs.length - 1].getBoundingClientRect();
+    const advance = Math.max(6, (last.right - first.left) / glyphs.length);
+    const sigma = advance * 1.3;
+    glyphs.forEach((g) => {
+      const r = g.getBoundingClientRect();
+      const dx = clientX - (r.left + r.width / 2);
+      const lift = amp * Math.exp(-(dx * dx) / (2 * sigma * sigma));
+      g.style.transform = `translateY(${-lift}px)`;
+    });
+  };
+
+  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const x = e.clientX;
+    if (frame.current) cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => applyWave(x));
+  };
+
+  const onLeave = () => {
+    if (frame.current) cancelAnimationFrame(frame.current);
+    const el = ref.current;
+    if (!el) return;
+    el.querySelectorAll<HTMLElement>("[data-glyph]").forEach((g) => {
+      g.style.transform = "translateY(0)";
+    });
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={style}
+      aria-hidden="true"
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+    >
+      {Array.from(text).map((ch, i) =>
+        ch === " " ? (
+          // A plain inline space: keeps the line's normal wrap points intact.
+          <span key={i}> </span>
+        ) : (
+          <span
+            key={i}
+            data-glyph
+            style={{
+              display: "inline-block",
+              transition: "transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)",
+              willChange: "transform",
+            }}
+          >
+            {ch}
+          </span>
+        )
+      )}
+    </div>
   );
 }
 

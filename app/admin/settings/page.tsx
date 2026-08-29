@@ -46,6 +46,9 @@ const KEYS = [
   "nav.menuSize",
   "site.ogImage",
   "catalog.pinned",
+  "catalog.creditsSize",
+  "videos.descSize",
+  "photos.captionSize",
   "epk.pdfUrl",
   "contact.email",
   "contact.whatsapp",
@@ -189,6 +192,22 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           </div>
           <div style={{ flex: "1 1 150px" }}>
             <TextSetting name="headers.subtitleScale" label="Subtitle size (%)" value={s["headers.subtitleScale"]} type="number" />
+          </div>
+        </div>
+
+        <GroupHeading>Caption &amp; credit text sizes</GroupHeading>
+        <p className="admin-help" style={{ marginTop: "-8px", marginBottom: "14px" }}>
+          The small text under each item, in pixels. Music: the credit line under a release. Films/Videos: the description under a video. Live: the caption under a photo/video.
+        </p>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="catalog.creditsSize" label="Music — credit line (px)" value={s["catalog.creditsSize"]} type="number" help="Under each release, e.g. &ldquo;Lyric by…&rdquo;. Default 10." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="videos.descSize" label="Films / Videos — description (px)" value={s["videos.descSize"]} type="number" help="The description line under each video. Default 13." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="photos.captionSize" label="Live — caption (px)" value={s["photos.captionSize"]} type="number" help="The caption under each Live photo/video. Default 24." />
           </div>
         </div>
 

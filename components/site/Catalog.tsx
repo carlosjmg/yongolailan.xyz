@@ -28,7 +28,7 @@ function firstLink(r: Release): string | undefined {
   );
 }
 
-function CatalogCard({ release }: { release: Release }) {
+function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: number }) {
   const [hover, setHover] = useState(false);
   const listen = firstLink(release);
 
@@ -198,7 +198,7 @@ function CatalogCard({ release }: { release: Release }) {
           <div
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "10px",
+              fontSize: `${creditsSize}px`,
               color: "var(--text-dim)",
               borderTop: "1px solid var(--border)",
               paddingTop: "12px",
@@ -278,12 +278,17 @@ export default function Catalog({
   eyebrow,
   title,
   subtitle,
+  creditsSize = 10,
 }: {
   releases: Release[];
   eyebrow: string;
   title: string;
   subtitle?: string;
+  /** Admin-controlled size (px) of the credit line under each release. */
+  creditsSize?: number | string;
 }) {
+  // Clamp so a stray admin value can't break the card layout.
+  const cs = Math.min(40, Math.max(6, Number(creditsSize) || 10));
   // Album / EP / Single, in a fixed order, showing only the types actually used.
   const TYPE_ORDER = ["Album", "EP", "Single"];
   const used = new Set(releases.map((r) => r.releaseType));
@@ -338,7 +343,7 @@ export default function Catalog({
 
       <div className="catalog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(260px, 1fr))", gap: "2px" }}>
         {shown.map((r) => (
-          <CatalogCard key={r.id} release={r} />
+          <CatalogCard key={r.id} release={r} creditsSize={cs} />
         ))}
       </div>
 

@@ -8,7 +8,7 @@ import ShowMore from "./ShowMore";
 
 const PAGE_SIZE = 6;
 
-function VideoCard({ video }: { video: Video }) {
+function VideoCard({ video, descSize }: { video: Video; descSize: number }) {
   const embed = toEmbedUrl(video.embedUrl);
 
   return (
@@ -90,7 +90,7 @@ function VideoCard({ video }: { video: Video }) {
           {video.title}
         </h3>
         {video.description && (
-          <p style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: "var(--text-dim)", lineHeight: 1.6 }}>
+          <p style={{ fontFamily: "var(--font-mono)", fontSize: `${descSize}px`, color: "var(--text-dim)", lineHeight: 1.6 }}>
             {video.description}
           </p>
         )}
@@ -104,12 +104,16 @@ export default function Videos({
   eyebrow,
   title,
   subtitle,
+  descSize = 13,
 }: {
   videos: Video[];
   eyebrow: string;
   title: string;
   subtitle?: string;
+  /** Admin-controlled size (px) of the description line under each video. */
+  descSize?: number | string;
 }) {
+  const ds = Math.min(40, Math.max(6, Number(descSize) || 13));
   const [expanded, setExpanded] = useState(false);
   const shown = expanded ? videos : videos.slice(0, PAGE_SIZE);
   const hiddenCount = videos.length - shown.length;
@@ -137,7 +141,7 @@ export default function Videos({
         <>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "clamp(24px, 3vw, 40px)" }}>
             {shown.map((v) => (
-              <VideoCard key={v.id} video={v} />
+              <VideoCard key={v.id} video={v} descSize={ds} />
             ))}
           </div>
           <ShowMore expanded={expanded} hiddenCount={hiddenCount} onToggle={() => setExpanded((x) => !x)} />

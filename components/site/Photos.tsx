@@ -18,12 +18,13 @@ const FALLBACK: { image: string; caption: string }[] = [
 ];
 
 /** Title below the media — same type treatment as the Films cards. */
-function ItemTitle({ text }: { text: string }) {
+function ItemTitle({ text, size = 24 }: { text: string; size?: number }) {
   return (
     <h3
       style={{
         fontFamily: "var(--font-display)",
-        fontSize: "clamp(19px, 2vw, 24px)",
+        // Admin-controlled, in px — a direct, predictable size.
+        fontSize: `${size}px`,
         fontWeight: 400,
         color: "var(--text)",
         lineHeight: 1.2,
@@ -43,7 +44,7 @@ const mediaBoxStyle: React.CSSProperties = {
   border: "1px solid var(--border)",
 };
 
-function LiveItem({ item }: { item: Photo }) {
+function LiveItem({ item, captionSize }: { item: Photo; captionSize: number }) {
   const embed = toEmbedUrl(item.videoUrl);
   const caption = item.caption || item.title || "";
 
@@ -111,7 +112,7 @@ function LiveItem({ item }: { item: Photo }) {
         )}
       </div>
 
-      {caption && <ItemTitle text={caption} />}
+      {caption && <ItemTitle text={caption} size={captionSize} />}
     </div>
   );
 }
@@ -122,14 +123,18 @@ export default function Photos({
   eyebrow,
   title,
   subtitle,
+  captionSize = 24,
 }: {
   photos: Photo[];
   email: string;
   eyebrow: string;
   title: string;
   subtitle?: string;
+  /** Admin-controlled desktop size (px) of the caption under each Live item. */
+  captionSize?: number | string;
 }) {
   void email;
+  const cap = Math.min(60, Math.max(12, Number(captionSize) || 24));
   // An item needs either a photo or a video link to show anything.
   const items = photos.filter((p) => p.image || p.videoUrl);
   const [expanded, setExpanded] = useState(false);
@@ -148,7 +153,7 @@ export default function Photos({
         }}
       >
         {items.length > 0
-          ? shown.map((p) => <LiveItem key={p.id} item={p} />)
+          ? shown.map((p) => <LiveItem key={p.id} item={p} captionSize={cap} />)
           : FALLBACK.map((f, i) => (
               <div
                 key={i}
@@ -158,7 +163,7 @@ export default function Photos({
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={f.image} alt={f.caption} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.9 }} />
                 </div>
-                <ItemTitle text={f.caption} />
+                <ItemTitle text={f.caption} size={cap} />
               </div>
             ))}
       </div>

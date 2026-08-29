@@ -49,6 +49,10 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "hero.showBooking": "on",
   // Font size (px) of the top menu links on desktop. Phones use their own size.
   "nav.menuSize": "11",
+  // Caption / credit text sizes (px) under releases and media cards.
+  "catalog.creditsSize": "10", // Music catalog credit line (e.g. "Lyric by…")
+  "videos.descSize": "13",     // Films & Videos description line
+  "photos.captionSize": "24",  // Live caption under each item (px)
 
   // ── Section header styling (applies to every section heading) ──
   "headers.font": "cormorant", // one of lib/fonts HEADER_FONTS keys — the big title
