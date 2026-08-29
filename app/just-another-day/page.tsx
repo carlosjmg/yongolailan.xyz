@@ -116,7 +116,7 @@ export default async function JustAnotherDayPage() {
           ← Arema Arega
         </Link>
 
-        <div className="jad-eyebrow">New Single · Caribbean Sea Sound</div>
+        <div className="jad-eyebrow">New Single</div>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="jad-cover" src={COVER} alt={`${TITLE} — ${ARTISTS} cover`} width={1500} height={1500} />

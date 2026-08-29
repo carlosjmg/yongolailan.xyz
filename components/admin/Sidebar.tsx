@@ -34,6 +34,12 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
     ],
   },
   {
+    label: "Landing Pages",
+    items: [
+      { href: "/admin/landing-pages/just-another-day", label: "Just Another Day" },
+    ],
+  },
+  {
     label: "Audience",
     items: [{ href: "/admin/messages", label: "Messages" }],
   },
