@@ -50,6 +50,15 @@ const KEYS = [
   "videos.descSize",
   "photos.captionSize",
   "epk.pdfUrl",
+  "jad.info",
+  "jad.bandcamp",
+  "jad.spotify",
+  "jad.apple",
+  "jad.soundcloud",
+  "jad.youtube",
+  "jad.youtubemusic",
+  "jad.tidal",
+  "jad.deezer",
   "contact.email",
   "contact.whatsapp",
   "contact.whatsappUrl",
@@ -224,6 +233,38 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           <label className="admin-label">EPK PDF</label>
           <FileUpload name="epk.pdfUrl" defaultValue={s["epk.pdfUrl"]} accept="application/pdf" label="Upload EPK PDF" />
           <div className="admin-help">Upload your EPK as a PDF. When set, the &ldquo;EPK&rdquo; menu link opens it directly and the on-site EPK section is hidden.</div>
+        </div>
+
+        <GroupHeading>&ldquo;Just Another Day&rdquo; single page</GroupHeading>
+        <p className="admin-help" style={{ marginTop: "-8px", marginBottom: "14px" }}>
+          The page at <b>/just-another-day</b>, reached by clicking the song in Arema Arega&rsquo;s page. Paste each streaming link as you get it — a button with no link yet still shows, just greyed out. Bandcamp is first (name-your-price).
+        </p>
+        <TextareaSetting name="jad.info" label="Info text" value={s["jad.info"]} rows={3} help="Short paragraph shown under the cover." />
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.bandcamp" label="Bandcamp link (donations)" value={s["jad.bandcamp"]} placeholder="https://…bandcamp.com/…" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.spotify" label="Spotify link" value={s["jad.spotify"]} placeholder="https://open.spotify.com/…" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.apple" label="Apple Music link" value={s["jad.apple"]} placeholder="https://music.apple.com/…" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.soundcloud" label="SoundCloud link" value={s["jad.soundcloud"]} placeholder="https://soundcloud.com/…" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.youtube" label="YouTube link" value={s["jad.youtube"]} placeholder="https://youtube.com/…" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.youtubemusic" label="YouTube Music link" value={s["jad.youtubemusic"]} placeholder="https://music.youtube.com/…" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.tidal" label="Tidal link" value={s["jad.tidal"]} placeholder="https://tidal.com/…" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="jad.deezer" label="Deezer link" value={s["jad.deezer"]} placeholder="https://deezer.com/…" />
+          </div>
         </div>
 
         <GroupHeading>Contact</GroupHeading>

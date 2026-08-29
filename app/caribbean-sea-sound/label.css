@@ -547,6 +547,27 @@
   letter-spacing: -0.01em;
   line-height: 1.15;
 }
+/* A song with its own page: the title becomes a link (with a → affordance). */
+.cssound-song-link {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(var(--sea), var(--sea));
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease, color 0.2s ease;
+}
+.cssound-song-link:hover,
+.cssound-song-link:focus-visible {
+  color: var(--sea);
+  background-size: 100% 1.5px;
+  outline: none;
+}
+.cssound-song-link::after {
+  content: " →";
+  color: var(--sea);
+  font-weight: 400;
+}
 .cssound-song-feat {
   color: var(--ink-soft);
   font-weight: 400;

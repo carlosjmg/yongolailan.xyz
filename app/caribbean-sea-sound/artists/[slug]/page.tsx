@@ -42,8 +42,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
+// Songs with their own dedicated page on the site, keyed by normalised title.
+// Clicking the song title in the artist page opens it.
+const SONG_PAGES: Record<string, string> = {
+  justanotherday: "/just-another-day",
+};
+const songKey = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "");
+
 function Song({ song }: { song: LabelProduction }) {
   const meta = [song.releaseType, song.releaseDate || song.year].filter(Boolean);
+  const pageHref = SONG_PAGES[songKey(song.title)];
 
   return (
     <div className="cssound-song">
@@ -58,7 +66,13 @@ function Song({ song }: { song: LabelProduction }) {
 
       <div style={{ minWidth: 0 }}>
         <div className="cssound-song-title">
-          {song.title}
+          {pageHref ? (
+            <Link href={pageHref} className="cssound-song-link">
+              {song.title}
+            </Link>
+          ) : (
+            song.title
+          )}
           {song.featuredArtists ? <span className="cssound-song-feat"> {song.featuredArtists}</span> : null}
         </div>
 

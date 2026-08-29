@@ -1,0 +1,308 @@
+/* ───────────────────────────────────────────────────────────────
+   "Just Another Day" — bespoke single page.
+   Immersive: a dimmed palm-loop video behind a centred column, with the
+   cover art as the hero and orange accents pulled straight from the artwork.
+   All selectors are scoped under .jad-page so nothing leaks to the rest of
+   the site (this file is global once imported).
+   ─────────────────────────────────────────────────────────────── */
+
+.jad-page {
+  --jad-orange: #f26a1f;
+  --jad-orange-soft: #f7995e;
+  --jad-bg: #08090c;
+  --jad-text: #f3ede2;
+  --jad-muted: #9a948a;
+  --jad-line: rgba(242, 106, 31, 0.35);
+
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--jad-bg);
+  color: var(--jad-text);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Background video loop + dimming ─────────────────────────── */
+.jad-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  /* Muted, low-key: it sets the mood without fighting the content. */
+  opacity: 0.5;
+}
+.jad-bg-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 30%, rgba(8, 9, 12, 0.35) 0%, rgba(8, 9, 12, 0.72) 55%, rgba(8, 9, 12, 0.94) 100%),
+    linear-gradient(to bottom, rgba(8, 9, 12, 0.55) 0%, rgba(8, 9, 12, 0.2) 30%, rgba(8, 9, 12, 0.85) 100%);
+}
+
+/* ── Content column ──────────────────────────────────────────── */
+.jad-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(28px, 6vh, 64px) 24px clamp(40px, 8vh, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 22px;
+}
+
+.jad-back {
+  align-self: flex-start;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--jad-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.jad-back:hover {
+  color: var(--jad-orange);
+}
+
+.jad-eyebrow {
+  margin-top: clamp(6px, 4vh, 34px);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--jad-orange);
+}
+
+/* ── Cover art — the hero ────────────────────────────────────── */
+.jad-cover {
+  width: min(80vw, 440px);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--jad-line);
+  box-shadow:
+    0 30px 80px -20px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 60px -10px rgba(242, 106, 31, 0.18);
+  display: block;
+}
+
+/* ── Credit (echoes the cover's orange caption) ──────────────── */
+.jad-artists {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(12px, 2.4vw, 15px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--jad-orange);
+  font-weight: 500;
+}
+
+.jad-info {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--jad-muted);
+  max-width: 48ch;
+  margin: 0;
+}
+
+/* ── Audio player (reuses the AudioPlayer component markup) ───── */
+.jad-player-wrap {
+  width: 100%;
+  max-width: 420px;
+}
+.jad-page .cssound-player {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 10px 16px 10px 10px;
+  border: 1px solid var(--jad-line);
+  border-radius: 999px;
+  background: rgba(12, 12, 14, 0.55);
+  backdrop-filter: blur(6px);
+}
+.jad-page .cssound-player-btn {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  min-height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: var(--jad-orange);
+  color: #0a0a0c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.2s, transform 0.15s;
+}
+.jad-page .cssound-player-btn:hover {
+  filter: brightness(1.12);
+  transform: scale(1.04);
+}
+.jad-page .cssound-player-track {
+  flex: 1;
+  min-width: 0;
+}
+.jad-page .cssound-player-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  position: relative;
+  cursor: pointer;
+}
+.jad-page .cssound-player-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 2px;
+  background: var(--jad-orange);
+  width: 0%;
+}
+.jad-page .cssound-player-time {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--jad-muted);
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Platform buttons ────────────────────────────────────────── */
+.jad-listen-label {
+  margin-top: 6px;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--jad-muted);
+}
+.jad-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+.jad-plat {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--jad-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+}
+.jad-plat:hover,
+.jad-plat:focus-visible {
+  background: var(--jad-orange);
+  border-color: var(--jad-orange);
+  color: #0a0a0c;
+  transform: translateY(-3px);
+  outline: none;
+}
+/* Bandcamp — first and most important (name-your-price / donations). */
+.jad-plat--primary {
+  background: var(--jad-orange);
+  border-color: var(--jad-orange);
+  color: #0a0a0c;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 0 30px -6px rgba(242, 106, 31, 0.55);
+}
+.jad-plat--primary:hover,
+.jad-plat--primary:focus-visible {
+  filter: brightness(1.1);
+}
+/* No link yet: still visible, still names itself on hover, just muted. */
+.jad-plat.is-disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.jad-plat.is-disabled:hover,
+.jad-plat.is-disabled:focus-visible {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--jad-text);
+  transform: none;
+}
+.jad-plat--primary.is-disabled {
+  opacity: 0.5;
+  background: var(--jad-orange);
+  border-color: var(--jad-orange);
+  color: #0a0a0c;
+}
+
+/* Tooltip: the platform name, on hover / keyboard focus. */
+.jad-tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: #0a0a0c;
+  border: 1px solid var(--jad-line);
+  color: var(--jad-orange);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.jad-plat:hover .jad-tip,
+.jad-plat:focus-visible .jad-tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.jad-note {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--jad-muted);
+  max-width: 40ch;
+}
+.jad-note b {
+  color: var(--jad-orange-soft);
+  font-weight: 500;
+}
+
+/* ── Small screens ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .jad-plat {
+    width: 50px;
+    height: 50px;
+  }
+  .jad-plat--primary {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+/* Users who prefer reduced motion: hold a still frame. */
+@media (prefers-reduced-motion: reduce) {
+  .jad-bg {
+    display: none;
+  }
+}

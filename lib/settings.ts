@@ -153,6 +153,20 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "site.ogImage": "",
   "epk.pdfUrl": "",
 
+  // ── "Just Another Day" single page (/just-another-day) ──
+  // Reached by clicking the song title in Arema Arega's label page.
+  "jad.info":
+    "The new single from Arema Arega & Yongolailan — a nocturnal, palm-lit groove born between the Caribbean and New York. Out now on Caribbean Sea Sound. Name your price on Bandcamp.",
+  // Streaming links. Empty = the button shows but is greyed out (no link yet).
+  "jad.bandcamp": "",
+  "jad.spotify": "",
+  "jad.apple": "",
+  "jad.soundcloud": "https://soundcloud.com/yongolailan/just-another-day-1",
+  "jad.youtube": "",
+  "jad.youtubemusic": "",
+  "jad.tidal": "",
+  "jad.deezer": "",
+
   "section.catalog": "on",
   "section.epk": "on",
   "section.photos": "on",
