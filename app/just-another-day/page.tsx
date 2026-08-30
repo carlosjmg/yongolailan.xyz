@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
-import AudioPlayer from "@/components/site/AudioPlayer";
 import PlatformIcon from "@/components/site/PlatformIcon";
 import "./jad.css";
 
@@ -9,7 +8,6 @@ export const dynamic = "force-dynamic";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
 const COVER = "/images/just-another-day-cover.jpg";
-const AUDIO = "/audio/just-another-day.mp3";
 const TITLE = "Just Another Day";
 const ARTISTS = "Arema Arega & Yongolailan";
 
@@ -120,10 +118,6 @@ export default async function JustAnotherDayPage() {
         <div className="jad-artists">{ARTISTS}</div>
 
         {info ? <p className="jad-info">{info}</p> : null}
-
-        <div className="jad-player-wrap">
-          <AudioPlayer src={AUDIO} title={TITLE} />
-        </div>
 
         <div className="jad-listen-label">Listen &amp; support</div>
         <div className="jad-platforms">

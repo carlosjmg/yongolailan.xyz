@@ -158,7 +158,14 @@ export default function Nav({
           justifyContent: "space-between",
           height: "64px",
           transition: "background 0.4s, border-color 0.4s",
-          ...(scrolled
+          ...(mobileOpen
+            ? {
+                // Menu open (phones): a solid dark bar so the hero artwork
+                // doesn't show through above the black menu.
+                background: "oklch(8% 0.018 30 / 0.98)",
+                backdropFilter: "blur(16px)",
+              }
+            : scrolled
             ? {
                 background: "oklch(8% 0.018 30 / 0.94)",
                 backdropFilter: "blur(16px)",
