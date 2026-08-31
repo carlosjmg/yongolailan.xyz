@@ -64,16 +64,19 @@
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-  padding: clamp(28px, 6vh, 64px) 24px clamp(40px, 8vh, 80px);
+  /* Symmetric padding + vertical centering → equal gap above and below the
+     block, so it sits centred instead of pinned to the top. When the content
+     is taller than the viewport the column just grows and the page scrolls. */
+  padding: clamp(40px, 6vh, 72px) 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: 22px;
 }
 
 .jad-eyebrow {
-  margin-top: clamp(6px, 4vh, 34px);
   font-family: var(--font-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.32em;
@@ -113,6 +116,9 @@
   color: var(--jad-muted);
   max-width: 46ch;
   margin: 0;
+  /* Honour line breaks typed in the admin, so each credit can sit on its
+     own line. */
+  white-space: pre-line;
 }
 
 /* ── Platform buttons ────────────────────────────────────────── */

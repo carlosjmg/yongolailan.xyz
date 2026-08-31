@@ -157,7 +157,7 @@ export default async function JustAnotherDayPage() {
         </div>
 
         <p className="jad-note">
-          Support the Artist directly on
+          Support this Song directly on:
           <br />
           {bandcamp ? (
             <a className="jad-bandcamp" href={bandcamp} target="_blank" rel="noopener noreferrer">
