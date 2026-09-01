@@ -8,6 +8,8 @@ export const dynamic = "force-dynamic";
 // place so the form saves exactly these (see saveSettingsForm).
 const KEYS = [
   "jad.info",
+  "jad.infoSize",
+  "jad.infoSizeMobile",
   "jad.bandcamp",
   "jad.spotify",
   "jad.apple",
@@ -33,7 +35,16 @@ export default async function JustAnotherDayAdmin({ searchParams }: { searchPara
 
       <form action={action} className="admin-panel" style={{ maxWidth: "640px" }}>
         <GroupHeading>Info</GroupHeading>
-        <TextareaSetting name="jad.info" label="Info text" value={s["jad.info"]} rows={3} help="Short paragraph shown under the cover." />
+        <TextareaSetting name="jad.info" label="Info text (credits)" value={s["jad.info"]} rows={5} help="Shown under the cover. Press Enter to put each credit on its own line." />
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Credits text size</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="jad.infoSize" label="Size — desktop (px)" value={s["jad.infoSize"]} type="number" help="Default 14." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="jad.infoSizeMobile" label="Size — mobile (px)" value={s["jad.infoSizeMobile"]} type="number" help="Default 14." />
+          </div>
+        </div>
 
         <GroupHeading>Streaming links</GroupHeading>
         <p className="admin-help" style={{ marginTop: "-8px", marginBottom: "14px" }}>

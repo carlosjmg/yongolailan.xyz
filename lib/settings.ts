@@ -157,6 +157,9 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Reached by clicking the song title in Arema Arega's label page.
   "jad.info":
     "The new single from Arema Arega & Yongolailan — a nocturnal, palm-lit groove born between the Caribbean and New York. Out now on Caribbean Sea Sound. Name your price on Bandcamp.",
+  // Credits/description font size (px), per device.
+  "jad.infoSize": "14",
+  "jad.infoSizeMobile": "14",
   // Streaming links. Empty = the button shows but is greyed out (no link yet).
   "jad.bandcamp": "",
   "jad.spotify": "",

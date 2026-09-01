@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
 import PlatformIcon from "@/components/site/PlatformIcon";
 import "./jad.css";
+
+/** Clamp an admin px value so a stray entry can't break the layout. */
+const clampPx = (v: string | undefined, fallback: number) =>
+  Math.min(40, Math.max(8, Number(v) || fallback));
 
 export const dynamic = "force-dynamic";
 
@@ -58,6 +63,8 @@ export default async function JustAnotherDayPage() {
   const settings = await getAllSettings();
   const info = settings["jad.info"] || "";
   const bandcamp = (settings["jad.bandcamp"] || "").trim();
+  const infoSize = clampPx(settings["jad.infoSize"], 14);
+  const infoSizeMobile = clampPx(settings["jad.infoSizeMobile"], 14);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -117,7 +124,20 @@ export default async function JustAnotherDayPage() {
 
         <div className="jad-artists">{ARTISTS}</div>
 
-        {info ? <p className="jad-info">{info}</p> : null}
+        {info ? (
+          <p
+            className="jad-info"
+            style={
+              {
+                // Admin-controlled size per device (desktop var, mobile var).
+                "--jad-info-size": `${infoSize}px`,
+                "--jad-info-size-mobile": `${infoSizeMobile}px`,
+              } as CSSProperties
+            }
+          >
+            {info}
+          </p>
+        ) : null}
 
         <div className="jad-listen-label">Listen &amp; support</div>
         <div className="jad-platforms">

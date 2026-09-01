@@ -109,9 +109,9 @@
 }
 
 .jad-info {
-  /* Same mono face as the Films/Live captions (size unchanged). */
+  /* Same mono face as the Films/Live captions. Size is admin-controlled. */
   font-family: var(--font-mono), monospace;
-  font-size: 14px;
+  font-size: var(--jad-info-size, 14px);
   line-height: 1.75;
   color: var(--jad-muted);
   max-width: 46ch;
@@ -238,5 +238,12 @@
 @media (prefers-reduced-motion: reduce) {
   .jad-bg {
     display: none;
+  }
+}
+
+/* Phone credits size — placed last so it overrides the base .jad-info size. */
+@media (max-width: 600px) {
+  .jad-info {
+    font-size: var(--jad-info-size-mobile, 14px);
   }
 }
