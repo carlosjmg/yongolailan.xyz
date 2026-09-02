@@ -19,3 +19,9 @@ export async function deleteMessage(id: string) {
   await prisma.contactMessage.delete({ where: { id } });
   revalidatePath("/admin/messages");
 }
+
+export async function deleteSubscriber(id: string) {
+  await assertAdmin();
+  await prisma.subscriber.delete({ where: { id } });
+  revalidatePath("/admin/subscribers");
+}

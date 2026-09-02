@@ -160,6 +160,38 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Credits/description font size (px), per device.
   "jad.infoSize": "14",
   "jad.infoSizeMobile": "14",
+
+  // ── Optional landing modules — every one is OFF/empty by default, so the
+  // live page is unchanged until it's turned on and filled in from the admin.
+  "jad.eyebrow": "New Single", // small line above the cover
+  // Release date/time, local, e.g. "2026-10-16T00:00". Drives the CTA switch,
+  // the "OUT — …" line and the countdown. Empty = no date features.
+  "jad.releaseDate": "",
+  // Big primary CTA. Before the date → "Pre-Save"; on/after → "Listen Now".
+  "jad.cta.enabled": "off",
+  "jad.presaveUrl": "", // pre-save / smart link used before release
+  "jad.listenUrl": "", // listen-now / smart link used on & after release
+  "jad.countdown.enabled": "off", // tiny "N DAYS / N HOURS" until release
+  // 15–30s audio preview, played from the hosted track.
+  "jad.preview.enabled": "off",
+  "jad.preview.start": "0", // seconds into the track where the preview starts
+  "jad.preview.duration": "30", // seconds
+  // "Watch the visualizer" — opens the background loop full-screen.
+  "jad.visualizer.enabled": "off",
+  "jad.visualizer.label": "Watch the Visualizer",
+  // One-line phrase / lyric under the artists.
+  "jad.tagline.enabled": "off",
+  "jad.tagline": "",
+  // Collapse the credits to a few lines with a "Full credits +" toggle.
+  "jad.credits.collapse": "off",
+  "jad.credits.lines": "3",
+  // Editable lead-in for the Bandcamp support line (BANDCAMP stays the link).
+  "jad.bandcampNote": "Support this Song directly on:",
+  // Discreet email capture near the foot.
+  "jad.email.enabled": "off",
+  "jad.email.heading": "Stay connected",
+  // Share / copy-link row.
+  "jad.share.enabled": "off",
   // Streaming links. Empty = the button shows but is greyed out (no link yet).
   "jad.bandcamp": "",
   "jad.spotify": "",

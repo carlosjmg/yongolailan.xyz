@@ -3,6 +3,12 @@ import type { CSSProperties } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
 import PlatformIcon from "@/components/site/PlatformIcon";
+import ReleaseBlock from "@/components/site/jad/ReleaseBlock";
+import PreviewButton from "@/components/site/jad/PreviewButton";
+import VisualizerButton from "@/components/site/jad/VisualizerButton";
+import Credits from "@/components/site/jad/Credits";
+import EmailCapture from "@/components/site/jad/EmailCapture";
+import ShareRow from "@/components/site/jad/ShareRow";
 import "./jad.css";
 
 /** Clamp an admin px value so a stray entry can't break the layout. */
@@ -13,6 +19,7 @@ export const dynamic = "force-dynamic";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
 const COVER = "/images/just-another-day-cover.jpg";
+const AUDIO = "/audio/just-another-day.mp3";
 const TITLE = "Just Another Day";
 const ARTISTS = "Arema Arega & Yongolailan";
 
@@ -29,12 +36,20 @@ const PLATFORMS: { key: string; name: string; icon: string }[] = [
   { key: "deezer", name: "Deezer", icon: "deezer" },
 ];
 
+/** now >= release date? (No/invalid date counts as released.) */
+function isReleased(dateStr: string): boolean {
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}))?/.exec(dateStr.trim());
+  if (!m) return true;
+  const t = new Date(+m[1], +m[2] - 1, +m[3], m[4] ? +m[4] : 0, m[5] ? +m[5] : 0).getTime();
+  return Date.now() >= t;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   let description =
     "The new single from Arema Arega & Yongolailan, out now on Caribbean Sea Sound.";
   try {
     const s = await getAllSettings();
-    if (s["jad.info"]) description = s["jad.info"];
+    if (s["jad.info"]) description = s["jad.info"].replace(/\s+/g, " ").trim();
   } catch {
     /* database unavailable — fall back to the default description */
   }
@@ -61,10 +76,33 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function JustAnotherDayPage() {
   noStore();
   const settings = await getAllSettings();
+  const on = (k: string) => settings[k] === "on";
+
+  const eyebrow = settings["jad.eyebrow"] || "New Single";
   const info = settings["jad.info"] || "";
   const bandcamp = (settings["jad.bandcamp"] || "").trim();
+  const bandcampNote = settings["jad.bandcampNote"] || "Support this Song directly on:";
   const infoSize = clampPx(settings["jad.infoSize"], 14);
   const infoSizeMobile = clampPx(settings["jad.infoSizeMobile"], 14);
+
+  const releaseDate = (settings["jad.releaseDate"] || "").trim();
+  const ctaEnabled = on("jad.cta.enabled");
+  const releaseBlockShown = ctaEnabled || releaseDate !== "";
+
+  const previewEnabled = on("jad.preview.enabled");
+  const previewStart = Math.max(0, Number(settings["jad.preview.start"]) || 0);
+  const previewDuration = Math.min(60, Math.max(5, Number(settings["jad.preview.duration"]) || 30));
+
+  const visualizerEnabled = on("jad.visualizer.enabled");
+  const taglineEnabled = on("jad.tagline.enabled");
+  const tagline = (settings["jad.tagline"] || "").trim();
+  const emailEnabled = on("jad.email.enabled");
+  const shareEnabled = on("jad.share.enabled");
+
+  const sizeVars = {
+    "--jad-info-size": `${infoSize}px`,
+    "--jad-info-size-mobile": `${infoSizeMobile}px`,
+  } as CSSProperties;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -93,7 +131,7 @@ export default async function JustAnotherDayPage() {
         loop
         playsInline
         poster={COVER}
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
       >
         <source src="/video/just-another-day-loop.webm" type="video/webm" />
@@ -117,26 +155,38 @@ export default async function JustAnotherDayPage() {
           {TITLE} — {ARTISTS}
         </h1>
 
-        <div className="jad-eyebrow">New Single</div>
+        <div className="jad-eyebrow">{eyebrow}</div>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="jad-cover" src={COVER} alt={`${TITLE} — ${ARTISTS} cover`} width={1500} height={1500} />
 
         <div className="jad-artists">{ARTISTS}</div>
 
+        {taglineEnabled && tagline ? <p className="jad-tagline">{tagline}</p> : null}
+
+        {releaseBlockShown ? (
+          <ReleaseBlock
+            releaseDate={releaseDate}
+            ctaEnabled={ctaEnabled}
+            presaveUrl={(settings["jad.presaveUrl"] || "").trim()}
+            listenUrl={(settings["jad.listenUrl"] || "").trim()}
+            countdown={on("jad.countdown.enabled")}
+            title={TITLE}
+            initialReleased={isReleased(releaseDate)}
+          />
+        ) : null}
+
+        {previewEnabled ? (
+          <PreviewButton src={AUDIO} start={previewStart} duration={previewDuration} />
+        ) : null}
+
         {info ? (
-          <p
-            className="jad-info"
-            style={
-              {
-                // Admin-controlled size per device (desktop var, mobile var).
-                "--jad-info-size": `${infoSize}px`,
-                "--jad-info-size-mobile": `${infoSizeMobile}px`,
-              } as CSSProperties
-            }
-          >
-            {info}
-          </p>
+          <Credits
+            text={info}
+            collapse={on("jad.credits.collapse")}
+            lines={Math.max(1, Number(settings["jad.credits.lines"]) || 3)}
+            style={sizeVars}
+          />
         ) : null}
 
         <div className="jad-listen-label">Listen &amp; support</div>
@@ -151,33 +201,21 @@ export default async function JustAnotherDayPage() {
               </>
             );
             return url ? (
-              <a
-                key={p.key}
-                className={cls}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={p.name}
-              >
+              <a key={p.key} className={cls} href={url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
                 {inner}
               </a>
             ) : (
-              <span
-                key={p.key}
-                className={cls}
-                tabIndex={0}
-                role="link"
-                aria-disabled="true"
-                aria-label={`${p.name} — link coming soon`}
-              >
+              <span key={p.key} className={cls} tabIndex={0} role="link" aria-disabled="true" aria-label={`${p.name} — link coming soon`}>
                 {inner}
               </span>
             );
           })}
         </div>
 
+        {visualizerEnabled ? <VisualizerButton label={settings["jad.visualizer.label"] || "Watch the Visualizer"} /> : null}
+
         <p className="jad-note">
-          Support this Song directly on:
+          {bandcampNote}
           <br />
           {bandcamp ? (
             <a className="jad-bandcamp" href={bandcamp} target="_blank" rel="noopener noreferrer">
@@ -187,6 +225,10 @@ export default async function JustAnotherDayPage() {
             <b className="jad-bandcamp">BANDCAMP</b>
           )}
         </p>
+
+        {emailEnabled ? <EmailCapture heading={settings["jad.email.heading"] || "Stay connected"} /> : null}
+
+        {shareEnabled ? <ShareRow url={`${siteUrl}/just-another-day`} title={`${TITLE} — ${ARTISTS}`} /> : null}
       </div>
     </main>
   );

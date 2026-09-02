@@ -226,6 +226,281 @@
   font-size: 12px;
 }
 
+/* ── Tagline / lyric line ────────────────────────────────────── */
+.jad-tagline {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.4vw, 19px);
+  line-height: 1.5;
+  color: var(--jad-text);
+  opacity: 0.9;
+  max-width: 30ch;
+  margin: -4px 0 0;
+}
+
+/* ── Release row (date + countdown) ──────────────────────────── */
+.jad-release {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.jad-release-date {
+  color: var(--jad-orange);
+}
+.jad-countdown {
+  color: var(--jad-text);
+  border: 1px solid var(--jad-line);
+  border-radius: 3px;
+  padding: 3px 9px;
+  letter-spacing: 0.14em;
+}
+
+/* ── Primary CTA (pre-save / listen now) ─────────────────────── */
+.jad-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 15px 42px;
+  background: var(--jad-orange);
+  color: #0a0a0c;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--font-mono), monospace;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 0 34px -8px rgba(242, 106, 31, 0.6);
+  transition: filter 0.2s, transform 0.15s;
+}
+.jad-cta:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+.jad-cta.is-disabled {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* ── Audio preview ───────────────────────────────────────────── */
+.jad-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+}
+.jad-preview-btn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--jad-line);
+  background: transparent;
+  color: var(--jad-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.jad-preview-btn:hover {
+  background: var(--jad-orange);
+  color: #0a0a0c;
+}
+.jad-preview-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--jad-muted);
+}
+.jad-preview-bar {
+  width: 64px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.jad-preview-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--jad-orange);
+  transition: width 0.15s linear;
+}
+
+/* ── Collapsible credits ─────────────────────────────────────── */
+.jad-credits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.jad-credits-toggle {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--jad-orange);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.jad-credits-toggle:hover {
+  opacity: 1;
+}
+
+/* ── Watch the visualizer ────────────────────────────────────── */
+.jad-visualizer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border: 1px solid var(--jad-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--jad-orange);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.jad-visualizer:hover {
+  background: var(--jad-orange);
+  color: #0a0a0c;
+  transform: translateY(-2px);
+}
+/* When the loop is opened full-screen, show it at full strength. */
+.jad-bg:fullscreen {
+  opacity: 1;
+  object-fit: contain;
+  background: #000;
+}
+.jad-bg:-webkit-full-screen {
+  opacity: 1;
+  object-fit: contain;
+  background: #000;
+}
+
+/* ── Email capture ───────────────────────────────────────────── */
+.jad-email {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+}
+.jad-email-heading {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--jad-muted);
+}
+.jad-email-form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.jad-email-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--jad-line);
+  border-radius: 4px;
+  color: var(--jad-text);
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+}
+.jad-email-form input::placeholder {
+  color: var(--jad-muted);
+}
+.jad-email-form input:focus {
+  outline: none;
+  border-color: var(--jad-orange);
+}
+.jad-email-form button {
+  flex-shrink: 0;
+  padding: 12px 18px;
+  background: var(--jad-orange);
+  color: #0a0a0c;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+.jad-email-form button:hover {
+  filter: brightness(1.1);
+}
+.jad-email-form button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.jad-email-done,
+.jad-email-error {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.jad-email-done {
+  color: var(--jad-orange-soft);
+}
+.jad-email-error {
+  color: #f7995e;
+  opacity: 0.85;
+}
+
+/* ── Share row ───────────────────────────────────────────────── */
+.jad-share {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.jad-share-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--jad-muted);
+}
+.jad-share-btn {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--jad-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.jad-share-btn:hover {
+  color: var(--jad-orange);
+}
+
 /* ── Small screens ───────────────────────────────────────────── */
 @media (max-width: 480px) {
   .jad-plat {

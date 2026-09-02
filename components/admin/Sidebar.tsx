@@ -41,7 +41,10 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
   },
   {
     label: "Audience",
-    items: [{ href: "/admin/messages", label: "Messages" }],
+    items: [
+      { href: "/admin/messages", label: "Messages" },
+      { href: "/admin/subscribers", label: "Subscribers" },
+    ],
   },
 ];
 
