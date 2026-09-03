@@ -89,6 +89,22 @@
   align-items: center;
   gap: 12px;
   min-width: 0;
+  /* Gentle float — the same idea as the mobile-menu ripple. */
+  animation: cssHeaderFloat 3.6s ease-in-out infinite;
+}
+@keyframes cssHeaderFloat {
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cssound-logo {
+    animation: none;
+  }
 }
 .cssound-logo img {
   height: 34px;
@@ -125,22 +141,7 @@
   color: var(--ink);
   white-space: nowrap;
   transition: color 0.2s;
-  /* Gentle float — the same idea as the main-site menu ripple. */
-  animation: cssWordmarkFloat 3.6s ease-in-out infinite;
-}
-@keyframes cssWordmarkFloat {
-  0%,
-  100% {
-    transform: translateY(-3px);
-  }
-  50% {
-    transform: translateY(3px);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cssound-wordmark {
-    animation: none;
-  }
+  /* Stays still — only the letter-wave (on hover, via LabelWordmark) moves it. */
 }
 .cssound-wordmark:hover {
   color: var(--sea);

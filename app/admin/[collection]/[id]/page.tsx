@@ -6,6 +6,7 @@ import { saveRecord } from "../../crud-actions";
 import ImageUpload from "@/components/admin/ImageUpload";
 import ColorField from "@/components/admin/ColorField";
 import AudioUpload from "@/components/admin/AudioUpload";
+import CoverAccentColors from "@/components/admin/CoverAccentColors";
 
 export const dynamic = "force-dynamic";
 
@@ -129,14 +130,31 @@ export default async function EditRecordPage({ params }: { params: { collection:
       <h1 className="admin-h1">{isNew ? `New ${col.singular}` : `Edit ${col.singular}`}</h1>
 
       <form action={action} className="admin-panel" style={{ maxWidth: "620px", marginTop: "10px" }}>
-        {col.fields.map((f) => (
-          <FieldRenderer
-            key={f.name}
-            field={f}
-            value={(values as Record<string, unknown>)[f.name]}
-            choices={choicesByField[f.name]}
-          />
-        ))}
+        {col.fields.map((f) => {
+          // The two Release accent colours render together, with cover-based
+          // colour suggestions, instead of as two separate plain fields.
+          if (f.name === "accentColor2") return null;
+          if (f.name === "accentColor" && col.fields.some((ff) => ff.name === "accentColor2")) {
+            const rec = values as Record<string, unknown>;
+            return (
+              <CoverAccentColors
+                key="accent-colors"
+                accent1Value={rec.accentColor as string}
+                accent2Value={rec.accentColor2 as string}
+                imageUrl={rec.coverImage as string}
+                help={f.help}
+              />
+            );
+          }
+          return (
+            <FieldRenderer
+              key={f.name}
+              field={f}
+              value={(values as Record<string, unknown>)[f.name]}
+              choices={choicesByField[f.name]}
+            />
+          );
+        })}
         <div style={{ display: "flex", gap: "10px", marginTop: "22px" }}>
           <button type="submit" className="admin-btn admin-btn-primary">Save</button>
           <Link href={`/admin/${col.key}`} className="admin-btn">Cancel</Link>
