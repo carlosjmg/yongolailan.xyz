@@ -29,6 +29,7 @@ model Release {
   credits       String
   coverImage    String? // uploaded cover art URL
   accentColor   String   @default("oklch(62% 0.16 60)")
+  accentColor2  String   @default("") // optional 2nd colour → Buy button gradient
   spotifyUrl    String?
   appleUrl      String?
   soundcloudUrl String?

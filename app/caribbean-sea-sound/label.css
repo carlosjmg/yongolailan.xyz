@@ -125,6 +125,22 @@
   color: var(--ink);
   white-space: nowrap;
   transition: color 0.2s;
+  /* Gentle float — the same idea as the main-site menu ripple. */
+  animation: cssWordmarkFloat 3.6s ease-in-out infinite;
+}
+@keyframes cssWordmarkFloat {
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cssound-wordmark {
+    animation: none;
+  }
 }
 .cssound-wordmark:hover {
   color: var(--sea);

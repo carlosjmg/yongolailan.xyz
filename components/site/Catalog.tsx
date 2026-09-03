@@ -31,6 +31,10 @@ function firstLink(r: Release): string | undefined {
 function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: number }) {
   const [hover, setHover] = useState(false);
   const listen = firstLink(release);
+  // A second accent (picked from the cover in the admin) turns the Buy button
+  // into a gradient. Empty → keep the original single-colour outlined button.
+  const accent2 = (release.accentColor2 || "").trim();
+  const buyGradient = accent2 ? `linear-gradient(120deg, ${release.accentColor}, ${accent2})` : "";
 
   return (
     <div
@@ -254,10 +258,13 @@ function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: 
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
                 padding: "8px 14px",
-                background: hover ? release.accentColor : "transparent",
-                color: hover ? "oklch(8% 0.018 30)" : release.accentColor,
-                border: `1px solid ${release.accentColor}`,
+                // With a 2nd colour: a filled gradient that brightens on hover.
+                // Without: the original outlined button that fills on hover.
+                background: buyGradient || (hover ? release.accentColor : "transparent"),
+                color: buyGradient || hover ? "oklch(8% 0.018 30)" : release.accentColor,
+                border: `1px solid ${buyGradient ? "transparent" : release.accentColor}`,
                 borderRadius: "2px",
+                filter: buyGradient && hover ? "brightness(1.12)" : "none",
                 transition: "all 0.2s",
                 fontWeight: 500,
                 flexShrink: 0,

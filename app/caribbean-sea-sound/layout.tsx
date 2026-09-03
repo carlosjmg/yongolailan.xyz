@@ -2,6 +2,7 @@ import "./label.css";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { getAllSettings } from "@/lib/settings";
+import LabelWordmark from "@/components/site/LabelWordmark";
 
 export const dynamic = "force-dynamic";
 
@@ -67,13 +68,12 @@ export default async function LabelLayout({ children }: { children: React.ReactN
           </Link>
           {/* The name, moved here from the page body — far right, one line,
               sized to match the logo (shrinks on narrow screens to fit). */}
-          <Link
+          <LabelWordmark
             href="/caribbean-sea-sound"
             className="cssound-wordmark"
             style={{ fontSize: `min(${wordmarkSize}px, 6.2vw)` }}
-          >
-            {name}
-          </Link>
+            text={name}
+          />
         </div>
       </header>
 
