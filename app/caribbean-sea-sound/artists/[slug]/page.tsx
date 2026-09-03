@@ -9,6 +9,9 @@ import AudioPlayer from "@/components/site/AudioPlayer";
 export const dynamic = "force-dynamic";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
+// Same asset as the label page's preview image — the fallback here when an
+// artist has no photo of their own.
+const LABEL_SHARE_IMAGE = `${siteUrl}/images/caribbean-sea-sound-share.jpg`;
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const artist = await getLabelArtistBySlug(params.slug);
@@ -18,7 +21,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const description =
     artist.shortDescription ||
     (artist.bio ? artist.bio.slice(0, 155) : `${artist.name} on Caribbean Sea Sound, the Brooklyn record label.`);
-  const image = artist.profileImage || artist.image || undefined;
+  // The artist's own photo when there is one; otherwise the label's shared
+  // preview image, so every subpage still shows something on share.
+  const image = artist.profileImage || artist.image || LABEL_SHARE_IMAGE;
   const url = `${siteUrl}/caribbean-sea-sound/artists/${artist.slug}`;
 
   return {
@@ -31,13 +36,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title,
       description,
       siteName: "Caribbean Sea Sound",
-      ...(image ? { images: [{ url: image, alt: artist.name }] } : {}),
+      images: [{ url: image, alt: artist.name }],
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      ...(image ? { images: [image] } : {}),
+      images: [image],
     },
   };
 }

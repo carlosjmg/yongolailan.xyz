@@ -7,6 +7,11 @@ import LabelDirectory, { type DirectoryArtist } from "@/components/site/LabelDir
 export const dynamic = "force-dynamic";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
+// Preview image for the label section — shown when this link (or any
+// subpage that doesn't have its own photo) is shared. Next.js doesn't allow
+// page.tsx to export extra names, so this same literal is repeated in the
+// artist subpage rather than imported.
+const LABEL_SHARE_IMAGE = `${siteUrl}/images/caribbean-sea-sound-share.jpg`;
 
 export const metadata: Metadata = {
   title: { absolute: "Caribbean Sea Sound — Independent Music Label" },
@@ -27,6 +32,14 @@ export const metadata: Metadata = {
     description:
       "An independent music platform and label founded in Brooklyn in 2016. Artists from the Caribbean and across the Americas.",
     siteName: "Caribbean Sea Sound",
+    images: [{ url: LABEL_SHARE_IMAGE, width: 1200, height: 1198, alt: "Caribbean Sea Sound" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Caribbean Sea Sound — Independent Music Label",
+    description:
+      "An independent music platform and label founded in Brooklyn in 2016. Artists from the Caribbean and across the Americas.",
+    images: [LABEL_SHARE_IMAGE],
   },
 };
 
