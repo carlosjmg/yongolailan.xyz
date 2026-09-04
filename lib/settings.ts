@@ -131,6 +131,11 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "label.wordmarkSize": "",
   // Cover size (px) of each song/production shown on an artist's page.
   "label.songCoverSize": "96",
+  // Artist-name size (px) in the roster list, desktop and mobile. The gap
+  // between names is expressed in em against this same size in the CSS, so
+  // it shrinks and grows together with the letters automatically.
+  "label.artistNameSize": "34",
+  "label.artistNameSizeMobile": "22",
   // Nudge the label logo in the header, in px. X: +right/−left, Y: +down/−up.
   // The *Mobile keys override on phones; empty = use the desktop value.
   "label.logoOffsetX": "0",

@@ -17,13 +17,15 @@ const PLATFORMS: { key: keyof Release; label: string }[] = [
   { key: "bandcampUrl", label: "Bandcamp" },
 ];
 
+// Clicking the song itself goes straight to Bandcamp — falls back through
+// the other platforms only when a release has no Bandcamp link at all.
 function firstLink(r: Release): string | undefined {
   return (
+    r.bandcampUrl ||
     r.spotifyUrl ||
     r.appleUrl ||
     r.soundcloudUrl ||
     r.youtubeUrl ||
-    r.bandcampUrl ||
     undefined
   );
 }
@@ -246,25 +248,26 @@ function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: 
               </a>
             ))}
           </div>
-          {release.bandcampUrl && (
+          {release.buyUrl && (
             <a
-              href={release.bandcampUrl}
+              href={release.buyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Buy ${release.title} on Bandcamp`}
+              aria-label={`Buy ${release.title}`}
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "10px",
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
                 padding: "8px 14px",
-                // With a 2nd colour: a filled gradient that brightens on hover.
-                // Without: the original outlined button that fills on hover.
-                background: buyGradient || (hover ? release.accentColor : "transparent"),
-                color: buyGradient || hover ? "oklch(8% 0.018 30)" : release.accentColor,
-                border: `1px solid ${buyGradient ? "transparent" : release.accentColor}`,
+                // The gradient (when set) lives on the border, never the fill —
+                // on hover it fills solid with the first accent colour instead.
+                background: hover ? release.accentColor : "transparent",
+                color: hover ? "oklch(8% 0.018 30)" : release.accentColor,
+                border: "1px solid",
+                borderColor: hover ? "transparent" : buyGradient ? "transparent" : release.accentColor,
+                borderImage: !hover && buyGradient ? `${buyGradient} 1` : "none",
                 borderRadius: "2px",
-                filter: buyGradient && hover ? "brightness(1.12)" : "none",
                 transition: "all 0.2s",
                 fontWeight: 500,
                 flexShrink: 0,

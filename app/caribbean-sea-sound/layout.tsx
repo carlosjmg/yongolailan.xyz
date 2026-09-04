@@ -34,6 +34,16 @@ export default async function LabelLayout({ children }: { children: React.ReactN
   const coverSize = Number(s["label.songCoverSize"]) > 0 ? Number(s["label.songCoverSize"]) : 96;
   const coverSizeMobile = Math.round(coverSize * 0.71);
 
+  // Artist-name size in the roster (desktop hover list + mobile accordion).
+  // The row spacing is set in em against this same value in label.css, so it
+  // shrinks and grows together with the letters — no separate control needed.
+  const clampPx = (v: string | undefined, fallback: number, min: number, max: number) => {
+    const n = Number(v);
+    return Number.isFinite(n) && n > 0 ? Math.min(max, Math.max(min, n)) : fallback;
+  };
+  const artistNameSize = clampPx(s["label.artistNameSize"], 34, 14, 64);
+  const artistNameSizeMobile = clampPx(s["label.artistNameSizeMobile"], 22, 12, 40);
+
   return (
     <div
       className="cssound"
@@ -41,6 +51,8 @@ export default async function LabelLayout({ children }: { children: React.ReactN
         {
           "--song-cover": `${coverSize}px`,
           "--song-cover-m": `${coverSizeMobile}px`,
+          "--cs-artist-name-size": `${artistNameSize}px`,
+          "--cs-artist-name-size-mobile": `${artistNameSizeMobile}px`,
         } as CSSProperties
       }
     >

@@ -35,6 +35,7 @@ model Release {
   soundcloudUrl String?
   youtubeUrl    String?
   bandcampUrl   String?
+  buyUrl        String? // where the "Buy" button sends people (independent of Bandcamp)
   featured      Boolean  @default(false)
   featuredType  String? // e.g. "Featured Release", "Latest Single", "Live Session"
   published     Boolean  @default(true)

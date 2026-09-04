@@ -244,11 +244,14 @@
   border-bottom: 1px solid var(--line);
 }
 .cssound-row a {
+  /* Admin-controlled name size, set on the row itself so the vertical
+     padding below (in em) scales down together with the letters. */
+  font-size: var(--cs-artist-name-size, clamp(20px, 2.4vw, 34px));
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: baseline;
   gap: 16px;
-  padding: clamp(14px, 1.4vw, 20px) 0;
+  padding: 0.588em 0; /* ≈20px at the 34px default */
   transition: padding-left 0.28s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .cssound-row-num {
@@ -259,7 +262,8 @@
   transition: color 0.2s;
 }
 .cssound-row-name {
-  font-size: clamp(20px, 2.4vw, 34px);
+  /* Inherits its size from .cssound-row a above. */
+  font-size: 1em;
   font-weight: 600;
   letter-spacing: -0.015em;
   line-height: 1.05;
@@ -381,6 +385,9 @@
   border-bottom: 1px solid var(--line);
 }
 .cssound-acc-head {
+  /* Admin-controlled name size, set here so the vertical padding below (in
+     em) scales down together with the letters. */
+  font-size: var(--cs-artist-name-size-mobile, 22px);
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -388,7 +395,7 @@
   width: 100%;
   background: none;
   border: none;
-  padding: 18px 0;
+  padding: 0.818em 0; /* ≈18px at the 22px default */
   text-align: left;
   cursor: pointer;
   color: var(--ink);
@@ -400,7 +407,8 @@
   color: var(--ink-faint);
 }
 .cssound-acc-name {
-  font-size: 22px;
+  /* Inherits its size from .cssound-acc-head above. */
+  font-size: 1em;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -753,12 +761,6 @@
     max-width: 100%;
   }
 }
-@media (max-width: 400px) {
-  .cssound-acc-name {
-    font-size: 19px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .cssound-preview-frame img,
   .cssound-acc-body,
