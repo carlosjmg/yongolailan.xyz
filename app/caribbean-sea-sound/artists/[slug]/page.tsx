@@ -13,9 +13,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
 // artist has no photo of their own.
 const LABEL_SHARE_IMAGE = `${siteUrl}/images/caribbean-sea-sound-share.jpg`;
 
+// Next 14 doesn't carry a route segment's file-based icon.png across a
+// dynamic [slug] boundary, so it's set explicitly here instead.
+const LABEL_ICON = "/caribbean-sea-sound/icon.png";
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const artist = await getLabelArtistBySlug(params.slug);
-  if (!artist) return { title: { absolute: "Artist — Caribbean Sea Sound" } };
+  if (!artist) return { title: { absolute: "Artist — Caribbean Sea Sound" }, icons: { icon: LABEL_ICON } };
 
   const title = `${artist.name} — Caribbean Sea Sound`;
   const description =
@@ -30,6 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: { absolute: title },
     description,
     alternates: { canonical: url },
+    icons: { icon: LABEL_ICON },
     openGraph: {
       type: "profile",
       url,
