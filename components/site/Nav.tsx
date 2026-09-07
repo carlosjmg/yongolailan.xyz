@@ -202,37 +202,33 @@ export default function Nav({
           {primary.map((item) => {
             const linkColor = active === item.id ? "var(--gold)" : "rgba(255,255,255,0.9)";
             return (
-              <React.Fragment key={item.id}>
-                <li>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ ...navLinkStyle, color: linkColor, textDecoration: "none" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = linkColor)}
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <button
-                      style={{ ...navLinkStyle, color: linkColor }}
-                      onClick={() => handleNav(item.id)}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = linkColor)}
-                    >
-                      {item.label}
-                    </button>
-                  )}
-                </li>
-                {/* Desktop-only entry to the label, placed right after Merch. */}
-                {item.id === "merch" && <li key="label">{desktopLabelLink}</li>}
-              </React.Fragment>
+              <li key={item.id}>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ ...navLinkStyle, color: linkColor, textDecoration: "none" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = linkColor)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <button
+                    style={{ ...navLinkStyle, color: linkColor }}
+                    onClick={() => handleNav(item.id)}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = linkColor)}
+                  >
+                    {item.label}
+                  </button>
+                )}
+              </li>
             );
           })}
-          {/* Fallback: if Merch is hidden, still show Label at the end. */}
-          {!primary.some((p) => p.id === "merch") && <li>{desktopLabelLink}</li>}
+          {/* Desktop-only entry to the label — always last, after EPK. */}
+          <li>{desktopLabelLink}</li>
         </ul>
 
         {/* Menu toggle — three waves (≋) that ripple continuously, crossing
