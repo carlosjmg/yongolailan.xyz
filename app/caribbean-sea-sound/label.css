@@ -699,11 +699,19 @@
 
 /* ── Contact CTA (between the intro and the Artists directory) ─ */
 .cssound-contact-cta {
-  display: inline-flex;
+  /* Block (not inline-flex): a negative margin-top needs to be able to pull
+     it up past the intro section's own bottom padding, which inline-level
+     boxes don't allow. */
+  display: flex;
   align-items: center;
   gap: 8px;
   width: fit-content;
-  margin: -10px 0 clamp(30px, 5vw, 50px);
+  /* .cssound-intro already adds clamp(44px,7vw,90px) of bottom padding
+     above this link; subtract that back out and add exactly the same
+     gap as a blank line inside the intro paragraph (its line-height ×
+     font-size), so this reads as one more "paragraph" at any viewport. */
+  margin-top: calc(clamp(29px, 2.6vw, 36px) - clamp(44px, 7vw, 90px));
+  margin-bottom: clamp(30px, 5vw, 50px);
   font-family: var(--font-mono), monospace;
   font-size: 13px;
   font-weight: 500;
