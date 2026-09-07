@@ -47,6 +47,10 @@ export async function saveRecord(collectionKey: string, id: string | null, formD
       // Color columns are non-nullable with a DB default — omit when empty so
       // the default (on create) or the existing value (on update) is kept.
       continue;
+    } else if (f.nullable) {
+      // A real relation column (e.g. an optional linked release) — "" isn't
+      // a valid foreign key, so clearing the dropdown must save null.
+      data[f.name] = null;
     } else {
       // Empty string is safe for both nullable and non-nullable text columns,
       // and reads as "absent" everywhere on the site.

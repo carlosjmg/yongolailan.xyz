@@ -2,9 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
-import type { LabelProduction } from "@prisma/client";
+import type { LabelProduction, Release } from "@prisma/client";
 import { getLabelArtistBySlug } from "@/lib/data";
 import AudioPlayer from "@/components/site/AudioPlayer";
+
+type ProductionWithRelease = LabelProduction & { release: Release | null };
+
+/** Same priority as the main Music Catalog: Bandcamp first, then whichever
+ *  streaming link the release actually has. */
+function releaseListenLink(r: Release): string | undefined {
+  return r.bandcampUrl || r.spotifyUrl || r.appleUrl || r.soundcloudUrl || r.youtubeUrl || undefined;
+}
 
 export const dynamic = "force-dynamic";
 
@@ -59,15 +67,28 @@ const SONG_PAGES: Record<string, string> = {
 };
 const songKey = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-function Song({ song }: { song: LabelProduction }) {
-  const meta = [song.releaseType, song.releaseDate || song.year].filter(Boolean);
-  const pageHref = SONG_PAGES[songKey(song.title)];
+function Song({ song }: { song: ProductionWithRelease }) {
+  // A linked Music Catalog release supplies title/cover/credits/description/
+  // year/type/listen-link; the production's own fields are the fallback for
+  // songs entered by hand. Featured artists and the audio file always stay
+  // the production's own — they're specific to this label credit.
+  const r = song.release;
+  const title = r?.title || song.title;
+  const cover = r?.coverImage || song.cover;
+  const credit = r?.credits || song.credit;
+  const description = r?.description || song.description;
+  const releaseType = r?.releaseType || song.releaseType;
+  const year = r?.year || song.releaseDate || song.year;
+  const listenUrl = r ? releaseListenLink(r) : song.linkUrl || undefined;
+
+  const meta = [releaseType, year].filter(Boolean);
+  const pageHref = SONG_PAGES[songKey(title)];
 
   return (
     <div className="cssound-song">
-      {song.cover ? (
+      {cover ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img className="cssound-song-cover" src={song.cover} alt={`${song.title} cover`} loading="lazy" />
+        <img className="cssound-song-cover" src={cover} alt={`${title} cover`} loading="lazy" />
       ) : (
         <div className="cssound-song-cover cssound-song-cover--empty mono" aria-hidden>
           ♪
@@ -78,10 +99,10 @@ function Song({ song }: { song: LabelProduction }) {
         <div className="cssound-song-title">
           {pageHref ? (
             <Link href={pageHref} className="cssound-song-link">
-              {song.title}
+              {title}
             </Link>
           ) : (
-            song.title
+            title
           )}
           {song.featuredArtists ? <span className="cssound-song-feat"> {song.featuredArtists}</span> : null}
         </div>
@@ -90,15 +111,15 @@ function Song({ song }: { song: LabelProduction }) {
           {meta.map((m) => (
             <span key={m}>{m}</span>
           ))}
-          {song.credit ? <span className="credit">{song.credit}</span> : null}
+          {credit ? <span className="credit">{credit}</span> : null}
         </div>
 
-        {song.description ? <p className="cssound-song-desc">{song.description}</p> : null}
+        {description ? <p className="cssound-song-desc">{description}</p> : null}
 
-        {song.audioFile ? <AudioPlayer src={song.audioFile} title={song.title} /> : null}
+        {song.audioFile ? <AudioPlayer src={song.audioFile} title={title} /> : null}
 
-        {song.linkUrl ? (
-          <a href={song.linkUrl} target="_blank" rel="noopener noreferrer" className="cssound-song-ext mono">
+        {listenUrl ? (
+          <a href={listenUrl} target="_blank" rel="noopener noreferrer" className="cssound-song-ext mono">
             Listen elsewhere ↗
           </a>
         ) : null}
@@ -127,7 +148,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
       url: `${siteUrl}/caribbean-sea-sound`,
     },
     ...(artist.productions.length
-      ? { track: artist.productions.map((p) => ({ "@type": "MusicRecording", name: p.title })) }
+      ? { track: artist.productions.map((p) => ({ "@type": "MusicRecording", name: p.release?.title || p.title })) }
       : {}),
   };
 

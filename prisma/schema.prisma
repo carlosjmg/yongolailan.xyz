@@ -42,6 +42,7 @@ model Release {
   sortOrder     Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  labelProductions LabelProduction[] // Label — Songs optionally linked to this release
 }
 
 // ── Portfolio areas: Music / Films / Games / Web ─────────────
@@ -218,12 +219,18 @@ model LabelProduction {
   description     String      @default("")
   releaseType     String      @default("Single")
   cover           String? // cover artwork
-  audioFile       String? // uploaded audio (MP3 / M4A) for the on-site player
+  audioFile       String? // uploaded audio (MP3 / M4A) for the on-site player — always independent, even when linked below
   linkUrl         String? // optional external streaming link
+  // Optional: link this song to an existing Music Catalog release. When set,
+  // its title/cover/credits/description/year/releaseType/link are pulled
+  // from that release instead of the fields above (see lib/data.ts).
+  releaseId       String?
+  release         Release?    @relation(fields: [releaseId], references: [id], onDelete: SetNull)
   published       Boolean     @default(true)
   sortOrder       Int         @default(0)
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
   @@index([artistId])
+  @@index([releaseId])
 }

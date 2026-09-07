@@ -53,20 +53,35 @@ function FieldRenderer({
   } else if (field.type === "textarea") {
     control = <textarea id={id} name={field.name} defaultValue={(value as string) ?? ""} className="admin-textarea" placeholder={field.placeholder} required={field.required} />;
   } else if (field.type === "select" && field.optionsFrom) {
-    control =
-      choices && choices.length > 0 ? (
-        <select id={id} name={field.name} defaultValue={(value as string) ?? choices[0].value} className="admin-select" required={field.required}>
-          {choices.map((c) => (
+    // Required relations (e.g. an artist) keep the original behaviour: no
+    // blank option, defaults to the first choice, and a hard error if there's
+    // nothing to pick yet. Optional ones (e.g. an optional catalog link) get
+    // an explicit "— None —" so an untouched dropdown can never silently
+    // save a link nobody chose, and still work fine with zero rows to pick.
+    if (field.required && (!choices || choices.length === 0)) {
+      control = (
+        <div className="admin-help" style={{ color: "#fc5c64" }}>
+          No artists yet — add one under <strong>Label &mdash; Artists</strong> first, then come back.
+        </div>
+      );
+    } else {
+      const opts = field.required ? choices! : [{ value: "", label: field.emptyLabel ?? "— None —" }, ...(choices ?? [])];
+      control = (
+        <select
+          id={id}
+          name={field.name}
+          defaultValue={(value as string) ?? (field.required ? opts[0].value : "")}
+          className="admin-select"
+          required={field.required}
+        >
+          {opts.map((c) => (
             <option key={c.value} value={c.value}>
               {c.label}
             </option>
           ))}
         </select>
-      ) : (
-        <div className="admin-help" style={{ color: "#fc5c64" }}>
-          No artists yet — add one under <strong>Label &mdash; Artists</strong> first, then come back.
-        </div>
       );
+    }
   } else if (field.type === "select") {
     control = (
       <select id={id} name={field.name} defaultValue={(value as string) ?? field.options?.[0]} className="admin-select">

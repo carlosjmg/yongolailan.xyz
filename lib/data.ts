@@ -122,6 +122,7 @@ export async function getLabelArtistBySlug(slug: string) {
         productions: {
           where: { published: true },
           orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+          include: { release: true },
         },
       },
     });

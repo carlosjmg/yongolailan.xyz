@@ -24,6 +24,10 @@ export interface Field {
   required?: boolean;
   placeholder?: string;
   help?: string;
+  /** Label for the blank option on an optional optionsFrom select. */
+  emptyLabel?: string;
+  /** An empty value saves as null (a real relation) rather than "". */
+  nullable?: boolean;
 }
 
 export interface ListColumn {
@@ -294,21 +298,30 @@ export const COLLECTIONS: Record<string, Collection> = {
         required: true,
         help: "Add the artist first under Label — Artists, then pick them here.",
       },
-      { name: "title", label: "Song title", type: "text", required: true },
-      { name: "featuredArtists", label: "Featured artists", type: "text", placeholder: "feat. Someone", help: "Optional." },
-      { name: "cover", label: "Cover artwork", type: "image", help: "Square works best. Optimised automatically." },
+      { name: "title", label: "Song title", type: "text", required: true, help: "Ignored on the site if you link a Music Catalog release below — its own title is used instead." },
+      { name: "featuredArtists", label: "Featured artists", type: "text", placeholder: "feat. Someone", help: "Optional. Always your own — not affected by linking a release." },
+      {
+        name: "releaseId",
+        label: "Link to a Music Catalog release (optional)",
+        type: "select",
+        optionsFrom: { model: "release", labelField: "title" },
+        nullable: true,
+        emptyLabel: "— None, enter everything below —",
+        help: "Pick one when this collaboration is actually a song from your own Music Catalog. Its title, cover, credits, description, year, type and listen link take over automatically — you only need Featured artists and, optionally, an audio file below.",
+      },
+      { name: "cover", label: "Cover artwork", type: "image", help: "Square works best. Optimised automatically. Ignored when a release is linked above." },
       {
         name: "audioFile",
         label: "Audio file",
         type: "audio",
-        help: "Upload an MP3 or M4A. It plays in the on-site player. Large files upload straight to storage.",
+        help: "Upload an MP3 or M4A for the on-site player here. Always independent — works whether or not a release is linked above.",
       },
-      { name: "year", label: "Year", type: "text", placeholder: "2023" },
+      { name: "year", label: "Year", type: "text", placeholder: "2023", help: "Ignored when a release is linked above." },
       { name: "releaseDate", label: "Release date (optional)", type: "text", placeholder: "2023-06-15" },
-      { name: "credit", label: "Your credit", type: "text", placeholder: "Produced, mixed & mastered" },
-      { name: "description", label: "Description (optional)", type: "textarea" },
-      { name: "releaseType", label: "Type", type: "select", options: ["Single", "EP", "Album", "Remix", "Feature"] },
-      { name: "linkUrl", label: "External link (optional)", type: "url", placeholder: "https://open.spotify.com/track/…" },
+      { name: "credit", label: "Your credit", type: "text", placeholder: "Produced, mixed & mastered", help: "Ignored when a release is linked above (its credits are used instead)." },
+      { name: "description", label: "Description (optional)", type: "textarea", help: "Ignored when a release is linked above." },
+      { name: "releaseType", label: "Type", type: "select", options: ["Single", "EP", "Album", "Remix", "Feature"], help: "Ignored when a release is linked above." },
+      { name: "linkUrl", label: "External link (optional)", type: "url", placeholder: "https://open.spotify.com/track/…", help: "Ignored when a release is linked above (its own listen link is used instead)." },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],
   },
