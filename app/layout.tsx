@@ -125,7 +125,9 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       images: images.map((i) => i.url),
     },
-    icons: { icon: "/favicon.ico" },
+    // Favicon comes from app/icon.png (Next's file-based icon convention).
+    // /caribbean-sea-sound has its own app/caribbean-sea-sound/icon.png that
+    // automatically overrides this for that section and all its subpages.
   };
 }
 
