@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
 import { getLabelRoster } from "@/lib/data";
@@ -89,6 +90,10 @@ export default async function CaribbeanSeaSoundPage() {
           <div className="cssound-eyebrow">{tagline}</div>
           <p className="cssound-intro-lede">{intro}</p>
         </section>
+
+        <Link href="/caribbean-sea-sound/contact" className="cssound-contact-cta">
+          Contact us here !!! <span aria-hidden>→</span>
+        </Link>
 
         <LabelDirectory artists={directory} />
       </div>

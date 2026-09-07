@@ -57,6 +57,8 @@ const KEYS = [
   "label.location",
   "label.tagline",
   "label.intro",
+  "label.contact.email",
+  "label.contact.phone",
   "label.logo",
   "label.logoSize",
   "label.wordmarkSize",
@@ -242,8 +244,16 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           label="Intro paragraph"
           value={s["label.intro"]}
           rows={5}
-          help="The opening text on the Caribbean Sea Sound page. Artists and songs are managed under Caribbean Sea Sound in the sidebar."
+          help="The opening text on the Caribbean Sea Sound page. Press Enter for a line break — it shows on the page. Artists and songs are managed under Caribbean Sea Sound in the sidebar."
         />
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="label.contact.email" label="Label contact email" value={s["label.contact.email"]} type="email" help="Shown on /caribbean-sea-sound/contact. Label inquiries from that form are also emailed here." />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="label.contact.phone" label="Label contact phone / WhatsApp" value={s["label.contact.phone"]} placeholder="+1 646 547 7443" />
+          </div>
+        </div>
         <div className="admin-field">
           <label className="admin-label">Caribbean Sea Sound logo</label>
           <ImageUpload name="label.logo" defaultValue={s["label.logo"]} />

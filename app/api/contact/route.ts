@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/email";
+import { getAllSettings } from "@/lib/settings";
 import { escapeHtml, nl2br } from "@/lib/utils";
 
 const schema = z.object({
@@ -17,7 +18,13 @@ export async function POST(req: Request) {
 
     await prisma.contactMessage.create({ data });
 
-    const to = process.env.CONTACT_TO_EMAIL || "yongolailan.official@gmail.com";
+    // The label's own contact form prefixes its inquiry type with
+    // "Label — ", so those messages reach the label's inbox instead.
+    let to = process.env.CONTACT_TO_EMAIL || "yongolailan.official@gmail.com";
+    if (data.type.startsWith("Label")) {
+      const settings = await getAllSettings();
+      to = settings["label.contact.email"] || to;
+    }
     await sendEmail({
       to,
       replyTo: data.email,
