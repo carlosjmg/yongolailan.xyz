@@ -707,15 +707,14 @@
   gap: 8px;
   width: fit-content;
   /* .cssound-intro already adds clamp(44px,7vw,90px) of bottom padding
-     above this link; subtract that back out and add exactly the same
-     gap as a blank line inside the intro paragraph (its line-height ×
-     font-size), so this reads as one more "paragraph" at any viewport. */
-  margin-top: calc(clamp(29px, 2.6vw, 36px) - clamp(44px, 7vw, 90px));
+     above this link; subtract that back out and add back one line-height
+     less than a full paragraph break — a tight, single-line-style gap. */
+  margin-top: calc(clamp(5px, 0.5vw, 8px) - clamp(44px, 7vw, 90px));
   margin-bottom: clamp(30px, 5vw, 50px);
+  /* Same type as .cssound-eyebrow: family, size, letter-spacing, weight. */
   font-family: var(--font-mono), monospace;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--sea);
   text-decoration: none;
