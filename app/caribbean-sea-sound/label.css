@@ -712,20 +712,26 @@
      less than a full paragraph break — a tight, single-line-style gap. */
   margin-top: calc(clamp(5px, 0.5vw, 8px) - clamp(44px, 7vw, 90px));
   margin-bottom: clamp(30px, 5vw, 50px);
-  /* Same type as .cssound-eyebrow: family, size, letter-spacing, weight. */
+  /* Same family/tracking as .cssound-eyebrow, one size down. */
   font-family: var(--font-mono), monospace;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--sea);
   text-decoration: none;
-  /* Always underlined, so it reads as a link at rest, not just on hover. */
-  border-bottom: 1px solid var(--sea);
-  padding-bottom: 2px;
   transition: gap 0.2s;
 }
 .cssound-contact-cta:hover {
   gap: 12px;
+}
+.cssound-contact-cta-arrow {
+  /* The arrow stays plain — only the text underneath is underlined. */
+  flex-shrink: 0;
+}
+.cssound-contact-cta-text {
+  /* Always underlined, so it reads as a link at rest, not just on hover. */
+  border-bottom: 1px solid var(--sea);
+  padding-bottom: 2px;
 }
 
 /* ── Label contact page ───────────────────────────────────────
