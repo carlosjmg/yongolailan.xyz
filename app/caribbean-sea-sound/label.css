@@ -219,7 +219,7 @@
 /* ── Directory ─────────────────────────────────────────────── */
 .cssound-section-label {
   font-family: var(--font-mono), monospace;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -369,9 +369,10 @@
 /* Navy "Artists" heading shown only on phones, above the list. */
 .cssound-acc-label {
   display: none;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
+  text-align: right;
   color: var(--deep);
   padding: 4px 0 16px;
   border-top: 2px solid var(--deep);
