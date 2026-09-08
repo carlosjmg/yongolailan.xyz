@@ -92,7 +92,7 @@ export default async function CaribbeanSeaSoundPage() {
         </section>
 
         <Link href="/caribbean-sea-sound/contact" className="cssound-contact-cta">
-          Contact us here !!!
+          Contact us here
         </Link>
 
         <LabelDirectory artists={directory} />

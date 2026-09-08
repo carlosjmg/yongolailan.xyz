@@ -226,7 +226,7 @@
   padding: 20px 0;
   border-top: 1px solid var(--line-strong);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .cssound-directory {
@@ -718,11 +718,12 @@
   text-transform: uppercase;
   color: var(--sea);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, gap 0.2s;
+  /* Always underlined, so it reads as a link at rest, not just on hover. */
+  border-bottom: 1px solid var(--sea);
+  padding-bottom: 2px;
+  transition: gap 0.2s;
 }
 .cssound-contact-cta:hover {
-  border-bottom-color: var(--sea);
   gap: 12px;
 }
 
