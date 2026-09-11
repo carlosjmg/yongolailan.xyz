@@ -320,6 +320,7 @@ export const COLLECTIONS: Record<string, Collection> = {
       { name: "soundcloudUrl", label: "SoundCloud link", type: "url", placeholder: "https://soundcloud.com/…", help: "Ignored when a release is linked above." },
       { name: "youtubeUrl", label: "YouTube link", type: "url", placeholder: "https://youtube.com/…", help: "Ignored when a release is linked above." },
       { name: "bandcampUrl", label: "Bandcamp link", type: "url", placeholder: "https://…bandcamp.com/track/…", help: "Ignored when a release is linked above." },
+      { name: "otherUrl", label: "Other link (optional)", type: "url", placeholder: "https://…", help: "For a smart-link page (Linktree, too.fm…) or any platform not listed above. Ignored when a release is linked above." },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],
   },

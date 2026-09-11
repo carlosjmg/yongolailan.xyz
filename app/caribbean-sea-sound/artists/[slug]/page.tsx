@@ -18,10 +18,14 @@ const PLATFORMS: { key: "spotifyUrl" | "appleUrl" | "soundcloudUrl" | "youtubeUr
 ];
 
 /** A linked release supplies its own platform links; otherwise fall back to
- *  the ones entered directly on the production. */
-function platformLinks(song: ProductionWithRelease) {
+ *  the ones entered directly on the production. `otherUrl` (a smart-link page,
+ *  or any platform not listed above) only ever comes from the production
+ *  itself — releases don't have one. */
+function platformLinks(song: ProductionWithRelease): { label: string; url: string }[] {
   const source = song.release ?? song;
-  return PLATFORMS.filter((p) => source[p.key]).map((p) => ({ ...p, url: source[p.key] as string }));
+  const links = PLATFORMS.filter((p) => source[p.key]).map((p) => ({ label: p.label, url: source[p.key] as string }));
+  if (!song.release && song.otherUrl) links.push({ label: "Listen", url: song.otherUrl });
+  return links;
 }
 
 export const dynamic = "force-dynamic";

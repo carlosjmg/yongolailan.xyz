@@ -231,6 +231,7 @@ model LabelProduction {
   soundcloudUrl   String?
   youtubeUrl      String?
   bandcampUrl     String?
+  otherUrl        String? // smart-link page (Linktree, too.fm…) or any platform not listed above
   // Optional: link this song to an existing Music Catalog release. When set,
   // its title/cover/credits/description/year/releaseType/platform links are
   // pulled from that release instead of the fields above (see lib/data.ts).

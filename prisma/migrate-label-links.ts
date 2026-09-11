@@ -21,7 +21,23 @@ function classify(url: string) {
   return hit?.field;
 }
 
+// A first run of this script (2026-09-11) classified links by domain but
+// dropped the one that didn't match any of the five platforms instead of
+// keeping it — this puts it back into `otherUrl` now that that field exists.
+// Safe to keep: a no-op as soon as the row has been fixed once.
+const RECOVER: Record<string, string> = {
+  cmtqj8qyy0001sfjrav8zat3y: "https://too.fm/flotandonevacio",
+};
+
 async function main() {
+  for (const [id, url] of Object.entries(RECOVER)) {
+    const row = await prisma.labelProduction.findUnique({ where: { id } });
+    if (row && !row.otherUrl && !row.linkUrl) {
+      await prisma.labelProduction.update({ where: { id }, data: { otherUrl: url } });
+      console.log(`[migrate-label-links] recovered "${row.title}" (${id}) into otherUrl.`);
+    }
+  }
+
   const rows = await prisma.labelProduction.findMany({
     where: { OR: [{ linkUrl: { not: null } }, { audioFile: { not: null } }] },
   });
@@ -32,7 +48,7 @@ async function main() {
   }
 
   let moved = 0;
-  let unclassified = 0;
+  let movedToOther = 0;
   for (const row of rows) {
     const data: Record<string, string | null> = {};
 
@@ -41,9 +57,11 @@ async function main() {
       if (field && !row[field]) {
         data[field] = row.linkUrl;
         moved++;
-      } else if (!field) {
-        unclassified++;
-        console.log(`[migrate-label-links] "${row.title}" (${row.id}) — couldn't classify: ${row.linkUrl}`);
+      } else if (!row.otherUrl) {
+        // Doesn't match a known platform (e.g. a Linktree/too.fm smart link)
+        // — keep it rather than discard it.
+        data.otherUrl = row.linkUrl;
+        movedToOther++;
       }
       data.linkUrl = null;
     }
@@ -58,7 +76,7 @@ async function main() {
     }
   }
 
-  console.log(`[migrate-label-links] processed ${rows.length} row(s) — moved ${moved}, unclassified ${unclassified}.`);
+  console.log(`[migrate-label-links] processed ${rows.length} row(s) — moved ${moved}, moved to "other" ${movedToOther}.`);
 }
 
 main()
