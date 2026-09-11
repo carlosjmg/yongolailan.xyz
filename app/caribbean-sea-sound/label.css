@@ -621,18 +621,25 @@
   margin-top: 12px;
   max-width: 60ch;
 }
-.cssound-song-ext {
-  font-family: var(--font-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--deep);
+.cssound-song-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-top: 12px;
-  display: inline-block;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
 }
-.cssound-song-ext:hover {
+.cssound-song-link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--ink-soft);
+  transition: color 0.2s, border-color 0.2s;
+}
+.cssound-song-link-icon:hover,
+.cssound-song-link-icon:focus-visible {
+  color: var(--deep);
   border-color: var(--deep);
 }
 .cssound-songs-empty {

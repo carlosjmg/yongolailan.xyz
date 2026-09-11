@@ -4,14 +4,24 @@ import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import type { LabelProduction, Release } from "@prisma/client";
 import { getLabelArtistBySlug } from "@/lib/data";
-import AudioPlayer from "@/components/site/AudioPlayer";
+import PlatformIcon from "@/components/site/PlatformIcon";
 
 type ProductionWithRelease = LabelProduction & { release: Release | null };
 
-/** Same priority as the main Music Catalog: Bandcamp first, then whichever
- *  streaming link the release actually has. */
-function releaseListenLink(r: Release): string | undefined {
-  return r.bandcampUrl || r.spotifyUrl || r.appleUrl || r.soundcloudUrl || r.youtubeUrl || undefined;
+// Same platforms, same order, as the main Music Catalog.
+const PLATFORMS: { key: "spotifyUrl" | "appleUrl" | "soundcloudUrl" | "youtubeUrl" | "bandcampUrl"; label: string }[] = [
+  { key: "spotifyUrl", label: "Spotify" },
+  { key: "appleUrl", label: "Apple Music" },
+  { key: "soundcloudUrl", label: "SoundCloud" },
+  { key: "youtubeUrl", label: "YouTube" },
+  { key: "bandcampUrl", label: "Bandcamp" },
+];
+
+/** A linked release supplies its own platform links; otherwise fall back to
+ *  the ones entered directly on the production. */
+function platformLinks(song: ProductionWithRelease) {
+  const source = song.release ?? song;
+  return PLATFORMS.filter((p) => source[p.key]).map((p) => ({ ...p, url: source[p.key] as string }));
 }
 
 export const dynamic = "force-dynamic";
@@ -79,7 +89,7 @@ function Song({ song }: { song: ProductionWithRelease }) {
   const description = r?.description || song.description;
   const releaseType = r?.releaseType || song.releaseType;
   const year = r?.year || song.releaseDate || song.year;
-  const listenUrl = r ? releaseListenLink(r) : song.linkUrl || undefined;
+  const links = platformLinks(song);
 
   const meta = [releaseType, year].filter(Boolean);
   const pageHref = SONG_PAGES[songKey(title)];
@@ -116,12 +126,21 @@ function Song({ song }: { song: ProductionWithRelease }) {
 
         {description ? <p className="cssound-song-desc">{description}</p> : null}
 
-        {song.audioFile ? <AudioPlayer src={song.audioFile} title={title} /> : null}
-
-        {listenUrl ? (
-          <a href={listenUrl} target="_blank" rel="noopener noreferrer" className="cssound-song-ext mono">
-            Listen elsewhere ↗
-          </a>
+        {links.length > 0 ? (
+          <div className="cssound-song-links">
+            {links.map((p) => (
+              <a
+                key={p.label}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={p.label}
+                className="cssound-song-link-icon"
+              >
+                <PlatformIcon name={p.label} size={15} />
+              </a>
+            ))}
+          </div>
         ) : null}
       </div>
     </div>
