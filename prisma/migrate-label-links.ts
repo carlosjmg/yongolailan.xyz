@@ -38,9 +38,13 @@ async function main() {
     }
   }
 
-  const rows = await prisma.labelProduction.findMany({
-    where: { OR: [{ linkUrl: { not: null } }, { audioFile: { not: null } }] },
-  });
+  // Excludes "" as well as null — old blank submissions before these fields
+  // existed left several rows with empty strings, not real values.
+  const rows = (
+    await prisma.labelProduction.findMany({
+      where: { OR: [{ linkUrl: { not: null } }, { audioFile: { not: null } }] },
+    })
+  ).filter((r) => r.linkUrl || r.audioFile);
 
   if (rows.length === 0) {
     console.log("[migrate-label-links] nothing to migrate.");
