@@ -219,6 +219,11 @@ model LabelProduction {
   description     String      @default("")
   releaseType     String      @default("Single")
   cover           String? // cover artwork
+  // Legacy — no longer read or written by the app (superseded by the platform
+  // links below). Kept temporarily so `db push` doesn't refuse to drop
+  // columns that still hold data; removed once that data is migrated.
+  audioFile       String?
+  linkUrl         String?
   // Platform links, same as the Music Catalog — shown under the credits.
   // Ignored when a release is linked below (its own links are used instead).
   spotifyUrl      String?
