@@ -124,11 +124,11 @@
 .jad-info-link {
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid var(--jad-muted);
+  border-bottom: 1px solid color-mix(in srgb, var(--jad-muted) 40%, transparent);
   transition: border-color 0.2s;
 }
 .jad-info-link:hover {
-  border-bottom-color: var(--jad-text);
+  border-bottom-color: color-mix(in srgb, var(--jad-text) 70%, transparent);
 }
 
 /* ── Platform buttons ────────────────────────────────────────── */
@@ -138,7 +138,7 @@
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--jad-muted);
+  color: var(--jad-orange);
 }
 .jad-platforms {
   display: flex;
@@ -240,7 +240,7 @@
   display: inline-block;
   margin-top: 14px;
   font-family: var(--font-mono), monospace;
-  font-size: var(--jad-info-size, 14px);
+  font-size: calc(var(--jad-info-size, 14px) - 2px);
   color: var(--jad-blue);
   text-decoration: none;
   border-bottom: 1px solid transparent;
