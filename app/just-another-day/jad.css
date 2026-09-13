@@ -200,7 +200,6 @@
 
 .jad-note a.jad-label-credit {
   display: inline-block;
-  margin-top: 14px;
   font-family: var(--font-mono), monospace;
   font-size: calc(var(--jad-info-size, 14px) - 2px);
   color: var(--jad-blue);
