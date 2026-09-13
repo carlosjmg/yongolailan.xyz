@@ -161,6 +161,19 @@ export default async function JustAnotherDayPage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="jad-cover" src={COVER} alt={`${TITLE} — ${ARTISTS} cover`} width={1500} height={1500} />
 
+        {info ? (
+          <>
+            <div className="jad-eyebrow">Credits</div>
+            <Credits
+              text={info}
+              collapse={on("jad.credits.collapse")}
+              lines={Math.max(1, Number(settings["jad.credits.lines"]) || 3)}
+              style={sizeVars}
+              artists={labelArtists}
+            />
+          </>
+        ) : null}
+
         <div className="jad-eyebrow">Listen &amp; support</div>
         <div className="jad-platforms">
           {PLATFORMS.map((p) => {
@@ -215,19 +228,6 @@ export default async function JustAnotherDayPage() {
           )}
           .
         </p>
-
-        {info ? (
-          <>
-            <div className="jad-eyebrow">Credits</div>
-            <Credits
-              text={info}
-              collapse={on("jad.credits.collapse")}
-              lines={Math.max(1, Number(settings["jad.credits.lines"]) || 3)}
-              style={sizeVars}
-              artists={labelArtists}
-            />
-          </>
-        ) : null}
 
         <p className="jad-note">
           <Link href="/caribbean-sea-sound" className="jad-label-credit">
