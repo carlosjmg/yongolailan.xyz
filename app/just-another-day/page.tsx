@@ -229,7 +229,7 @@ export default async function JustAnotherDayPage() {
           )}
           <br />
           <Link href="/caribbean-sea-sound" className="jad-label-credit">
-            Caribbean Sea Sound © ®
+            CARIBBEAN SEA SOUND
           </Link>
         </p>
 
