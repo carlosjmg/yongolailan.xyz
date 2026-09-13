@@ -99,16 +99,6 @@
   display: block;
 }
 
-/* ── Credit (echoes the cover's orange caption) ──────────────── */
-.jad-artists {
-  font-family: var(--font-mono), monospace;
-  font-size: clamp(12px, 2.4vw, 15px);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--jad-orange);
-  font-weight: 500;
-}
-
 .jad-info {
   /* Same mono face as the Films/Live captions. Size is admin-controlled. */
   font-family: var(--font-mono), monospace;
@@ -132,14 +122,6 @@
 }
 
 /* ── Platform buttons ────────────────────────────────────────── */
-.jad-listen-label {
-  margin-top: 6px;
-  font-family: var(--font-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--jad-orange);
-}
 .jad-platforms {
   display: flex;
   flex-wrap: wrap;

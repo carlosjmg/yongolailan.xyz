@@ -161,37 +161,7 @@ export default async function JustAnotherDayPage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="jad-cover" src={COVER} alt={`${TITLE} — ${ARTISTS} cover`} width={1500} height={1500} />
 
-        <div className="jad-artists">{ARTISTS}</div>
-
-        {taglineEnabled && tagline ? <p className="jad-tagline">{tagline}</p> : null}
-
-        {releaseBlockShown ? (
-          <ReleaseBlock
-            releaseDate={releaseDate}
-            ctaEnabled={ctaEnabled}
-            presaveUrl={(settings["jad.presaveUrl"] || "").trim()}
-            listenUrl={(settings["jad.listenUrl"] || "").trim()}
-            countdown={on("jad.countdown.enabled")}
-            title={TITLE}
-            initialReleased={isReleased(releaseDate)}
-          />
-        ) : null}
-
-        {previewEnabled ? (
-          <PreviewButton src={AUDIO} start={previewStart} duration={previewDuration} />
-        ) : null}
-
-        {info ? (
-          <Credits
-            text={info}
-            collapse={on("jad.credits.collapse")}
-            lines={Math.max(1, Number(settings["jad.credits.lines"]) || 3)}
-            style={sizeVars}
-            artists={labelArtists}
-          />
-        ) : null}
-
-        <div className="jad-listen-label">Listen &amp; support</div>
+        <div className="jad-eyebrow">Listen &amp; support</div>
         <div className="jad-platforms">
           {PLATFORMS.map((p) => {
             const url = (settings[`jad.${p.key}`] || "").trim();
@@ -214,7 +184,38 @@ export default async function JustAnotherDayPage() {
           })}
         </div>
 
+        {taglineEnabled && tagline ? <p className="jad-tagline">{tagline}</p> : null}
+
+        {releaseBlockShown ? (
+          <ReleaseBlock
+            releaseDate={releaseDate}
+            ctaEnabled={ctaEnabled}
+            presaveUrl={(settings["jad.presaveUrl"] || "").trim()}
+            listenUrl={(settings["jad.listenUrl"] || "").trim()}
+            countdown={on("jad.countdown.enabled")}
+            title={TITLE}
+            initialReleased={isReleased(releaseDate)}
+          />
+        ) : null}
+
+        {previewEnabled ? (
+          <PreviewButton src={AUDIO} start={previewStart} duration={previewDuration} />
+        ) : null}
+
         {visualizerEnabled ? <VisualizerButton label={settings["jad.visualizer.label"] || "Watch the Visualizer"} /> : null}
+
+        {info ? (
+          <>
+            <div className="jad-eyebrow">Credits</div>
+            <Credits
+              text={info}
+              collapse={on("jad.credits.collapse")}
+              lines={Math.max(1, Number(settings["jad.credits.lines"]) || 3)}
+              style={sizeVars}
+              artists={labelArtists}
+            />
+          </>
+        ) : null}
 
         <p className="jad-note">
           You can support the song directly on{" "}
