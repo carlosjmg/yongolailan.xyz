@@ -83,7 +83,6 @@ export default async function JustAnotherDayPage() {
   const eyebrow = settings["jad.eyebrow"] || "New Single";
   const info = settings["jad.info"] || "";
   const bandcamp = (settings["jad.bandcamp"] || "").trim();
-  const bandcampNote = settings["jad.bandcampNote"] || "Support this Song directly on:";
   const infoSize = clampPx(settings["jad.infoSize"], 14);
   const infoSizeMobile = clampPx(settings["jad.infoSizeMobile"], 14);
 
@@ -218,15 +217,15 @@ export default async function JustAnotherDayPage() {
         {visualizerEnabled ? <VisualizerButton label={settings["jad.visualizer.label"] || "Watch the Visualizer"} /> : null}
 
         <p className="jad-note">
-          {bandcampNote}
-          <br />
+          You can support the song directly on{" "}
           {bandcamp ? (
-            <a className="jad-bandcamp" href={bandcamp} target="_blank" rel="noopener noreferrer">
-              BANDCAMP
+            <a className="jad-info-link" href={bandcamp} target="_blank" rel="noopener noreferrer">
+              Bandcamp
             </a>
           ) : (
-            <b className="jad-bandcamp">BANDCAMP</b>
+            "Bandcamp"
           )}
+          .
           <br />
           <Link href="/caribbean-sea-sound" className="jad-label-credit">
             CARIBBEAN SEA SOUND

@@ -193,8 +193,6 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Collapse the credits to a few lines with a "Full credits +" toggle.
   "jad.credits.collapse": "off",
   "jad.credits.lines": "3",
-  // Editable lead-in for the Bandcamp support line (BANDCAMP stays the link).
-  "jad.bandcampNote": "Support this Song directly on:",
   // Discreet email capture near the foot.
   "jad.email.enabled": "off",
   "jad.email.heading": "Stay connected",

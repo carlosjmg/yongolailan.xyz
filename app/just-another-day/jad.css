@@ -215,26 +215,6 @@
   color: var(--jad-muted);
   max-width: 40ch;
 }
-.jad-note b {
-  color: var(--jad-orange-soft);
-  font-weight: 500;
-}
-.jad-note a {
-  color: var(--jad-orange);
-  font-weight: 500;
-  text-decoration: none;
-  border-bottom: 1px solid var(--jad-line);
-  transition: border-color 0.2s;
-}
-.jad-note a:hover {
-  border-bottom-color: var(--jad-orange);
-}
-.jad-bandcamp {
-  display: inline-block;
-  margin-top: 8px;
-  letter-spacing: 0.18em;
-  font-size: 12px;
-}
 
 .jad-note a.jad-label-credit {
   display: inline-block;

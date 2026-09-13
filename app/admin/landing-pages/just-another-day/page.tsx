@@ -31,7 +31,6 @@ const KEYS = [
   "jad.preview.duration",
   "jad.visualizer.enabled",
   "jad.visualizer.label",
-  "jad.bandcampNote",
   "jad.email.enabled",
   "jad.email.heading",
   "jad.share.enabled",
@@ -165,9 +164,6 @@ export default async function JustAnotherDayAdmin({ searchParams }: { searchPara
             <TextSetting name="jad.deezer" label="Deezer link" value={s["jad.deezer"]} placeholder="https://deezer.com/…" />
           </div>
         </div>
-
-        <GroupHeading>Support (Bandcamp)</GroupHeading>
-        <TextSetting name="jad.bandcampNote" label="Lead-in line (BANDCAMP stays the link)" value={s["jad.bandcampNote"]} placeholder="Support this Song directly on:" />
 
         <GroupHeading>Fan capture &amp; share</GroupHeading>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "flex-end" }}>
