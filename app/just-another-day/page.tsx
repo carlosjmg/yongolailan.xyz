@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
+import { getLabelArtistLinks } from "@/lib/data";
 import PlatformIcon from "@/components/site/PlatformIcon";
 import ReleaseBlock from "@/components/site/jad/ReleaseBlock";
 import PreviewButton from "@/components/site/jad/PreviewButton";
@@ -75,7 +77,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function JustAnotherDayPage() {
   noStore();
-  const settings = await getAllSettings();
+  const [settings, labelArtists] = await Promise.all([getAllSettings(), getLabelArtistLinks()]);
   const on = (k: string) => settings[k] === "on";
 
   const eyebrow = settings["jad.eyebrow"] || "New Single";
@@ -186,6 +188,7 @@ export default async function JustAnotherDayPage() {
             collapse={on("jad.credits.collapse")}
             lines={Math.max(1, Number(settings["jad.credits.lines"]) || 3)}
             style={sizeVars}
+            artists={labelArtists}
           />
         ) : null}
 
@@ -224,6 +227,10 @@ export default async function JustAnotherDayPage() {
           ) : (
             <b className="jad-bandcamp">BANDCAMP</b>
           )}
+          <br />
+          <Link href="/caribbean-sea-sound" className="jad-label-credit">
+            Caribbean Sea Sound © ®
+          </Link>
         </p>
 
         {emailEnabled ? <EmailCapture heading={settings["jad.email.heading"] || "Stay connected"} /> : null}

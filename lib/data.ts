@@ -131,6 +131,20 @@ export async function getLabelArtistBySlug(slug: string) {
   }
 }
 
+/** Name + slug of every published label artist — for turning a name that
+ *  appears in some other page's credits into a link to their artist page. */
+export async function getLabelArtistLinks(): Promise<{ name: string; slug: string }[]> {
+  try {
+    const rows = await prisma.labelArtist.findMany({
+      where: { published: true, NOT: { slug: "" } },
+      select: { name: true, slug: true },
+    });
+    return rows;
+  } catch {
+    return [];
+  }
+}
+
 /** Slugs of published artists — for the sitemap. */
 export async function getLabelArtistSlugs(): Promise<string[]> {
   try {

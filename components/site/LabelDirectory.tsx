@@ -46,7 +46,7 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
     <>
       {/* ── Desktop ── */}
       <div className="cssound-section-label">
-        <span>Artists</span>
+        <span>Artists [{artists.length}]</span>
       </div>
 
       <div className="cssound-directory">
@@ -83,7 +83,7 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
       </div>
 
       {/* ── Touch accordion ── */}
-      <div className="cssound-acc-label mono">Artists</div>
+      <div className="cssound-acc-label mono">Artists [{artists.length}]</div>
       <ul className="cssound-accordion">
         {artists.map((a) => {
           const open = openId === a.id;

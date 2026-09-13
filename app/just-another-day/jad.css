@@ -13,6 +13,7 @@
   --jad-text: #f3ede2;
   --jad-muted: #9a948a;
   --jad-line: rgba(242, 106, 31, 0.35);
+  --jad-blue: #0464b3; /* pulled from the cover art's sky */
 
   position: relative;
   min-height: 100vh;
@@ -120,6 +121,16 @@
      own line. */
   white-space: pre-line;
 }
+.jad-info-link {
+  color: var(--jad-orange-soft);
+  text-decoration: none;
+  border-bottom: 1px solid var(--jad-line);
+  transition: border-color 0.2s, color 0.2s;
+}
+.jad-info-link:hover {
+  color: var(--jad-orange);
+  border-bottom-color: var(--jad-orange);
+}
 
 /* ── Platform buttons ────────────────────────────────────────── */
 .jad-listen-label {
@@ -224,6 +235,20 @@
   margin-top: 8px;
   letter-spacing: 0.18em;
   font-size: 12px;
+}
+
+.jad-note a.jad-label-credit {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--jad-info-size, 14px);
+  color: var(--jad-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.jad-note a.jad-label-credit:hover {
+  border-bottom-color: var(--jad-blue);
 }
 
 /* ── Tagline / lyric line ────────────────────────────────────── */
