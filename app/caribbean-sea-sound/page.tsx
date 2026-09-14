@@ -15,7 +15,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yongolailan.xyz";
 const LABEL_SHARE_IMAGE = `${siteUrl}/images/caribbean-sea-sound-share.jpg`;
 
 export const metadata: Metadata = {
-  title: { absolute: "Caribbean Sea Sound — Independent Music Label" },
+  title: { absolute: "Caribbean Sea Sound - Independent Music Label" },
   description:
     "Caribbean Sea Sound is an independent music platform and label founded in Brooklyn in 2016, showcasing artists from the Caribbean and across the Americas.",
   keywords: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${siteUrl}/caribbean-sea-sound`,
-    title: "Caribbean Sea Sound — Independent Music Label",
+    title: "Caribbean Sea Sound - Independent Music Label",
     description:
       "An independent music platform and label founded in Brooklyn in 2016. Artists from the Caribbean and across the Americas.",
     siteName: "Caribbean Sea Sound",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Caribbean Sea Sound — Independent Music Label",
+    title: "Caribbean Sea Sound - Independent Music Label",
     description:
       "An independent music platform and label founded in Brooklyn in 2016. Artists from the Caribbean and across the Americas.",
     images: [LABEL_SHARE_IMAGE],

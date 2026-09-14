@@ -56,16 +56,16 @@ function FieldRenderer({
     // Required relations (e.g. an artist) keep the original behaviour: no
     // blank option, defaults to the first choice, and a hard error if there's
     // nothing to pick yet. Optional ones (e.g. an optional catalog link) get
-    // an explicit "— None —" so an untouched dropdown can never silently
+    // an explicit "None" so an untouched dropdown can never silently
     // save a link nobody chose, and still work fine with zero rows to pick.
     if (field.required && (!choices || choices.length === 0)) {
       control = (
         <div className="admin-help" style={{ color: "#fc5c64" }}>
-          No artists yet — add one under <strong>Label &mdash; Artists</strong> first, then come back.
+          No artists yet, add one under <strong>Label: Artists</strong> first, then come back.
         </div>
       );
     } else {
-      const opts = field.required ? choices! : [{ value: "", label: field.emptyLabel ?? "— None —" }, ...(choices ?? [])];
+      const opts = field.required ? choices! : [{ value: "", label: field.emptyLabel ?? "None" }, ...(choices ?? [])];
       control = (
         <select
           id={id}

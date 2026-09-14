@@ -41,9 +41,9 @@ const LABEL_ICON = "/caribbean-sea-sound/icon.png";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const artist = await getLabelArtistBySlug(params.slug);
-  if (!artist) return { title: { absolute: "Artist — Caribbean Sea Sound" }, icons: { icon: LABEL_ICON } };
+  if (!artist) return { title: { absolute: "Artist - Caribbean Sea Sound" }, icons: { icon: LABEL_ICON } };
 
-  const title = `${artist.name} — Caribbean Sea Sound`;
+  const title = `${artist.name} - Caribbean Sea Sound`;
   const description =
     artist.shortDescription ||
     (artist.bio ? artist.bio.slice(0, 155) : `${artist.name} on Caribbean Sea Sound, the Brooklyn record label.`);

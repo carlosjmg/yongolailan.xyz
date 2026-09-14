@@ -36,7 +36,7 @@ export default function LabelDirectory({ artists }: { artists: DirectoryArtist[]
 
   if (artists.length === 0) {
     return (
-      <p className="cssound-songs-empty">The roster is being put together — check back soon.</p>
+      <p className="cssound-songs-empty">The roster is being put together, check back soon.</p>
     );
   }
 

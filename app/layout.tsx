@@ -83,7 +83,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   // Both target terms sit in the title, and the description opens with the
   // name so the search snippet leads with it.
-  const title = "Yongolailan — DJ, Producer & Founder of Caribbean Sea Sound";
+  const title = "Yongolailan - DJ, Producer & Founder of Caribbean Sea Sound";
   const description =
     "Yongolailan is a Cuban DJ, producer and live electronic performer based in New York City, and the founder of the Brooklyn record label Caribbean Sea Sound. Official site.";
 

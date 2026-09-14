@@ -31,7 +31,7 @@ export default async function Dashboard() {
   return (
     <div>
       <h1 className="admin-h1">Dashboard</h1>
-      <p className="admin-sub">Manage everything on your site — no code required.</p>
+      <p className="admin-sub">Manage everything on your site, no code required.</p>
 
       {(!emailOn || !blobOn) && (
         <div className="admin-note">

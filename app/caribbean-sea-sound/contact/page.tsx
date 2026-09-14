@@ -16,21 +16,21 @@ const LABEL_SHARE_IMAGE = `${siteUrl}/images/caribbean-sea-sound-share.jpg`;
 const LABEL_ICON = "/caribbean-sea-sound/icon.png";
 
 export const metadata: Metadata = {
-  title: { absolute: "Contact — Caribbean Sea Sound" },
+  title: { absolute: "Contact - Caribbean Sea Sound" },
   description: "Get in touch with Caribbean Sea Sound for collaborations, licensing, distribution and press.",
   alternates: { canonical: `${siteUrl}/caribbean-sea-sound/contact` },
   icons: { icon: LABEL_ICON },
   openGraph: {
     type: "website",
     url: `${siteUrl}/caribbean-sea-sound/contact`,
-    title: "Contact — Caribbean Sea Sound",
+    title: "Contact - Caribbean Sea Sound",
     description: "Get in touch with Caribbean Sea Sound for collaborations, licensing, distribution and press.",
     siteName: "Caribbean Sea Sound",
     images: [{ url: LABEL_SHARE_IMAGE, width: 1200, height: 1198, alt: "Caribbean Sea Sound" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact — Caribbean Sea Sound",
+    title: "Contact - Caribbean Sea Sound",
     description: "Get in touch with Caribbean Sea Sound for collaborations, licensing, distribution and press.",
     images: [LABEL_SHARE_IMAGE],
   },
@@ -54,7 +54,7 @@ export default async function LabelContactPage() {
         <section className="cssound-intro cssound-intro--notitle">
           <div className="cssound-eyebrow">Get in Touch</div>
           <p className="cssound-intro-lede">
-            Open to collaborations, licensing, distribution and press inquiries — from anyone building something in
+            Open to collaborations, licensing, distribution and press inquiries, from anyone building something in
             the same spirit.
           </p>
         </section>

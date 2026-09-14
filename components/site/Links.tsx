@@ -17,7 +17,7 @@ function PlatformLink({ platform }: { platform: LinkModel }) {
       href={disabled ? undefined : platform.url}
       target={disabled ? undefined : "_blank"}
       rel="noopener noreferrer"
-      title={platform.handle ? `${platform.name} — ${platform.handle}` : platform.name}
+      title={platform.handle ? `${platform.name}: ${platform.handle}` : platform.name}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{

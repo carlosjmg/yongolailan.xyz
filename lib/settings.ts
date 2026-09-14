@@ -70,7 +70,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "text.videos.eyebrow": "Film & Motion",
   "text.videos.title": "Short Films & Videos",
   "text.videos.subtitle":
-    "Music videos, short films, and live sessions — visual storytelling rooted in Afro-Caribbean culture.",
+    "Music videos, short films, and live sessions: visual storytelling rooted in Afro-Caribbean culture.",
   "text.photos.eyebrow": "On Stage",
   "text.photos.title": "Live Performance & DJ Sessions",
   "text.photos.subtitle":
@@ -164,7 +164,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // ── "Just Another Day" single page (/just-another-day) ──
   // Reached by clicking the song title in Arema Arega's label page.
   "jad.info":
-    "The new single from Arema Arega & Yongolailan — a nocturnal, palm-lit groove born between the Caribbean and New York. Out now on Caribbean Sea Sound. Name your price on Bandcamp.",
+    "The new single from Arema Arega & Yongolailan, a nocturnal, palm-lit groove born between the Caribbean and New York. Out now on Caribbean Sea Sound. Name your price on Bandcamp.",
   // Credits/description font size (px), per device.
   "jad.infoSize": "14",
   "jad.infoSizeMobile": "14",

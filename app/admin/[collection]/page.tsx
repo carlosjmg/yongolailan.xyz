@@ -8,7 +8,7 @@ import ConfirmSubmit from "@/components/admin/ConfirmSubmit";
 export const dynamic = "force-dynamic";
 
 function cell(value: unknown): string {
-  if (value === null || value === undefined || value === "") return "—";
+  if (value === null || value === undefined || value === "") return "-";
   const s = String(value);
   return s.length > 48 ? s.slice(0, 47) + "…" : s;
 }
@@ -41,7 +41,7 @@ export default async function CollectionListPage({ params }: { params: { collect
       </p>
 
       {records.length === 0 ? (
-        <div className="admin-panel">Nothing here yet — add your first {col.singular}.</div>
+        <div className="admin-panel">Nothing here yet, add your first {col.singular}.</div>
       ) : (
         <div className="admin-panel" style={{ padding: 0, overflowX: "auto" }}>
           <table className="admin-table">

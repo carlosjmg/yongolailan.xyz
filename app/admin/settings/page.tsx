@@ -11,13 +11,13 @@ export const dynamic = "force-dynamic";
 // Ordered best-first. The contrast figures were measured against the dark
 // top-left area of the hero artwork, where the role line actually sits.
 const ROLE_COLORS: ColorPreset[] = [
-  { hex: "#f5efe4", name: "Warm white", note: "Cleanest and most readable — contrast 14:1" },
-  { hex: HERO_ROLE_COLOR_FALLBACK, name: "Site gold", note: "Matches every section heading — contrast 6:1" },
-  { hex: "#efdc9c", name: "Champagne", note: "Same gold as the award laurels — contrast 12:1" },
-  { hex: "#fc5c64", name: "Sunglasses red", note: "Taken from your own artwork — contrast 5:1" },
-  { hex: "#00bec7", name: "Ocean cyan", note: "The site's cool accent — contrast 7:1" },
-  { hex: "#ffffff", name: "Pure white", note: "Maximum contrast — 16:1" },
-  { hex: "#000000", name: "Black", note: "Only readable over a light hero image — 1.3:1 on the current one" },
+  { hex: "#f5efe4", name: "Warm white", note: "Cleanest and most readable - contrast 14:1" },
+  { hex: HERO_ROLE_COLOR_FALLBACK, name: "Site gold", note: "Matches every section heading - contrast 6:1" },
+  { hex: "#efdc9c", name: "Champagne", note: "Same gold as the award laurels - contrast 12:1" },
+  { hex: "#fc5c64", name: "Sunglasses red", note: "Taken from your own artwork - contrast 5:1" },
+  { hex: "#00bec7", name: "Ocean cyan", note: "The site's cool accent - contrast 7:1" },
+  { hex: "#ffffff", name: "Pure white", note: "Maximum contrast - 16:1" },
+  { hex: "#000000", name: "Black", note: "Only readable over a light hero image - 1.3:1 on the current one" },
 ];
 
 const KEYS = [
@@ -106,7 +106,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           ]}
           help="Show or hide the Booking button on the home page (also removes it from the phone menu and the sticky bottom bar). The Email button stays."
         />
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>One-liner + Booking together — desktop</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>One-liner + Booking together - desktop</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
             <TextSetting name="hero.copyX" label="Left / right (px)" value={s["hero.copyX"]} type="number" help="Moves the one-liner AND the Booking button. Positive = right, negative = left." />
@@ -115,7 +115,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
             <TextSetting name="hero.copyY" label="Up / down (px)" value={s["hero.copyY"]} type="number" help="Moves both. Positive = down, negative = up." />
           </div>
         </div>
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Booking button only — desktop</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Booking button only - desktop</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
             <TextSetting name="hero.bookingX" label="Left / right (px)" value={s["hero.bookingX"]} type="number" help="Moves ONLY the Booking button, independent of the one-liner. 0 = stays with it." />
@@ -136,34 +136,34 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
         </div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoSize" label="Logo size — desktop (px)" value={s["site.logoSize"]} type="number" help="Logo height on computers. Try 40–72." />
+            <TextSetting name="site.logoSize" label="Logo size - desktop (px)" value={s["site.logoSize"]} type="number" help="Logo height on computers. Try 40–72." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoSizeMobile" label="Logo size — mobile (px)" value={s["site.logoSizeMobile"]} type="number" help="Logo height on phones. Leave empty to match the desktop size." />
-          </div>
-        </div>
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Logo position — desktop</div>
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoOffsetX" label="Left / right — desktop (px)" value={s["site.logoOffsetX"]} type="number" help="Positive = right, negative = left. 0 = default." />
-          </div>
-          <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoOffsetY" label="Up / down — desktop (px)" value={s["site.logoOffsetY"]} type="number" help="Positive = down, negative = up. Try -10 to 30." />
+            <TextSetting name="site.logoSizeMobile" label="Logo size - mobile (px)" value={s["site.logoSizeMobile"]} type="number" help="Logo height on phones. Leave empty to match the desktop size." />
           </div>
         </div>
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Logo position — mobile</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Logo position - desktop</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoOffsetXMobile" label="Left / right — mobile (px)" value={s["site.logoOffsetXMobile"]} type="number" help="Leave empty to match desktop. 0 = no horizontal offset." />
+            <TextSetting name="site.logoOffsetX" label="Left / right - desktop (px)" value={s["site.logoOffsetX"]} type="number" help="Positive = right, negative = left. 0 = default." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="site.logoOffsetYMobile" label="Up / down — mobile (px)" value={s["site.logoOffsetYMobile"]} type="number" help="Leave empty to match desktop. 0 = no vertical offset." />
+            <TextSetting name="site.logoOffsetY" label="Up / down - desktop (px)" value={s["site.logoOffsetY"]} type="number" help="Positive = down, negative = up. Try -10 to 30." />
           </div>
         </div>
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Top menu — desktop</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Logo position - mobile</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="nav.menuSize" label="Menu text size — desktop (px)" value={s["nav.menuSize"]} type="number" help="Size of the top menu links on computers. Default 11. Try 11–16. (Phones are unaffected.)" />
+            <TextSetting name="site.logoOffsetXMobile" label="Left / right - mobile (px)" value={s["site.logoOffsetXMobile"]} type="number" help="Leave empty to match desktop. 0 = no horizontal offset." />
+          </div>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="site.logoOffsetYMobile" label="Up / down - mobile (px)" value={s["site.logoOffsetYMobile"]} type="number" help="Leave empty to match desktop. 0 = no vertical offset." />
+          </div>
+        </div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Top menu - desktop</div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 180px" }}>
+            <TextSetting name="nav.menuSize" label="Menu text size - desktop (px)" value={s["nav.menuSize"]} type="number" help="Size of the top menu links on computers. Default 11. Try 11–16. (Phones are unaffected.)" />
           </div>
         </div>
 
@@ -205,13 +205,13 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
         </p>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="catalog.creditsSize" label="Music — credit line (px)" value={s["catalog.creditsSize"]} type="number" help="Under each release, e.g. &ldquo;Lyric by…&rdquo;. Default 10." />
+            <TextSetting name="catalog.creditsSize" label="Music - credit line (px)" value={s["catalog.creditsSize"]} type="number" help="Under each release, e.g. &ldquo;Lyric by…&rdquo;. Default 10." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="videos.descSize" label="Films / Videos — description (px)" value={s["videos.descSize"]} type="number" help="The description line under each video. Default 13." />
+            <TextSetting name="videos.descSize" label="Films / Videos - description (px)" value={s["videos.descSize"]} type="number" help="The description line under each video. Default 13." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="photos.captionSize" label="Live — caption (px)" value={s["photos.captionSize"]} type="number" help="The caption under each Live photo/video. Default 24." />
+            <TextSetting name="photos.captionSize" label="Live - caption (px)" value={s["photos.captionSize"]} type="number" help="The caption under each Live photo/video. Default 24." />
           </div>
         </div>
 
@@ -244,7 +244,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
           label="Intro paragraph"
           value={s["label.intro"]}
           rows={5}
-          help="The opening text on the Caribbean Sea Sound page. Press Enter for a line break — it shows on the page. Artists and songs are managed under Caribbean Sea Sound in the sidebar."
+          help="The opening text on the Caribbean Sea Sound page. Press Enter for a line break - it shows on the page. Artists and songs are managed under Caribbean Sea Sound in the sidebar."
         />
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 260px" }}>
@@ -262,31 +262,31 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
         <TextSetting name="label.logoSize" label="Caribbean Sea Sound logo size (px)" value={s["label.logoSize"]} type="number" help="Height of the label logo, top-left. Try 28–56." />
         <TextSetting name="label.wordmarkSize" label="Caribbean Sea Sound text size (px)" value={s["label.wordmarkSize"]} type="number" help="Size of the 'Caribbean Sea Sound' text top-right. Leave empty to match the logo size." />
         <TextSetting name="label.songCoverSize" label="Song cover size (px)" value={s["label.songCoverSize"]} type="number" help="Size of each production's cover on the artist pages. Default 96. Mobile scales down automatically." />
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Artist name size — roster list</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Artist name size - roster list</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="label.artistNameSize" label="Size — desktop (px)" value={s["label.artistNameSize"]} type="number" help="Default 34. The gap between names shrinks and grows with it automatically." />
+            <TextSetting name="label.artistNameSize" label="Size - desktop (px)" value={s["label.artistNameSize"]} type="number" help="Default 34. The gap between names shrinks and grows with it automatically." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="label.artistNameSizeMobile" label="Size — mobile (px)" value={s["label.artistNameSizeMobile"]} type="number" help="Default 22." />
+            <TextSetting name="label.artistNameSizeMobile" label="Size - mobile (px)" value={s["label.artistNameSizeMobile"]} type="number" help="Default 22." />
           </div>
         </div>
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Label logo position — desktop</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Label logo position - desktop</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="label.logoOffsetX" label="Left / right — desktop (px)" value={s["label.logoOffsetX"]} type="number" help="Positive = right, negative = left." />
+            <TextSetting name="label.logoOffsetX" label="Left / right - desktop (px)" value={s["label.logoOffsetX"]} type="number" help="Positive = right, negative = left." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="label.logoOffsetY" label="Up / down — desktop (px)" value={s["label.logoOffsetY"]} type="number" help="Positive = down, negative = up." />
+            <TextSetting name="label.logoOffsetY" label="Up / down - desktop (px)" value={s["label.logoOffsetY"]} type="number" help="Positive = down, negative = up." />
           </div>
         </div>
-        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Label logo position — mobile</div>
+        <div className="admin-label" style={{ marginTop: "6px", opacity: 0.85 }}>Label logo position - mobile</div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="label.logoOffsetXMobile" label="Left / right — mobile (px)" value={s["label.logoOffsetXMobile"]} type="number" help="Move the logo left/right on phones. Leave empty to match desktop; 0 = no offset." />
+            <TextSetting name="label.logoOffsetXMobile" label="Left / right - mobile (px)" value={s["label.logoOffsetXMobile"]} type="number" help="Move the logo left/right on phones. Leave empty to match desktop; 0 = no offset." />
           </div>
           <div style={{ flex: "1 1 180px" }}>
-            <TextSetting name="label.logoOffsetYMobile" label="Up / down — mobile (px)" value={s["label.logoOffsetYMobile"]} type="number" help="Leave empty to match desktop; 0 = no offset." />
+            <TextSetting name="label.logoOffsetYMobile" label="Up / down - mobile (px)" value={s["label.logoOffsetYMobile"]} type="number" help="Leave empty to match desktop; 0 = no offset." />
           </div>
         </div>
 

@@ -55,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch {
     /* database unavailable — fall back to the default description */
   }
-  const title = `${TITLE} — ${ARTISTS}`;
+  const title = `${TITLE} - ${ARTISTS}`;
   const url = `${siteUrl}/just-another-day`;
   const image = `${siteUrl}${COVER}`;
 
@@ -153,13 +153,13 @@ export default async function JustAnotherDayPage() {
             margin: -1,
           }}
         >
-          {TITLE} — {ARTISTS}
+          {TITLE} - {ARTISTS}
         </h1>
 
         <div className="jad-eyebrow">{eyebrow}</div>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="jad-cover" src={COVER} alt={`${TITLE} — ${ARTISTS} cover`} width={1500} height={1500} />
+        <img className="jad-cover" src={COVER} alt={`${TITLE} - ${ARTISTS} cover`} width={1500} height={1500} />
 
         {info ? (
           <>
@@ -190,7 +190,7 @@ export default async function JustAnotherDayPage() {
                 {inner}
               </a>
             ) : (
-              <span key={p.key} className={cls} tabIndex={0} role="link" aria-disabled="true" aria-label={`${p.name} — link coming soon`}>
+              <span key={p.key} className={cls} tabIndex={0} role="link" aria-disabled="true" aria-label={`${p.name}: link coming soon`}>
                 {inner}
               </span>
             );
@@ -237,7 +237,7 @@ export default async function JustAnotherDayPage() {
 
         {emailEnabled ? <EmailCapture heading={settings["jad.email.heading"] || "Stay connected"} /> : null}
 
-        {shareEnabled ? <ShareRow url={`${siteUrl}/just-another-day`} title={`${TITLE} — ${ARTISTS}`} /> : null}
+        {shareEnabled ? <ShareRow url={`${siteUrl}/just-another-day`} title={`${TITLE} - ${ARTISTS}`} /> : null}
       </div>
     </main>
   );

@@ -76,7 +76,7 @@ export default function ReleaseBlock({
     <>
       {hasDate && (
         <div className="jad-release">
-          <span className="jad-release-date">{released ? "OUT NOW" : `OUT — ${dateStr}`}</span>
+          <span className="jad-release-date">{released ? "OUT NOW" : `OUT: ${dateStr}`}</span>
           {countdownStr && <span className="jad-countdown">{countdownStr}</span>}
         </div>
       )}

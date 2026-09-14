@@ -21,8 +21,8 @@ export default async function AboutPage({ searchParams }: { searchParams: { save
           <ImageUpload name="about.image" defaultValue={s["about.image"]} />
           <div className="admin-help">The portrait shown beside your biography.</div>
         </div>
-        <TextareaSetting name="about.p1" label="Biography — paragraph 1" value={s["about.p1"]} rows={4} />
-        <TextareaSetting name="about.p2" label="Biography — paragraph 2" value={s["about.p2"]} rows={4} />
+        <TextareaSetting name="about.p1" label="Biography, paragraph 1" value={s["about.p1"]} rows={4} />
+        <TextareaSetting name="about.p2" label="Biography, paragraph 2" value={s["about.p2"]} rows={4} />
 
         <button type="submit" className="admin-btn admin-btn-primary" style={{ marginTop: "18px" }}>
           Save changes

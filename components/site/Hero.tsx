@@ -89,7 +89,7 @@ export default function Hero({
           margin: "-1px",
         }}
       >
-        {name} — {roleLine || "DJ · Producer · Live Electronic Performer"}
+        {name} - {roleLine || "DJ · Producer · Live Electronic Performer"}
       </h1>
 
       <div

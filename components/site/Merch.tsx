@@ -35,7 +35,7 @@ export default function Merch({
             Coming Soon
           </div>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "var(--text-dimmer)", maxWidth: "440px", lineHeight: 1.7 }}>
-            Vinyl, prints, apparel, and special releases — connected to Caribbean Sea Sound.
+            Vinyl, prints, apparel, and special releases, connected to Caribbean Sea Sound.
           </p>
         </div>
       </SectionFullWidth>

@@ -16,7 +16,7 @@ export default function ShareRow({ url, title }: { url: string; title: string })
     setTimeout(() => setCopied(false), 1600);
   };
 
-  const wa = `https://wa.me/?text=${encodeURIComponent(`${title} — ${url}`)}`;
+  const wa = `https://wa.me/?text=${encodeURIComponent(`${title} - ${url}`)}`;
   const x = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
 
   return (

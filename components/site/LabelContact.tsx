@@ -26,11 +26,11 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
  * The label's own contact section — the same shape as the main site's
  * Contact (direct info, inquiry types, a form), reskinned light for
  * Caribbean Sea Sound. Posts to the shared /api/contact endpoint; the
- * "Label — …" type prefix is what routes the notification email to the
+ * "Label: …" type prefix is what routes the notification email to the
  * label's own inbox instead of the main one (see app/api/contact/route.ts).
  */
 export default function LabelContact({ email, phone, whatsappUrl }: { email: string; phone: string; whatsappUrl: string }) {
-  const [form, setForm] = useState({ name: "", email: "", type: `Label — ${INQUIRY_TYPES[0]}`, message: "" });
+  const [form, setForm] = useState({ name: "", email: "", type: `Label: ${INQUIRY_TYPES[0]}`, message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -116,7 +116,7 @@ export default function LabelContact({ email, phone, whatsappUrl }: { email: str
                 style={{ cursor: "pointer" }}
               >
                 {INQUIRY_TYPES.map((t) => (
-                  <option key={t} value={`Label — ${t}`}>
+                  <option key={t} value={`Label: ${t}`}>
                     {t}
                   </option>
                 ))}

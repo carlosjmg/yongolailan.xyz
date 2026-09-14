@@ -58,7 +58,7 @@ export default async function LabelLayout({ children }: { children: React.ReactN
     >
       <header className="cssound-header">
         <div className="cssound-header-inner">
-          <Link href="/caribbean-sea-sound" className="cssound-logo" aria-label={`${name} — home`}>
+          <Link href="/caribbean-sea-sound" className="cssound-logo" aria-label={`${name}: home`}>
             {logo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img

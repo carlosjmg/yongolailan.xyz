@@ -29,7 +29,7 @@ const RELEASES = [
     title: "Sueño Tropical",
     year: "2015",
     genre: "Electroacoustic",
-    description: "Debut album. Cubadisco Award winner — electroacoustic category.",
+    description: "Debut album. Cubadisco Award winner, electroacoustic category.",
     credits: "Produced by Yongolailan · Award: Cubadisco 2015",
     accentColor: "oklch(62% 0.14 165)",
     featured: true,
@@ -85,7 +85,7 @@ const RELEASES = [
     title: "EYEIFE Festival Mix",
     year: "2024",
     genre: "Live Mix Session",
-    description: "Official festival mix session — EYEIFE 2024 Official Mention.",
+    description: "Official festival mix session, EYEIFE 2024 Official Mention.",
     credits: "Live Set · EYEIFE Festival",
     accentColor: "oklch(62% 0.14 200)",
     featured: true,
@@ -130,7 +130,7 @@ const PORTFOLIO = [
     title: "Web Experiences",
     subtitle: "Digital Islands",
     description:
-      "Immersive web experiences and digital art installations. Building the future digital island for Yongolailan — a Three.js-powered interactive sonic world.",
+      "Immersive web experiences and digital art installations. Building the future digital island for Yongolailan, a Three.js-powered interactive sonic world.",
     tag: "Web · Immersive Tech",
     color: "oklch(72% 0.14 300)",
     sortOrder: 3,
@@ -154,7 +154,7 @@ const LINKS = [
 ].map((l, i) => ({ ...l, url: "#", sortOrder: i }));
 
 const AWARDS = [
-  { title: "Cubadisco Award", year: "2015", note: "Electroacoustic category — Sueño Tropical", sortOrder: 0 },
+  { title: "Cubadisco Award", year: "2015", note: "Electroacoustic category: Sueño Tropical", sortOrder: 0 },
   { title: "EYEIFE Festival", year: "2024", note: "Official Mention", sortOrder: 1 },
   { title: "EYEIFE Festival", year: "2025", note: "Official Mention", sortOrder: 2 },
   { title: "Bolton Film Festival", year: "", note: "Official Selection", sortOrder: 3 },

@@ -69,7 +69,7 @@ export default function ColorSetting({
               key={p.hex}
               type="button"
               onClick={() => pick(p.hex)}
-              title={`${p.name} — ${p.note}`}
+              title={`${p.name}: ${p.note}`}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -145,7 +145,7 @@ export default function ColorSetting({
 
       {!valid && (
         <div className="admin-help" style={{ color: "#fc5c64" }}>
-          That isn&rsquo;t a colour code yet — use six characters like <code>#e8a33d</code>. Your
+          That isn&rsquo;t a colour code yet, use six characters like <code>#e8a33d</code>. Your
           saved colour stays as it is until this reads correctly.
         </div>
       )}

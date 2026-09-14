@@ -27,7 +27,7 @@ export default function EmailCapture({ heading }: { heading: string }) {
     <div className="jad-email">
       <div className="jad-email-heading">{heading}</div>
       {status === "done" ? (
-        <div className="jad-email-done">Thanks — you&rsquo;re on the list.</div>
+        <div className="jad-email-done">Thanks, you&rsquo;re on the list.</div>
       ) : (
         <form className="jad-email-form" onSubmit={submit}>
           <input

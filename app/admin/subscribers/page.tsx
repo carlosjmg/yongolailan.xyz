@@ -22,7 +22,7 @@ export default async function SubscribersPage() {
       ) : (
         <>
           <div className="admin-panel" style={{ marginBottom: "16px" }}>
-            <label className="admin-label">All emails ({subs.length}) — select all and copy</label>
+            <label className="admin-label">All emails ({subs.length}): select all and copy</label>
             <textarea
               readOnly
               rows={3}

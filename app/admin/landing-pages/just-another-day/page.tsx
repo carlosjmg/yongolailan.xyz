@@ -73,10 +73,10 @@ export default async function JustAnotherDayAdmin({ searchParams }: { searchPara
         <TextareaSetting name="jad.info" label="Info text (credits)" value={s["jad.info"]} rows={5} help="Shown under the cover. Press Enter to put each credit on its own line." />
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <div style={{ flex: "1 1 150px" }}>
-            <TextSetting name="jad.infoSize" label="Size — desktop (px)" value={s["jad.infoSize"]} type="number" help="Default 14." />
+            <TextSetting name="jad.infoSize" label="Size - desktop (px)" value={s["jad.infoSize"]} type="number" help="Default 14." />
           </div>
           <div style={{ flex: "1 1 150px" }}>
-            <TextSetting name="jad.infoSizeMobile" label="Size — mobile (px)" value={s["jad.infoSizeMobile"]} type="number" help="Default 14." />
+            <TextSetting name="jad.infoSizeMobile" label="Size - mobile (px)" value={s["jad.infoSizeMobile"]} type="number" help="Default 14." />
           </div>
         </div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "flex-end" }}>
@@ -92,7 +92,7 @@ export default async function JustAnotherDayAdmin({ searchParams }: { searchPara
         <p className="admin-help" style={{ marginTop: "-8px", marginBottom: "14px" }}>
           Set the date and the button switches itself from <b>Pre-Save</b> to <b>Listen Now</b> on release day.
         </p>
-        <TextSetting name="jad.releaseDate" label="Release date &amp; time" value={s["jad.releaseDate"]} type="datetime-local" help="Drives the OUT — … line, the countdown and the CTA. Leave empty for none." />
+        <TextSetting name="jad.releaseDate" label="Release date &amp; time" value={s["jad.releaseDate"]} type="datetime-local" help="Drives the OUT: … line, the countdown and the CTA. Leave empty for none." />
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "flex-end" }}>
           <div style={{ flex: "0 0 150px" }}>
             <SelectSetting name="jad.cta.enabled" label="Big CTA button" value={s["jad.cta.enabled"]} options={SHOW} />
@@ -135,7 +135,7 @@ export default async function JustAnotherDayAdmin({ searchParams }: { searchPara
 
         <GroupHeading>Streaming links</GroupHeading>
         <p className="admin-help" style={{ marginTop: "-8px", marginBottom: "14px" }}>
-          Paste each link as you get it — a button with no link yet still shows, just greyed out. Bandcamp is first
+          Paste each link as you get it - a button with no link yet still shows, just greyed out. Bandcamp is first
           (name-your-price / donations).
         </p>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>

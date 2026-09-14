@@ -98,7 +98,7 @@ export default function CoverAccentColors({
 
       {palette && palette.length > 0 && (
         <div style={{ marginTop: "14px" }}>
-          <div style={microLabel}>From this cover — click 1 or 2 to assign</div>
+          <div style={microLabel}>From this cover: click 1 or 2 to assign</div>
           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
             {palette.map((hex) => (
               <div key={hex} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>

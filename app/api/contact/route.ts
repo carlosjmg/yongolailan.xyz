@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     await prisma.contactMessage.create({ data });
 
     // The label's own contact form prefixes its inquiry type with
-    // "Label — ", so those messages reach the label's inbox instead.
+    // "Label: ", so those messages reach the label's inbox instead.
     let to = process.env.CONTACT_TO_EMAIL || "yongolailan.official@gmail.com";
     if (data.type.startsWith("Label")) {
       const settings = await getAllSettings();
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     await sendEmail({
       to,
       replyTo: data.email,
-      subject: `New ${data.type} inquiry — ${data.name}`,
+      subject: `New ${data.type} inquiry - ${data.name}`,
       html: `
         <h2 style="font-family:sans-serif">New ${escapeHtml(data.type)} inquiry</h2>
         <p style="font-family:sans-serif"><strong>Name:</strong> ${escapeHtml(data.name)}</p>
