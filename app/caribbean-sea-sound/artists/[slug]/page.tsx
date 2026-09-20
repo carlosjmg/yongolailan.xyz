@@ -5,6 +5,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import type { LabelProduction, Release } from "@prisma/client";
 import { getLabelArtistBySlug } from "@/lib/data";
 import PlatformIcon from "@/components/site/PlatformIcon";
+import AudioPlayer from "@/components/site/AudioPlayer";
 
 type ProductionWithRelease = LabelProduction & { release: Release | null };
 
@@ -129,6 +130,8 @@ function Song({ song }: { song: ProductionWithRelease }) {
         </div>
 
         {description ? <p className="cssound-song-desc">{description}</p> : null}
+
+        {song.audioFile ? <AudioPlayer src={song.audioFile} title={title} /> : null}
 
         {links.length > 0 ? (
           <div className="cssound-song-links">

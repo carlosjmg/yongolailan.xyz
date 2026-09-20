@@ -113,19 +113,21 @@ export async function getLabelRoster() {
   }
 }
 
-/** A single published artist by slug, with their published songs. */
+/** A single published artist by slug, with their published songs: the ones
+ *  they're the main artist of, plus any song also linked to them. */
 export async function getLabelArtistBySlug(slug: string) {
   try {
-    return await prisma.labelArtist.findFirst({
-      where: { slug, published: true },
-      include: {
-        productions: {
-          where: { published: true },
-          orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-          include: { release: true },
-        },
+    const artist = await prisma.labelArtist.findFirst({ where: { slug, published: true } });
+    if (!artist) return null;
+    const productions = await prisma.labelProduction.findMany({
+      where: {
+        published: true,
+        OR: [{ artistId: artist.id }, { otherArtists: { some: { id: artist.id } } }],
       },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+      include: { release: true },
     });
+    return { ...artist, productions };
   } catch {
     return null;
   }

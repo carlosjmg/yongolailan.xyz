@@ -52,6 +52,37 @@ function FieldRenderer({
     control = <ColorField name={field.name} defaultValue={value as string} />;
   } else if (field.type === "textarea") {
     control = <textarea id={id} name={field.name} defaultValue={(value as string) ?? ""} className="admin-textarea" placeholder={field.placeholder} required={field.required} />;
+  } else if (field.type === "multiselect") {
+    const selected = new Set(((value as { id: string }[] | undefined) ?? []).map((v) => v.id));
+    control =
+      !choices || choices.length === 0 ? (
+        <div className="admin-help">Nothing to choose from yet.</div>
+      ) : (
+        <div
+          style={{
+            maxHeight: "220px",
+            overflowY: "auto",
+            border: "1px solid var(--border, rgba(255,255,255,0.12))",
+            borderRadius: "4px",
+            padding: "8px 12px",
+            display: "grid",
+            gap: "6px",
+          }}
+        >
+          {choices.map((c) => (
+            <label key={c.value} style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
+              <input
+                type="checkbox"
+                name={field.name}
+                value={c.value}
+                defaultChecked={selected.has(c.value)}
+                style={{ width: "16px", height: "16px", minHeight: "auto" }}
+              />
+              <span>{c.label}</span>
+            </label>
+          ))}
+        </div>
+      );
   } else if (field.type === "select" && field.optionsFrom) {
     // Required relations (e.g. an artist) keep the original behaviour: no
     // blank option, defaults to the first choice, and a hard error if there's

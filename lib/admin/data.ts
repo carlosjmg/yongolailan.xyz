@@ -63,5 +63,13 @@ export async function getFieldOptions(
 export async function getRecord(collectionKey: string, id: string): Promise<any | null> {
   const col = getCollection(collectionKey);
   if (!col) return null;
-  return delegateFor(col.model).findUnique({ where: { id } });
+  // Many-to-many fields need their currently-linked records loaded too.
+  const include: Record<string, unknown> = {};
+  for (const f of col.fields) {
+    if (f.type === "multiselect") include[f.name] = { select: { id: true } };
+  }
+  return delegateFor(col.model).findUnique({
+    where: { id },
+    ...(Object.keys(include).length ? { include } : {}),
+  });
 }

@@ -9,7 +9,8 @@ export type FieldType =
   | "color"
   | "image"
   | "audio"
-  | "select";
+  | "select"
+  | "multiselect";
 
 export interface Field {
   name: string;
@@ -28,6 +29,12 @@ export interface Field {
   emptyLabel?: string;
   /** An empty value saves as null (a real relation) rather than "". */
   nullable?: boolean;
+  /**
+   * For a "multiselect" (a many-to-many relation): the name of another field
+   * whose chosen record is dropped from this list on save, so the main artist
+   * never also appears as an "additional" one.
+   */
+  excludeField?: string;
 }
 
 export interface ListColumn {
@@ -292,11 +299,19 @@ export const COLLECTIONS: Record<string, Collection> = {
     fields: [
       {
         name: "artistId",
-        label: "Artist",
+        label: "Main artist",
         type: "select",
         optionsFrom: { model: "labelArtist", labelField: "name" },
         required: true,
         help: "Add the artist first under Label: Artists, then pick them here.",
+      },
+      {
+        name: "otherArtists",
+        label: "Also show this song on these artists (optional)",
+        type: "multiselect",
+        optionsFrom: { model: "labelArtist", labelField: "name" },
+        excludeField: "artistId",
+        help: "Tick every other artist this same song belongs to. It will appear on each of their profile pages too.",
       },
       { name: "title", label: "Song title", type: "text", required: true, help: "Ignored on the site if you link a Music Catalog release below: its own title is used instead." },
       { name: "featuredArtists", label: "Featured artists", type: "text", placeholder: "feat. Someone", help: "Optional. Always your own, not affected by linking a release." },
@@ -307,9 +322,15 @@ export const COLLECTIONS: Record<string, Collection> = {
         optionsFrom: { model: "release", labelField: "title" },
         nullable: true,
         emptyLabel: "None, enter everything below",
-        help: "Pick one when this collaboration is actually a song from your own Music Catalog. Its title, cover, credits, description, year, type and platform links take over automatically: you only need Featured artists.",
+        help: "Pick one when this collaboration is actually a song from your own Music Catalog. Its title, cover, credits, description, year, type and platform links take over automatically: you only need Featured artists and, if you want, an audio file below.",
       },
       { name: "cover", label: "Cover artwork", type: "image", help: "Square works best. Optimised automatically. Ignored when a release is linked above." },
+      {
+        name: "audioFile",
+        label: "Song file (MP3 or WAV)",
+        type: "audio",
+        help: "Upload the song from your computer to get a play button on the artist page. Works whether or not a release is linked above.",
+      },
       { name: "year", label: "Year", type: "text", placeholder: "2023", help: "Ignored when a release is linked above." },
       { name: "releaseDate", label: "Release date (optional)", type: "text", placeholder: "2023-06-15" },
       { name: "credit", label: "Your credit", type: "text", placeholder: "Produced, mixed & mastered", help: "Ignored when a release is linked above (its credits are used instead)." },

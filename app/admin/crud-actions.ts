@@ -37,6 +37,14 @@ export async function saveRecord(collectionKey: string, id: string | null, formD
       data[f.name] = formData.get(f.name) === "on";
       continue;
     }
+    if (f.type === "multiselect") {
+      // A many-to-many relation: every ticked box arrives under the same name.
+      // Editing replaces the whole set; creating just connects the chosen ones.
+      const excluded = f.excludeField ? String(formData.get(f.excludeField) ?? "") : "";
+      const ids = [...new Set(formData.getAll(f.name).map(String).filter((v) => v && v !== excluded))];
+      data[f.name] = id ? { set: ids.map((v) => ({ id: v })) } : { connect: ids.map((v) => ({ id: v })) };
+      continue;
+    }
     const raw = formData.get(f.name);
     const value = raw === null ? "" : String(raw).trim();
     if (value) {

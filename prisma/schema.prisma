@@ -204,13 +204,18 @@ model LabelArtist {
   sortOrder        Int               @default(0)
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  productions      LabelProduction[]
+  // Songs this artist is the main artist of, and songs they're also linked to.
+  productions       LabelProduction[] @relation("PrimaryArtist")
+  sharedProductions LabelProduction[] @relation("AdditionalArtists")
 }
 
 model LabelProduction {
   id              String      @id @default(cuid())
   artistId        String
-  artist          LabelArtist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  // Main artist (the one it's listed under in the admin) …
+  artist          LabelArtist @relation("PrimaryArtist", fields: [artistId], references: [id], onDelete: Cascade)
+  // … plus any other artists this same song also appears under.
+  otherArtists    LabelArtist[] @relation("AdditionalArtists")
   title           String
   featuredArtists String      @default("") // free-text "feat." credit
   year            String      @default("")
@@ -219,10 +224,9 @@ model LabelProduction {
   description     String      @default("")
   releaseType     String      @default("Single")
   cover           String? // cover artwork
-  // Legacy — no longer read or written by the app (superseded by the platform
-  // links below). Kept temporarily so `db push` doesn't refuse to drop
-  // columns that still hold data; removed once that data is migrated.
-  audioFile       String?
+  audioFile       String? // uploaded MP3/WAV for the on-site player; independent of any linked release
+  // Legacy: no longer read or written by the app. Kept so `db push` never has
+  // to drop a column; safe to remove in a later cleanup.
   linkUrl         String?
   // Platform links, same as the Music Catalog — shown under the credits.
   // Ignored when a release is linked below (its own links are used instead).
