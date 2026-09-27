@@ -58,6 +58,12 @@ export interface Collection {
   slugFrom?: string;
   /** List the records A–Z by titleField (and hide manual reordering). */
   alphabetical?: boolean;
+  /**
+   * Manual ↑ ↓ reordering stays available (unlike `alphabetical`), but a
+   * newly created record is slotted into its alphabetical position by
+   * titleField instead of appended to the end.
+   */
+  insertAlphabetically?: boolean;
 }
 
 export const COLLECTIONS: Record<string, Collection> = {
@@ -247,7 +253,7 @@ export const COLLECTIONS: Record<string, Collection> = {
     imageField: "image",
     hasPublished: true,
     slugFrom: "name",
-    alphabetical: true,
+    insertAlphabetically: true,
     listColumns: [
       { name: "name", label: "Artist" },
       { name: "role", label: "Role / origin" },

@@ -90,14 +90,16 @@ export async function getMerch() {
 }
 
 /**
- * Caribbean Sea Sound roster: every published artist, alphabetical by name so
- * new artists slot in automatically. Productions are attached for anywhere that
- * needs them (the directory itself only uses the artist fields).
+ * Caribbean Sea Sound roster: every published artist, in the order set in the
+ * admin (new ones are slotted in alphabetically there, but can be dragged
+ * anywhere with the ↑ ↓ buttons afterwards). Productions are attached for
+ * anywhere that needs them (the directory itself only uses the artist fields).
  */
 export async function getLabelRoster() {
   try {
-    const artists = await prisma.labelArtist.findMany({
+    return await prisma.labelArtist.findMany({
       where: { published: true },
+      orderBy: { sortOrder: "asc" },
       include: {
         productions: {
           where: { published: true },
@@ -105,9 +107,6 @@ export async function getLabelRoster() {
         },
       },
     });
-    // Sort in the app, locale-aware and accent-insensitive, so the order is
-    // identical on SQLite and Postgres (DB collations disagree on í vs i).
-    return artists.sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }));
   } catch {
     return [];
   }

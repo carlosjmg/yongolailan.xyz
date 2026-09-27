@@ -37,7 +37,11 @@ export default async function CollectionListPage({ params }: { params: { collect
       </div>
       <p className="admin-sub">
         {records.length} {records.length === 1 ? col.singular : col.label.toLowerCase()}.{" "}
-        {col.alphabetical ? "Listed A–Z automatically." : "Use ↑ ↓ to reorder how they appear on the site."}
+        {col.alphabetical
+          ? "Listed A–Z automatically."
+          : col.insertAlphabetically
+          ? "New ones are added alphabetically. Use ↑ ↓ below to rearrange."
+          : "Use ↑ ↓ to reorder how they appear on the site."}
       </p>
 
       {records.length === 0 ? (

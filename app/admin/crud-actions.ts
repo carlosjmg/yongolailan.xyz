@@ -74,6 +74,24 @@ export async function saveRecord(collectionKey: string, id: string | null, formD
 
   if (id) {
     await delegate.update({ where: { id }, data });
+  } else if (col.insertAlphabetically) {
+    // Slot the new record into its alphabetical spot among its siblings
+    // (sortOrder values are a contiguous 0..n-1 run, kept that way by
+    // reorderRecord's swaps), instead of always appending at the end.
+    const siblings: { id: string; sortOrder: number }[] = await delegate.findMany({
+      orderBy: { sortOrder: "asc" },
+      select: { id: true, sortOrder: true, [col.titleField]: true },
+    });
+    const newTitle = String(data[col.titleField] ?? "");
+    const insertAt = siblings.findIndex(
+      (s) => newTitle.localeCompare(String((s as Record<string, unknown>)[col.titleField] ?? ""), "es", { sensitivity: "base" }) < 0
+    );
+    const sortOrder = insertAt === -1 ? siblings.length : siblings[insertAt].sortOrder;
+    if (insertAt !== -1) {
+      await delegate.updateMany({ where: { sortOrder: { gte: sortOrder } }, data: { sortOrder: { increment: 1 } } });
+    }
+    (data as { sortOrder?: number }).sortOrder = sortOrder;
+    await delegate.create({ data });
   } else {
     const last = await delegate.findFirst({ orderBy: { sortOrder: "desc" } });
     (data as { sortOrder?: number }).sortOrder = (last?.sortOrder ?? -1) + 1;
