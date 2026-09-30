@@ -185,8 +185,6 @@ export default async function HomePage() {
           email={email}
           whatsapp={settings["contact.whatsapp"]}
           whatsappUrl={settings["contact.whatsappUrl"]}
-          labelName={settings["label.name"]}
-          labelLocation={settings["label.location"]}
           inquiryTypes={parseListSetting(settings["contact.inquiryTypes"])}
           {...txt("contact")}
         />
@@ -195,17 +193,7 @@ export default async function HomePage() {
       {st("links") === "on" && <Links links={links} {...txt("links")} />}
       {st("links") === "soon" && <ComingSoon id="links" {...txt("links")} />}
 
-      <Footer
-        navItems={primary}
-        email={email}
-        whatsapp={settings["contact.whatsapp"]}
-        whatsappUrl={settings["contact.whatsappUrl"]}
-        labelName={settings["label.name"]}
-        labelLocation={settings["label.location"]}
-        domain={settings["site.domain"]}
-        logo={settings["site.logo"]}
-        oneLiner={settings["hero.oneLiner"]}
-      />
+      <Footer logo={settings["site.logo"]} />
 
       <MobileBookingBar email={email} showBooking={showBooking} />
     </>

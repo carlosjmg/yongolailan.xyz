@@ -236,6 +236,9 @@ model LabelProduction {
   youtubeUrl      String?
   bandcampUrl     String?
   otherUrl        String? // smart-link page (Linktree, too.fm…) or any platform not listed above
+  // For collaborations that are a video rather than (or in addition to) a
+  // song — a YouTube/Vimeo link, embedded the same way as the Films section.
+  videoUrl        String?
   // Optional: link this song to an existing Music Catalog release. When set,
   // its title/cover/credits/description/year/releaseType/platform links are
   // pulled from that release instead of the fields above (see lib/data.ts).

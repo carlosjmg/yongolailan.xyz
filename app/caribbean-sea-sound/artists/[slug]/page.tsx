@@ -6,6 +6,7 @@ import type { LabelProduction, Release } from "@prisma/client";
 import { getLabelArtistBySlug } from "@/lib/data";
 import PlatformIcon from "@/components/site/PlatformIcon";
 import AudioPlayer from "@/components/site/AudioPlayer";
+import { toEmbedUrl } from "@/lib/video";
 
 type ProductionWithRelease = LabelProduction & { release: Release | null };
 
@@ -95,6 +96,7 @@ function Song({ song }: { song: ProductionWithRelease }) {
   const releaseType = r?.releaseType || song.releaseType;
   const year = r?.year || song.releaseDate || song.year;
   const links = platformLinks(song);
+  const videoEmbed = toEmbedUrl(song.videoUrl);
 
   const meta = [releaseType, year].filter(Boolean);
   const pageHref = SONG_PAGES[songKey(title)];
@@ -106,7 +108,7 @@ function Song({ song }: { song: ProductionWithRelease }) {
         <img className="cssound-song-cover" src={cover} alt={`${title} cover`} loading="lazy" />
       ) : (
         <div className="cssound-song-cover cssound-song-cover--empty mono" aria-hidden>
-          ♪
+          {song.videoUrl ? "▶" : "♪"}
         </div>
       )}
 
@@ -130,6 +132,24 @@ function Song({ song }: { song: ProductionWithRelease }) {
         </div>
 
         {description ? <p className="cssound-song-desc">{description}</p> : null}
+
+        {song.videoUrl ? (
+          <div className="cssound-song-video">
+            {videoEmbed ? (
+              <iframe
+                src={videoEmbed}
+                title={title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <a href={song.videoUrl} target="_blank" rel="noopener noreferrer" className="cssound-song-video-fallback">
+                Watch ↗
+              </a>
+            )}
+          </div>
+        ) : null}
 
         {song.audioFile ? <AudioPlayer src={song.audioFile} title={title} /> : null}
 
@@ -202,7 +222,10 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
               )}
             </section>
 
-            {artist.bio ? <p className="cssound-artist-bio">{artist.bio}</p> : null}
+            {/* Duplicated below the photo for desktop only (CSS swaps which
+                copy is visible at the 900px breakpoint), so mobile keeps its
+                original order without a second reflow trick. */}
+            {artist.bio ? <p className="cssound-artist-bio cssound-artist-bio--inline">{artist.bio}</p> : null}
 
             {(artist.websiteUrl || artist.instagramUrl || artist.merchUrl || artist.linkUrl) && (
               <div className="cssound-artist-links">
@@ -230,10 +253,13 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
             )}
           </div>
 
-          {photo ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className="cssound-artist-photo" src={photo} alt={artist.name} />
-          ) : null}
+          <div className="cssound-artist-right">
+            {photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className="cssound-artist-photo" src={photo} alt={artist.name} />
+            ) : null}
+            {artist.bio ? <p className="cssound-artist-bio cssound-artist-bio--under-photo">{artist.bio}</p> : null}
+          </div>
         </div>
       </div>
     </main>

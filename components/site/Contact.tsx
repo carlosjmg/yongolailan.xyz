@@ -33,7 +33,7 @@ function ContactInfoRow({ label, value, href }: { label: string; value: string; 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-dimmer)", marginBottom: "8px" }}>{label}</div>
+      <div style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-dim)", marginBottom: "8px" }}>{label}</div>
       {children}
     </div>
   );
@@ -55,8 +55,6 @@ export default function Contact({
   email,
   whatsapp,
   whatsappUrl,
-  labelName,
-  labelLocation,
   eyebrow,
   title,
   subtitle,
@@ -65,8 +63,6 @@ export default function Contact({
   email: string;
   whatsapp: string;
   whatsappUrl: string;
-  labelName: string;
-  labelLocation: string;
   eyebrow: string;
   title: string;
   subtitle?: string;
@@ -113,23 +109,6 @@ export default function Contact({
             <ContactInfoRow label="WhatsApp / Booking" value={whatsapp} href={whatsappUrl} />
           </div>
 
-          <EyebrowLabel>Inquiry Types</EyebrowLabel>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "40px" }}>
-            {INQUIRY_TYPES.map((t) => (
-              <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", padding: "7px 14px", border: "1px solid var(--border)", color: "var(--text-dim)", borderRadius: "2px" }}>
-                {t}
-              </span>
-            ))}
-          </div>
-
-          <EyebrowLabel>Label</EyebrowLabel>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "var(--text-dim)", lineHeight: 1.7 }}>
-            {labelName}
-            <br />
-            {labelLocation}
-            <br />
-            For label-related inquiries, use the same contact above.
-          </p>
         </div>
 
         <div>
