@@ -910,13 +910,6 @@
   text-transform: uppercase;
   color: var(--ink-faint);
 }
-.cssound-footer a {
-  color: var(--ink-soft);
-  transition: color 0.2s;
-}
-.cssound-footer a:hover {
-  color: var(--sea);
-}
 
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 1024px) {

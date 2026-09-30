@@ -16,7 +16,6 @@ export default async function LabelLayout({ children }: { children: React.ReactN
   const wordmarkSize = Number(s["label.wordmarkSize"]) > 0 ? Number(s["label.wordmarkSize"]) : Number(logoSize) || 34;
   const name = s["label.name"] || "Caribbean Sea Sound";
   const location = s["label.location"] || "Brooklyn, New York";
-  const domain = s["site.domain"] || "yongolailan.xyz";
 
   // Logo nudge (px). Empty mobile value inherits the desktop one; 0 is respected.
   const lx = Number(s["label.logoOffsetX"]) || 0;
@@ -93,10 +92,8 @@ export default async function LabelLayout({ children }: { children: React.ReactN
 
       <div className="cssound-shell">
         <footer className="cssound-footer">
-          <span>
-            {name} · {location}
-          </span>
-          <Link href="/">{domain}</Link>
+          <span>{name}</span>
+          <span>{location}</span>
         </footer>
       </div>
     </div>
