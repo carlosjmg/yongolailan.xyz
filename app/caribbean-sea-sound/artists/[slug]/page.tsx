@@ -212,21 +212,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
             <h1 className="cssound-artist-name">{artist.name}</h1>
             {artist.role ? <div className="cssound-artist-role mono">{artist.role}</div> : null}
 
-            {/* Songs sit right under the Role / Origin (and, on phones, before
-                the bio and photo). No "Produced by …" label. */}
-            <section className="cssound-songs">
-              {artist.productions.length === 0 ? (
-                <p className="cssound-songs-empty">Songs coming soon.</p>
-              ) : (
-                artist.productions.map((p) => <Song key={p.id} song={p} />)
-              )}
-            </section>
-
-            {/* Duplicated below the photo for desktop only (CSS swaps which
-                copy is visible at the 900px breakpoint), so mobile keeps its
-                original order without a second reflow trick. */}
-            {artist.bio ? <p className="cssound-artist-bio cssound-artist-bio--inline">{artist.bio}</p> : null}
-
+            {/* Right under the Role / Origin, before the songs. */}
             {(artist.websiteUrl || artist.instagramUrl || artist.merchUrl || artist.linkUrl) && (
               <div className="cssound-artist-links">
                 {artist.websiteUrl ? (
@@ -251,6 +237,21 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
                 ) : null}
               </div>
             )}
+
+            {/* Songs sit right under the links (and, on phones, before the
+                bio and photo). No "Produced by …" label. */}
+            <section className="cssound-songs">
+              {artist.productions.length === 0 ? (
+                <p className="cssound-songs-empty">Songs coming soon.</p>
+              ) : (
+                artist.productions.map((p) => <Song key={p.id} song={p} />)
+              )}
+            </section>
+
+            {/* Duplicated below the photo for desktop only (CSS swaps which
+                copy is visible at the 900px breakpoint), so mobile keeps its
+                original order without a second reflow trick. */}
+            {artist.bio ? <p className="cssound-artist-bio cssound-artist-bio--inline">{artist.bio}</p> : null}
           </div>
 
           <div className="cssound-artist-right">
