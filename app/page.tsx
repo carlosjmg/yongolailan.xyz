@@ -80,12 +80,11 @@ export default async function HomePage() {
     `--header-subtitle-scale:${num(settings["headers.subtitleScale"], 100)};` +
     `}`;
 
-  // Menu order and labels (chosen for the menu; the page sections keep their
-  // own order — Films before Live — on purpose).
+  // Menu order and labels — matches the order the sections appear on the page.
   const primaryDefs: (NavItem & { key?: Parameters<typeof sectionState>[1] })[] = [
     { id: "catalog", label: "Music", key: "catalog" },
-    { id: "photos", label: "Live", key: "photos" },
     { id: "videos", label: "Films", key: "videos" },
+    { id: "photos", label: "Live", key: "photos" },
     { id: "merch", label: "Merch", key: "merch" },
     { id: "about", label: "About", key: "about" },
     { id: "contact", label: "Contact", key: "contact" },
