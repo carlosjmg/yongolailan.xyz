@@ -639,9 +639,12 @@
   margin-top: 12px;
   max-width: 60ch;
 }
+/* A video collab's row has no cover/title columns, just the player. */
+div.cssound-song.cssound-song--video {
+  display: block;
+}
 .cssound-song-video {
-  margin-top: 14px;
-  max-width: 480px;
+  max-width: 320px;
   aspect-ratio: 16 / 9;
   background: var(--paper-soft, #f4f4f4);
   border: 1px solid var(--line);

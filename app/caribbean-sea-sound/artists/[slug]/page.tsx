@@ -84,6 +84,31 @@ const SONG_PAGES: Record<string, string> = {
 const songKey = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 function Song({ song }: { song: ProductionWithRelease }) {
+  // A video collab shows just the player — no title, meta or cover, per the
+  // request that it "only show the video screen".
+  if (song.videoUrl) {
+    const embed = toEmbedUrl(song.videoUrl);
+    return (
+      <div className="cssound-song cssound-song--video">
+        <div className="cssound-song-video">
+          {embed ? (
+            <iframe
+              src={embed}
+              title={song.title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <a href={song.videoUrl} target="_blank" rel="noopener noreferrer" className="cssound-song-video-fallback">
+              Watch ↗
+            </a>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // A linked Music Catalog release supplies title/cover/credits/description/
   // year/type/listen-link; the production's own fields are the fallback for
   // songs entered by hand. Featured artists and the audio file always stay
@@ -96,7 +121,6 @@ function Song({ song }: { song: ProductionWithRelease }) {
   const releaseType = r?.releaseType || song.releaseType;
   const year = r?.year || song.releaseDate || song.year;
   const links = platformLinks(song);
-  const videoEmbed = toEmbedUrl(song.videoUrl);
 
   const meta = [releaseType, year].filter(Boolean);
   const pageHref = SONG_PAGES[songKey(title)];
@@ -108,7 +132,7 @@ function Song({ song }: { song: ProductionWithRelease }) {
         <img className="cssound-song-cover" src={cover} alt={`${title} cover`} loading="lazy" />
       ) : (
         <div className="cssound-song-cover cssound-song-cover--empty mono" aria-hidden>
-          {song.videoUrl ? "▶" : "♪"}
+          ♪
         </div>
       )}
 
@@ -132,24 +156,6 @@ function Song({ song }: { song: ProductionWithRelease }) {
         </div>
 
         {description ? <p className="cssound-song-desc">{description}</p> : null}
-
-        {song.videoUrl ? (
-          <div className="cssound-song-video">
-            {videoEmbed ? (
-              <iframe
-                src={videoEmbed}
-                title={title}
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            ) : (
-              <a href={song.videoUrl} target="_blank" rel="noopener noreferrer" className="cssound-song-video-fallback">
-                Watch ↗
-              </a>
-            )}
-          </div>
-        ) : null}
 
         {song.audioFile ? <AudioPlayer src={song.audioFile} title={title} /> : null}
 
