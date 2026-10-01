@@ -133,7 +133,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // Empty = match the logo size.
   "label.wordmarkSize": "",
   // Cover size (px) of each song/production shown on an artist's page.
-  "label.songCoverSize": "96",
+  "label.songCoverSize": "200",
   // Artist-name size (px) in the roster list, desktop and mobile. The gap
   // between names is expressed in em against this same size in the CSS, so
   // it shrinks and grows together with the letters automatically.

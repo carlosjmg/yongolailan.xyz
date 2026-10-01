@@ -29,8 +29,9 @@ export default async function LabelLayout({ children }: { children: React.ReactN
   const lxM = mobileNum(s["label.logoOffsetXMobile"], lx);
   const lyM = mobileNum(s["label.logoOffsetYMobile"], ly);
 
-  // Song/production cover size. Mobile keeps the original 96→68 proportion.
-  const coverSize = Number(s["label.songCoverSize"]) > 0 ? Number(s["label.songCoverSize"]) : 96;
+  // Song/production cover size — matches SoundCloud's own track-list artwork
+  // (200px). Mobile keeps the original proportion.
+  const coverSize = Number(s["label.songCoverSize"]) > 0 ? Number(s["label.songCoverSize"]) : 200;
   const coverSizeMobile = Math.round(coverSize * 0.71);
 
   // Artist-name size in the roster (desktop hover list + mobile accordion).
