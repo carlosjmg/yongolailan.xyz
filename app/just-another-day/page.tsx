@@ -4,6 +4,7 @@ import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAllSettings } from "@/lib/settings";
 import { getLabelArtistLinks } from "@/lib/data";
+import { newYorkWallTimeToUtcMs } from "@/lib/ny-time";
 import PlatformIcon from "@/components/site/PlatformIcon";
 import ReleaseBlock from "@/components/site/jad/ReleaseBlock";
 import PreviewButton from "@/components/site/jad/PreviewButton";
@@ -42,7 +43,7 @@ const PLATFORMS: { key: string; name: string; icon: string }[] = [
 function isReleased(dateStr: string): boolean {
   const m = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}))?/.exec(dateStr.trim());
   if (!m) return true;
-  const t = new Date(+m[1], +m[2] - 1, +m[3], m[4] ? +m[4] : 0, m[5] ? +m[5] : 0).getTime();
+  const t = newYorkWallTimeToUtcMs(+m[1], +m[2], +m[3], m[4] ? +m[4] : 0, m[5] ? +m[5] : 0);
   return Date.now() >= t;
 }
 

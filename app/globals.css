@@ -234,7 +234,3 @@ select option {
   }
 }
 
-/* Merch photo strip: swipeable, but no visible scrollbar. */
-.merch-track::-webkit-scrollbar {
-  display: none;
-}

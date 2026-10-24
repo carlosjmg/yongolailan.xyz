@@ -4,79 +4,91 @@ import React, { useRef, useState } from "react";
 import type { MerchItem } from "@prisma/client";
 import { SectionFullWidth, SectionHeader } from "./shared";
 
-const arrowStyle: React.CSSProperties = {
-  position: "absolute",
-  top: "50%",
-  transform: "translateY(-50%)",
-  width: "34px",
-  height: "34px",
-  borderRadius: "50%",
-  border: "1px solid oklch(100% 0 0 / 0.35)",
-  background: "oklch(8% 0.018 30 / 0.55)",
-  color: "var(--text)",
-  fontSize: "16px",
-  lineHeight: 1,
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: 0,
-};
-
-/** One photo, or a swipeable strip (scroll-snap) with arrows and dots when an
- *  item has several. Touch/trackpad swiping is native; the arrows just scroll. */
+/** One photo, or a slider when an item has several. Every photo is shown whole
+ *  (never cropped) over a blurred copy of itself, so portrait, landscape and
+ *  square shots all fill the same 3:4 frame cleanly. The slider moves with a
+ *  transform rather than native scrolling — scrolling snaps to whole pixels,
+ *  which let a sliver of the neighbouring photo (a white line, on white-
+ *  background shots) show along the edge. One round button in the bottom-right
+ *  corner advances; swiping works on touch screens. */
 function MerchGallery({ images, alt }: { images: string[]; alt: string }) {
-  const track = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
+  const [fit, setFit] = useState<Record<number, "cover" | "contain">>({});
+  const touchX = useRef<number | null>(null);
   const many = images.length > 1;
+  const wrap = (i: number) => (i + images.length) % images.length;
 
-  const go = (to: number) => {
-    const el = track.current;
-    if (!el) return;
-    const i = Math.max(0, Math.min(images.length - 1, to));
-    el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
+  // A photo whose shape is close to the frame fills it (a hair of crop); any
+  // other shape is shown whole over the blurred copy instead of being cut.
+  const decideFit = (img: HTMLImageElement, i: number) => {
+    if (!img.naturalWidth) return;
+    const ratio = img.naturalWidth / img.naturalHeight / (3 / 4);
+    const mode = ratio > 0.88 && ratio < 1.14 ? "cover" : "contain";
+    setFit((f) => (f[i] === mode ? f : { ...f, [i]: mode }));
   };
 
   return (
-    <div style={{ position: "relative", aspectRatio: "1", background: "var(--bg2)", overflow: "hidden" }}>
+    <div
+      style={{ position: "relative", aspectRatio: "3 / 4", background: "var(--bg2)", overflow: "hidden", touchAction: "pan-y" }}
+      onTouchStart={(e) => {
+        touchX.current = e.touches[0].clientX;
+      }}
+      onTouchEnd={(e) => {
+        if (!many || touchX.current === null) return;
+        const dx = e.changedTouches[0].clientX - touchX.current;
+        touchX.current = null;
+        if (Math.abs(dx) > 40) setIndex((i) => wrap(i + (dx < 0 ? 1 : -1)));
+      }}
+    >
       <div
-        ref={track}
-        className="merch-track"
-        onScroll={(e) => {
-          const el = e.currentTarget;
-          setIndex(Math.round(el.scrollLeft / el.clientWidth));
-        }}
         style={{
           display: "flex",
           width: "100%",
           height: "100%",
-          overflowX: many ? "auto" : "hidden",
-          scrollSnapType: "x mandatory",
-          scrollbarWidth: "none",
+          transform: `translateX(-${index * 100}%)`,
+          transition: "transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1)",
         }}
       >
         {images.map((src, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={src}
-            src={src}
-            alt={many ? `${alt} (photo ${i + 1} of ${images.length})` : alt}
-            loading={i === 0 ? "eager" : "lazy"}
-            draggable={false}
-            style={{ flex: "0 0 100%", width: "100%", height: "100%", objectFit: "cover", scrollSnapAlign: "start" }}
-          />
+          <div key={src} style={{ position: "relative", flex: "0 0 100%", width: "100%", height: "100%", overflow: "hidden" }}>
+            {Math.abs(i - index) <= 1 && (
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  inset: "-24px",
+                  backgroundImage: `url(${src})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: "blur(22px)",
+                }}
+              />
+            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={many ? `${alt} (photo ${i + 1} of ${images.length})` : alt}
+              loading={i === 0 ? "eager" : "lazy"}
+              draggable={false}
+              ref={(el) => {
+                if (el && el.complete) decideFit(el, i);
+              }}
+              onLoad={(e) => decideFit(e.currentTarget, i)}
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "100%",
+                objectFit: fit[i] === "cover" ? "cover" : "contain",
+                display: "block",
+              }}
+            />
+          </div>
         ))}
       </div>
 
       {many && (
         <>
-          <button type="button" aria-label="Previous photo" onClick={() => go(index - 1)} disabled={index === 0} style={{ ...arrowStyle, left: "10px", opacity: index === 0 ? 0.35 : 1 }}>
-            ‹
-          </button>
-          <button type="button" aria-label="Next photo" onClick={() => go(index + 1)} disabled={index === images.length - 1} style={{ ...arrowStyle, right: "10px", opacity: index === images.length - 1 ? 0.35 : 1 }}>
-            ›
-          </button>
-          <div style={{ position: "absolute", left: 0, right: 0, bottom: "10px", display: "flex", justifyContent: "center", gap: "6px", pointerEvents: "none" }}>
+          <div style={{ position: "absolute", left: "12px", bottom: "18px", display: "flex", gap: "6px", padding: "5px 8px", borderRadius: "999px", background: "oklch(8% 0.018 30 / 0.5)", pointerEvents: "none" }}>
             {images.map((_, i) => (
               <span
                 key={i}
@@ -84,12 +96,39 @@ function MerchGallery({ images, alt }: { images: string[]; alt: string }) {
                   width: "6px",
                   height: "6px",
                   borderRadius: "50%",
-                  background: i === index ? "var(--text)" : "oklch(100% 0 0 / 0.4)",
+                  background: i === index ? "oklch(100% 0 0)" : "oklch(100% 0 0 / 0.45)",
                   transition: "background 0.2s",
                 }}
               />
             ))}
           </div>
+          <button
+            type="button"
+            aria-label={`Next photo (${index + 1} of ${images.length})`}
+            onClick={() => setIndex(wrap(index + 1))}
+            style={{
+              position: "absolute",
+              right: "12px",
+              bottom: "12px",
+              width: "44px",
+              height: "44px",
+              boxSizing: "border-box",
+              borderRadius: "50%",
+              border: "1px solid oklch(100% 0 0 / 0.5)",
+              background: "oklch(8% 0.018 30 / 0.7)",
+              color: "var(--text)",
+              fontSize: "22px",
+              lineHeight: 1,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "0 0 2px 2px",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            ›
+          </button>
         </>
       )}
     </div>

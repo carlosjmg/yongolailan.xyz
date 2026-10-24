@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { newYorkWallTimeToUtcMs } from "@/lib/ny-time";
 
 const MONTHS = [
   "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
@@ -42,7 +43,7 @@ export default function ReleaseBlock({
   initialReleased: boolean;
 }) {
   const parts = parseParts(releaseDate);
-  const targetTs = parts ? new Date(parts.y, parts.mo - 1, parts.d, parts.h, parts.mi).getTime() : NaN;
+  const targetTs = parts ? newYorkWallTimeToUtcMs(parts.y, parts.mo, parts.d, parts.h, parts.mi) : NaN;
   const hasDate = parts !== null;
 
   const [mounted, setMounted] = useState(false);
@@ -58,14 +59,16 @@ export default function ReleaseBlock({
   const released = hasDate ? (mounted ? now >= targetTs : initialReleased) : true;
   const dateStr = parts ? `${MONTHS[parts.mo - 1]} ${parts.d} · ${parts.y}` : "";
 
-  let countdownStr = "";
-  if (hasDate && countdown && !released && mounted) {
-    const diff = Math.max(0, targetTs - now);
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    countdownStr = days >= 1 ? `${days} ${days === 1 ? "DAY" : "DAYS"} / ${pad(hours)} HRS` : `${pad(hours)} HRS / ${pad(mins)} MIN`;
-  }
+  // The clock shows only before release. Until the page has mounted it renders
+  // "--" placeholders so the server and browser agree and nothing jumps.
+  const showClock = hasDate && countdown && !released;
+  const diff = mounted ? Math.max(0, targetTs - now) : null;
+  const clock: { label: string; value: string }[] = [
+    { label: "Days", value: diff === null ? "--" : String(Math.floor(diff / 86400000)).padStart(2, "0") },
+    { label: "Hrs", value: diff === null ? "--" : pad(Math.floor((diff % 86400000) / 3600000)) },
+    { label: "Min", value: diff === null ? "--" : pad(Math.floor((diff % 3600000) / 60000)) },
+    { label: "Sec", value: diff === null ? "--" : pad(Math.floor((diff % 60000) / 1000)) },
+  ];
 
   const ctaLabel = released ? "Listen Now" : `Pre-Save ${title}`;
   const ctaUrl = released ? listenUrl : presaveUrl;
@@ -77,7 +80,18 @@ export default function ReleaseBlock({
       {hasDate && (
         <div className="jad-release">
           <span className="jad-release-date">{released ? "OUT NOW" : `OUT: ${dateStr}`}</span>
-          {countdownStr && <span className="jad-countdown">{countdownStr}</span>}
+        </div>
+      )}
+
+      {showClock && (
+        <div className="jad-clock" role="timer" aria-label="Time until release">
+          {clock.map((c, i) => (
+            <div key={c.label} className="jad-clock-cell">
+              <span className="jad-clock-num">{c.value}</span>
+              <span className="jad-clock-label">{c.label}</span>
+              {i < clock.length - 1 && <span className="jad-clock-sep" aria-hidden>:</span>}
+            </div>
+          ))}
         </div>
       )}
 
