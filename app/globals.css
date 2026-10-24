@@ -233,3 +233,8 @@ select option {
     letter-spacing: -0.03em !important;
   }
 }
+
+/* Merch photo strip: swipeable, but no visible scrollbar. */
+.merch-track::-webkit-scrollbar {
+  display: none;
+}

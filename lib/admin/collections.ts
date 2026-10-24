@@ -236,7 +236,10 @@ export const COLLECTIONS: Record<string, Collection> = {
     fields: [
       { name: "title", label: "Title", type: "text", required: true, placeholder: "Vinyl: Sueño Tropical" },
       { name: "description", label: "Description", type: "textarea" },
-      { name: "image", label: "Photo", type: "image" },
+      { name: "image", label: "Photo", type: "image", help: "The main photo, shown first." },
+      { name: "image2", label: "Photo 2 (optional)", type: "image", help: "Add more photos of the same item. With two or more, the site shows arrows and dots to swipe between them." },
+      { name: "image3", label: "Photo 3 (optional)", type: "image" },
+      { name: "image4", label: "Photo 4 (optional)", type: "image" },
       { name: "linkUrl", label: "Buy link", type: "url", placeholder: "https://... (where people buy it)" },
       { name: "price", label: "Price", type: "text", placeholder: "$30" },
       { name: "published", label: "Visible on site", type: "boolean" },

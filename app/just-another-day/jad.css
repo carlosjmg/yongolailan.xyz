@@ -198,10 +198,18 @@
   max-width: 40ch;
 }
 
+/* The closing credit is one unbroken line: the paragraph drops its 40ch cap,
+   and on narrow screens the type scales down so the whole line still fits
+   (about 29 characters-wide of em, minus the page's 24px side padding). */
+.jad-note.jad-note--wide {
+  max-width: none;
+}
 .jad-note a.jad-label-credit {
   display: inline-block;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
   font-family: var(--font-mono), monospace;
-  font-size: calc(var(--jad-info-size, 14px) - 2px);
+  font-size: min(calc(var(--jad-info-size, 14px) - 2px), calc((100vw - 48px) / 29.5));
   color: var(--jad-blue);
   text-decoration: none;
   border-bottom: 1px solid transparent;
