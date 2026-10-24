@@ -231,7 +231,7 @@ export default async function JustAnotherDayPage() {
 
         <p className="jad-note">
           <Link href="/caribbean-sea-sound" className="jad-label-credit">
-            CARIBBEAN SEA SOUND
+            CARIBBEAN SEA SOUND &amp; AREMA&nbsp;AREGA ©&nbsp;℗&nbsp;2026
           </Link>
         </p>
 
