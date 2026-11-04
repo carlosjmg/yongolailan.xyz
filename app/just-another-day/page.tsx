@@ -205,18 +205,6 @@ export default async function JustAnotherDayPage() {
 
         {visualizerEnabled ? <VisualizerButton label={settings["jad.visualizer.label"] || "Watch the Visualizer"} /> : null}
 
-        <p className="jad-note">
-          You can support the song directly on{" "}
-          {bandcamp ? (
-            <a className="jad-info-link" href={bandcamp} target="_blank" rel="noopener noreferrer">
-              Bandcamp
-            </a>
-          ) : (
-            "Bandcamp"
-          )}
-          .
-        </p>
-
         {info ? (
           <>
             <div className="jad-eyebrow">Credits</div>
@@ -229,6 +217,18 @@ export default async function JustAnotherDayPage() {
             />
           </>
         ) : null}
+
+        <p className="jad-note">
+          You can support the song directly on{" "}
+          {bandcamp ? (
+            <a className="jad-info-link" href={bandcamp} target="_blank" rel="noopener noreferrer">
+              Bandcamp
+            </a>
+          ) : (
+            "Bandcamp"
+          )}
+          .
+        </p>
 
         <p className="jad-note jad-note--wide">
           <Link href="/caribbean-sea-sound" className="jad-label-credit">
