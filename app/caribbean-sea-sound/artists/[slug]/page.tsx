@@ -215,6 +215,12 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
 
         <div className="cssound-artist-head">
           <div>
+            {/* Phones only: photo sits above the name, pushed to the right.
+                Desktop keeps the photo in the right-hand column. */}
+            {photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className="cssound-artist-photo cssound-artist-photo--mobile" src={photo} alt={artist.name} />
+            ) : null}
             <h1 className="cssound-artist-name">{artist.name}</h1>
             {artist.role ? <div className="cssound-artist-role mono">{artist.role}</div> : null}
 
@@ -263,7 +269,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
           <div className="cssound-artist-right">
             {photo ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img className="cssound-artist-photo" src={photo} alt={artist.name} />
+              <img className="cssound-artist-photo cssound-artist-photo--desktop" src={photo} alt={artist.name} />
             ) : null}
             {artist.bio ? <p className="cssound-artist-bio cssound-artist-bio--under-photo">{artist.bio}</p> : null}
           </div>
