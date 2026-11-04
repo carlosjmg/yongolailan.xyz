@@ -219,7 +219,7 @@ export default async function JustAnotherDayPage() {
         ) : null}
 
         <p className="jad-note">
-          You can support the song directly on{" "}
+          You can support this song directly on{" "}
           {bandcamp ? (
             <a className="jad-info-link" href={bandcamp} target="_blank" rel="noopener noreferrer">
               Bandcamp
