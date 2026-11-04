@@ -946,7 +946,7 @@ div.cssound-song.cssound-song--video {
   }
   .cssound-artist-photo--mobile {
     display: block;
-    width: min(46%, 190px);
+    width: min(58%, 240px);
     margin: 0 0 22px auto;
   }
 }
