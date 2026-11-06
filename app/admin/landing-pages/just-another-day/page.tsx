@@ -38,7 +38,7 @@ const KEYS = [
   "jad.spotify",
   "jad.apple",
   "jad.soundcloud",
-  "jad.youtube",
+  "jad.amazon",
   "jad.youtubemusic",
   "jad.tidal",
   "jad.deezer",
@@ -152,7 +152,7 @@ export default async function JustAnotherDayAdmin({ searchParams }: { searchPara
             <TextSetting name="jad.soundcloud" label="SoundCloud link" value={s["jad.soundcloud"]} placeholder="https://soundcloud.com/…" />
           </div>
           <div style={{ flex: "1 1 260px" }}>
-            <TextSetting name="jad.youtube" label="YouTube link" value={s["jad.youtube"]} placeholder="https://youtube.com/…" />
+            <TextSetting name="jad.amazon" label="Amazon Music link" value={s["jad.amazon"]} placeholder="https://music.amazon.com/…" />
           </div>
           <div style={{ flex: "1 1 260px" }}>
             <TextSetting name="jad.youtubemusic" label="YouTube Music link" value={s["jad.youtubemusic"]} placeholder="https://music.youtube.com/…" />

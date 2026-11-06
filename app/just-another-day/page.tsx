@@ -33,7 +33,7 @@ const PLATFORMS: { key: string; name: string; icon: string }[] = [
   { key: "spotify", name: "Spotify", icon: "spotify" },
   { key: "apple", name: "Apple Music", icon: "apple music" },
   { key: "soundcloud", name: "SoundCloud", icon: "soundcloud" },
-  { key: "youtube", name: "YouTube", icon: "youtube" },
+  { key: "amazon", name: "Amazon Music", icon: "amazon music" },
   { key: "youtubemusic", name: "YouTube Music", icon: "youtube music" },
   { key: "tidal", name: "Tidal", icon: "tidal" },
   { key: "deezer", name: "Deezer", icon: "deezer" },

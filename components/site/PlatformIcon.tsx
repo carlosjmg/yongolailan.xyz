@@ -22,6 +22,21 @@ const paths: Record<string, (p: IconProps) => React.ReactNode> = {
       <path d="M9.9 8.2v7.6l6.3-3.8z" />
     </>
   ),
+  // Music note with the Amazon "smile" arrow underneath.
+  amazon: () => (
+    <>
+      <circle cx="8.6" cy="15" r="3.2" />
+      <path d="M11.1 3.2h2.2c0 2.6 1.6 3.7 3.6 4.4v2.3c-1.3-.3-2.5-.8-3.6-1.7V15h-2.2z" />
+      <path
+        d="M3.2 20.4c4.6 2.6 10.2 2.6 15.4-.2"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path d="M17.2 17.6l4.2 1.4-2.6 3.5z" />
+    </>
+  ),
   soundcloud: () => (
     <>
       <rect x="0.6" y="13" width="1.7" height="5" rx="0.85" />
@@ -96,6 +111,7 @@ function keyFor(name: string): string | null {
   const n = name.toLowerCase().replace(/[^a-z]/g, "");
   if (n.includes("youtubemusic") || n === "ytmusic" || n === "ytm") return "youtubemusic";
   if (n.includes("youtube") || n === "yt") return "youtube";
+  if (n.includes("amazon")) return "amazon";
   if (n.includes("spotify")) return "spotify";
   if (n.includes("apple") || n === "itunes") return "apple";
   if (n.includes("soundcloud") || n === "sc") return "soundcloud";

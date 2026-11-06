@@ -203,7 +203,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "jad.spotify": "",
   "jad.apple": "",
   "jad.soundcloud": "https://soundcloud.com/yongolailan/just-another-day-1",
-  "jad.youtube": "",
+  "jad.amazon": "",
   "jad.youtubemusic": "",
   "jad.tidal": "",
   "jad.deezer": "",
