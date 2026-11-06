@@ -246,6 +246,13 @@
 .jad-release-date {
   color: var(--jad-orange);
 }
+/* "OUT NOW" artwork, shown once the song is released (a bit larger than the
+   old 11px text line). */
+.jad-out-now {
+  display: block;
+  width: clamp(140px, 42vw, 180px);
+  height: auto;
+}
 /* Live countdown: four ticking cells (days / hours / minutes / seconds). */
 .jad-clock {
   display: flex;

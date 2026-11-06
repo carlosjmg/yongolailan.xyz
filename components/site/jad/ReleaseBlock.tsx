@@ -79,7 +79,12 @@ export default function ReleaseBlock({
     <>
       {hasDate && (
         <div className="jad-release">
-          <span className="jad-release-date">{released ? "OUT NOW" : `OUT: ${dateStr}`}</span>
+          {released ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="jad-out-now" src="/images/out-now.webp" alt="Out now" width={800} height={116} />
+          ) : (
+            <span className="jad-release-date">{`OUT: ${dateStr}`}</span>
+          )}
         </div>
       )}
 
