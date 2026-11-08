@@ -35,7 +35,7 @@ const LANDING_PAGES: Record<string, string> = {
   "just another day": "/just-another-day",
 };
 
-function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: number }) {
+function CatalogCard({ release, creditsSize, isLatest }: { release: Release; creditsSize: number; isLatest: boolean }) {
   const [hover, setHover] = useState(false);
   const listen = firstLink(release);
   const landing = LANDING_PAGES[release.title.trim().toLowerCase()];
@@ -189,18 +189,35 @@ function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: 
               release.title
             )}
           </h3>
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "10px",
-              color: "var(--text-dimmer)",
-              letterSpacing: "0.1em",
-              flexShrink: 0,
-              paddingTop: "4px",
-            }}
-          >
-            {release.year}
-          </span>
+          <div style={{ flexShrink: 0, paddingTop: "4px", textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px" }}>
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                color: "var(--text-dimmer)",
+                letterSpacing: "0.1em",
+              }}
+            >
+              {release.year}
+            </span>
+            {isLatest && (
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "9px",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  whiteSpace: "nowrap",
+                  color: release.accentColor || "var(--gold)",
+                  border: "1px solid currentColor",
+                  borderRadius: "2px",
+                  padding: "3px 7px",
+                }}
+              >
+                Latest release
+              </span>
+            )}
+          </div>
         </div>
 
         <div
@@ -306,12 +323,15 @@ function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: 
 
 export default function Catalog({
   releases,
+  latestId,
   eyebrow,
   title,
   subtitle,
   creditsSize = 10,
 }: {
   releases: Release[];
+  /** The newest release; gets the "Latest release" tag. */
+  latestId?: string;
   eyebrow: string;
   title: string;
   subtitle?: string;
@@ -374,7 +394,7 @@ export default function Catalog({
 
       <div className="catalog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(260px, 1fr))", gap: "2px" }}>
         {shown.map((r) => (
-          <CatalogCard key={r.id} release={r} creditsSize={cs} />
+          <CatalogCard key={r.id} release={r} creditsSize={cs} isLatest={r.id === latestId} />
         ))}
       </div>
 

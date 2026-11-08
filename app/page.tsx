@@ -64,7 +64,12 @@ export default async function HomePage() {
     const i = pinned.indexOf(norm(title));
     return i === -1 ? pinned.length : i;
   };
-  const orderedReleases = [...releases].sort((a, b) => rank(a.title) - rank(b.title));
+  // The latest release (first in the admin order) always leads the catalog and
+  // carries the "Latest release" tag; pinned titles follow it.
+  const latestRelease = releases[0];
+  const orderedReleases = latestRelease
+    ? [latestRelease, ...releases.slice(1).sort((a, b) => rank(a.title) - rank(b.title))]
+    : [];
   const heroColor = safeHexColor(settings["hero.roleColor"], HERO_ROLE_COLOR_FALLBACK);
 
   // Section-header styling, set once as CSS vars so every heading updates at once.
@@ -149,7 +154,7 @@ export default async function HomePage() {
 
       {/* 2 — Latest release + music catalog */}
       <Featured releases={featured} />
-      {st("catalog") === "on" && <Catalog releases={orderedReleases} creditsSize={settings["catalog.creditsSize"]} {...txt("catalog")} />}
+      {st("catalog") === "on" && <Catalog releases={orderedReleases} latestId={latestRelease?.id} creditsSize={settings["catalog.creditsSize"]} {...txt("catalog")} />}
       {st("catalog") === "soon" && <ComingSoon id="catalog" {...txt("catalog")} />}
 
       {/* 3 — Films & videos */}
