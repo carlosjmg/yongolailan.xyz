@@ -189,7 +189,7 @@ function CatalogCard({ release, creditsSize, isLatest }: { release: Release; cre
               release.title
             )}
           </h3>
-          <div style={{ flexShrink: 0, paddingTop: "4px", textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px" }}>
+          <div style={{ flexShrink: 0, paddingTop: "4px", textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
             <span
               style={{
                 fontFamily: "var(--font-mono)",
@@ -200,36 +200,44 @@ function CatalogCard({ release, creditsSize, isLatest }: { release: Release; cre
             >
               {release.year}
             </span>
-            {isLatest && (
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "9px",
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
-                  color: release.accentColor || "var(--gold)",
-                  border: "1px solid currentColor",
-                  borderRadius: "2px",
-                  padding: "3px 7px",
-                }}
-              >
-                Latest release
-              </span>
-            )}
           </div>
         </div>
 
-        <div
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "10px",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: release.accentColor,
-          }}
-        >
-          {release.releaseType}
+        {/* Type label on the left; on the latest release the tag sits on the
+            same line at the right (right under the year), with negative
+            vertical margins so it never makes this row taller than on the
+            other cards. */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "8px" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: release.accentColor,
+            }}
+          >
+            {release.releaseType}
+          </div>
+          {isLatest && (
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "9px",
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                whiteSpace: "nowrap",
+                color: release.accentColor || "var(--gold)",
+                border: "1px solid currentColor",
+                borderRadius: "2px",
+                padding: "3px 7px",
+                margin: "-6px 0",
+                lineHeight: 1.2,
+              }}
+            >
+              Latest release
+            </span>
+          )}
         </div>
 
         {release.description && (
