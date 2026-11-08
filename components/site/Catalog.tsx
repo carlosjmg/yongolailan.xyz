@@ -414,13 +414,14 @@ export default function Catalog({
             color: "var(--gold)",
             textDecoration: "none",
             padding: "10px 4px",
+            textAlign: "center",
             borderBottom: "1px solid transparent",
             transition: "border-color 0.2s",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.borderBottomColor = "var(--gold)")}
           onMouseLeave={(e) => (e.currentTarget.style.borderBottomColor = "transparent")}
         >
-          Productions for other artists · Caribbean Sea Sound →
+          Productions and Collaborations with Other Artists · Caribbean Sea Sound →
         </Link>
       </div>
     </SectionFullWidth>
