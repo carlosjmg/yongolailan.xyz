@@ -8,8 +8,42 @@ import ShowMore from "./ShowMore";
 
 const PAGE_SIZE = 6;
 
+const playButton = (
+  <span
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "56px",
+      height: "56px",
+      borderRadius: "50%",
+      border: "1px solid var(--gold)",
+      background: "oklch(8% 0.018 30 / 0.55)",
+    }}
+  >
+    <span
+      style={{
+        width: 0,
+        height: 0,
+        borderTop: "9px solid transparent",
+        borderBottom: "9px solid transparent",
+        borderLeft: "15px solid var(--gold)",
+        marginLeft: "4px",
+      }}
+    />
+  </span>
+);
+
 function VideoCard({ video, descSize }: { video: Video; descSize: number }) {
   const embed = toEmbedUrl(video.embedUrl);
+  // Vimeo shows a random frame until played, so a Vimeo video with its own
+  // poster shows that image first; the player loads (and starts) only when it's
+  // clicked. YouTube already shows its own thumbnail, and videos without a
+  // poster embed straight away.
+  const isVimeo = /vimeo.com/i.test(video.embedUrl || "");
+  const poster = isVimeo ? (video.thumbnail || "").trim() : "";
+  const [playing, setPlaying] = useState(false);
+  const playSrc = embed ? embed + (embed.includes("?") ? "&" : "?") + "autoplay=1" : null;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
@@ -22,9 +56,31 @@ function VideoCard({ video, descSize }: { video: Video; descSize: number }) {
           overflow: "hidden",
         }}
       >
-        {embed ? (
+        {embed && poster && !playing ? (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            aria-label={`Play ${video.title}`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              padding: 0,
+              border: 0,
+              cursor: "pointer",
+              backgroundColor: "var(--bg2)",
+              backgroundImage: `url(${poster})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            {playButton}
+          </button>
+        ) : embed ? (
           <iframe
-            src={embed}
+            src={poster ? playSrc || embed : embed}
             title={video.title}
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
