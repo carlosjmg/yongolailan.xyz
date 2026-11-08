@@ -30,9 +30,15 @@ function firstLink(r: Release): string | undefined {
   );
 }
 
+// Releases that have their own landing page: clicking the song title opens it.
+const LANDING_PAGES: Record<string, string> = {
+  "just another day": "/just-another-day",
+};
+
 function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: number }) {
   const [hover, setHover] = useState(false);
   const listen = firstLink(release);
+  const landing = LANDING_PAGES[release.title.trim().toLowerCase()];
   // A second accent (picked from the cover in the admin) turns the Buy button
   // into a gradient. Empty → keep the original single-colour outlined button.
   const accent2 = (release.accentColor2 || "").trim();
@@ -166,7 +172,22 @@ function CatalogCard({ release, creditsSize }: { release: Release; creditsSize: 
               lineHeight: 1.1,
             }}
           >
-            {release.title}
+            {landing ? (
+              <Link
+                href={landing}
+                style={{
+                  color: "inherit",
+                  textDecoration: "underline",
+                  textDecorationThickness: "1px",
+                  textUnderlineOffset: "4px",
+                  textDecorationColor: "color-mix(in srgb, currentColor 35%, transparent)",
+                }}
+              >
+                {release.title}
+              </Link>
+            ) : (
+              release.title
+            )}
           </h3>
           <span
             style={{
