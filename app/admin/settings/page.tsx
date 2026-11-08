@@ -46,6 +46,7 @@ const KEYS = [
   "nav.menuSize",
   "site.ogImage",
   "catalog.pinned",
+  "catalog.latest",
   "catalog.creditsSize",
   "videos.descSize",
   "photos.captionSize",
@@ -216,6 +217,12 @@ export default async function SettingsPage({ searchParams }: { searchParams: { s
         </div>
 
         <GroupHeading>Catalog</GroupHeading>
+        <TextSetting
+          name="catalog.latest"
+          label="Latest release (first + tagged)"
+          value={s["catalog.latest"]}
+          help="Exact release title. It always appears first in the Music Catalog with a “Latest release” tag under its year. Leave empty for none."
+        />
         <TextSetting
           name="catalog.pinned"
           label="Show these releases first"

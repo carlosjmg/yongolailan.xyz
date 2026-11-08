@@ -64,12 +64,12 @@ export default async function HomePage() {
     const i = pinned.indexOf(norm(title));
     return i === -1 ? pinned.length : i;
   };
-  // The latest release (first in the admin order) always leads the catalog and
-  // carries the "Latest release" tag; pinned titles follow it.
-  const latestRelease = releases[0];
-  const orderedReleases = latestRelease
-    ? [latestRelease, ...releases.slice(1).sort((a, b) => rank(a.title) - rank(b.title))]
-    : [];
+  // The release named in "catalog.latest" always leads the catalog and carries
+  // the "Latest release" tag; pinned titles follow it.
+  const latestTitle = norm(settings["catalog.latest"] || "");
+  const latestRelease = latestTitle ? releases.find((r) => norm(r.title) === latestTitle) : undefined;
+  const rest = releases.filter((r) => r !== latestRelease).sort((a, b) => rank(a.title) - rank(b.title));
+  const orderedReleases = latestRelease ? [latestRelease, ...rest] : rest;
   const heroColor = safeHexColor(settings["hero.roleColor"], HERO_ROLE_COLOR_FALLBACK);
 
   // Section-header styling, set once as CSS vars so every heading updates at once.

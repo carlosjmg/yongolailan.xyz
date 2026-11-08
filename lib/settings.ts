@@ -63,6 +63,9 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   // ── Section headings (every title/subtitle on the site) ──
   // Titles listed here are shown first in the Music Catalog, in this order.
   "catalog.pinned": "Sueño Tropical, Havanece, Chinatown Downtown",
+  // The newest release: always shown first in the Music Catalog and tagged
+  // "Latest release". Empty = none.
+  "catalog.latest": "Just Another Day",
   "text.catalog.eyebrow": "Discography",
   "text.catalog.title": "Catalog",
   "text.catalog.subtitle":
