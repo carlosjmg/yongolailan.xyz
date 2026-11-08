@@ -358,10 +358,10 @@ export default function Catalog({
                 textTransform: "uppercase",
                 padding: "7px 16px",
                 border: "1px solid",
-                borderColor: filter === g ? "var(--gold)" : "var(--border)",
+                borderColor: filter === g ? "var(--gold)" : "var(--text-dim)",
                 borderRadius: "2px",
                 background: filter === g ? "oklch(72% 0.16 60 / 0.12)" : "transparent",
-                color: filter === g ? "var(--gold)" : "var(--text-dimmer)",
+                color: filter === g ? "var(--gold)" : "var(--text-dim)",
                 cursor: "pointer",
                 transition: "all 0.2s",
               }}
