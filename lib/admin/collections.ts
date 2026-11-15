@@ -361,6 +361,100 @@ export const COLLECTIONS: Record<string, Collection> = {
       { name: "published", label: "Visible on site", type: "boolean" },
     ],
   },
+
+  // ── ARTeration Fest (own page, /arteration) ──
+  "fest-artists": {
+    key: "fest-artists",
+    model: "festArtist",
+    label: "Festival: Artists",
+    singular: "artist",
+    titleField: "name",
+    imageField: "image",
+    hasPublished: true,
+    listColumns: [
+      { name: "name", label: "Artist" },
+      { name: "edition", label: "Year" },
+      { name: "role", label: "Role" },
+    ],
+    fields: [
+      { name: "name", label: "Artist name", type: "text", required: true },
+      { name: "role", label: "Role (optional)", type: "text", placeholder: "Live set · DJ set · Visual art" },
+      {
+        name: "edition",
+        label: "Festival year",
+        type: "text",
+        placeholder: "2026",
+        help: "The current year (set in Info & texts) is the main lineup. Earlier years appear under “Past editions”.",
+      },
+      { name: "image", label: "Photo (optional)", type: "image", help: "Shown as a small round photo next to the name." },
+      { name: "instagramUrl", label: "Instagram", type: "url", placeholder: "https://instagram.com/…" },
+      { name: "linkUrl", label: "Other link", type: "url", placeholder: "https://…" },
+      { name: "published", label: "Visible on site", type: "boolean" },
+    ],
+  },
+
+  "fest-videos": {
+    key: "fest-videos",
+    model: "festVideo",
+    label: "Festival: Videos",
+    singular: "video",
+    titleField: "title",
+    imageField: "thumbnail",
+    hasPublished: true,
+    listColumns: [
+      { name: "title", label: "Title" },
+      { name: "edition", label: "Year" },
+    ],
+    fields: [
+      { name: "title", label: "Title", type: "text", required: true, placeholder: "ARTeration Fest 2026 · Aftermovie" },
+      { name: "embedUrl", label: "YouTube or Vimeo link", type: "url", required: true, placeholder: "https://youtu.be/…" },
+      {
+        name: "thumbnail",
+        label: "Poster image (optional)",
+        type: "image",
+        help: "If set, this image shows first with a play button; the video loads when clicked.",
+      },
+      { name: "edition", label: "Festival year (optional)", type: "text", placeholder: "2026" },
+      { name: "published", label: "Visible on site", type: "boolean" },
+    ],
+  },
+
+  "fest-photos": {
+    key: "fest-photos",
+    model: "festPhoto",
+    label: "Festival: Photos",
+    singular: "photo",
+    titleField: "caption",
+    imageField: "image",
+    hasPublished: true,
+    listColumns: [
+      { name: "caption", label: "Caption" },
+      { name: "edition", label: "Year" },
+    ],
+    fields: [
+      { name: "image", label: "Photo", type: "image", required: true },
+      { name: "caption", label: "Caption (optional)", type: "text" },
+      { name: "edition", label: "Festival year (optional)", type: "text", placeholder: "2026" },
+      { name: "published", label: "Visible on site", type: "boolean" },
+    ],
+  },
+
+  "fest-partners": {
+    key: "fest-partners",
+    model: "festPartner",
+    label: "Festival: Partners",
+    singular: "partner",
+    titleField: "name",
+    imageField: "logo",
+    hasPublished: true,
+    listColumns: [{ name: "name", label: "Partner" }],
+    fields: [
+      { name: "name", label: "Name", type: "text", required: true },
+      { name: "logo", label: "Logo", type: "image", help: "A dark logo on a transparent or cream background works best." },
+      { name: "url", label: "Website", type: "url", placeholder: "https://…" },
+      { name: "published", label: "Visible on site", type: "boolean" },
+    ],
+  },
 };
 
 export function getCollection(key: string): Collection | undefined {

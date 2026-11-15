@@ -211,6 +211,31 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "jad.tidal": "",
   "jad.deezer": "",
 
+  // ── ARTeration Fest (/arteration) ──
+  "fest.name": "ARTeration Fest",
+  "fest.year": "2026",
+  "fest.tagline": "Music and art, outdoors on Governors Island.",
+  "fest.venue": "Nolan Park",
+  "fest.venue2": "Governors Island",
+  "fest.city": "New York, NY",
+  "fest.date": "August 15",
+  "fest.time": "3:00 PM - 9:00 PM",
+  // Wall-clock New York time; drives the "days to go" line and Google's event info.
+  "fest.startIso": "2026-08-15T15:00",
+  "fest.endIso": "2026-08-15T21:00",
+  "fest.presentedBy": "NYLAAT",
+  "fest.curatedBy": "Alexis Mendoza",
+  "fest.producedBy": "Carlos José Martínez",
+  "fest.about1":
+    "ARTeration Fest brings music and art together outdoors, in Nolan Park on Governors Island, New York. One afternoon, one lineup, and a crowd that comes to discover.",
+  "fest.about2":
+    "Curated by Alexis Mendoza, produced by Carlos José Martínez and presented by NYLAAT, the festival is a meeting point for artists and audiences from across the city and the Caribbean diaspora.",
+  "fest.instagram": "https://www.instagram.com/arte.ration/",
+  "fest.ticketUrl": "",
+  "fest.ticketLabel": "Info & tickets",
+  "fest.poster": "/images/arteration/poster.webp",
+  "fest.seeded": "",
+
   "section.catalog": "on",
   "section.epk": "on",
   "section.photos": "on",

@@ -158,3 +158,48 @@ export async function getLabelArtistSlugs(): Promise<string[]> {
     return [];
   }
 }
+
+// ── ARTeration Fest ──────────────────────────────────────────
+export async function getFestArtists() {
+  try {
+    return await prisma.festArtist.findMany({
+      where: { published: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getFestVideos() {
+  try {
+    return await prisma.festVideo.findMany({
+      where: { published: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getFestPhotos() {
+  try {
+    return await prisma.festPhoto.findMany({
+      where: { published: true, NOT: { image: "" } },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getFestPartners() {
+  try {
+    return await prisma.festPartner.findMany({
+      where: { published: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  } catch {
+    return [];
+  }
+}

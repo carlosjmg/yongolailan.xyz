@@ -25,6 +25,16 @@ const GROUPS: { label: string; items: { href: string; label: string }[] }[] = [
     ],
   },
   {
+    label: "ARTeration Fest",
+    items: [
+      { href: "/admin/arteration", label: "Info & texts" },
+      { href: "/admin/fest-artists", label: "Artists" },
+      { href: "/admin/fest-videos", label: "Videos" },
+      { href: "/admin/fest-photos", label: "Photos" },
+      { href: "/admin/fest-partners", label: "Partners" },
+    ],
+  },
+  {
     label: "Site",
     items: [
       { href: "/admin/settings", label: "Home & Hero" },

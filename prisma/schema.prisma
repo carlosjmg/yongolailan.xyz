@@ -256,3 +256,54 @@ model LabelProduction {
   @@index([artistId])
   @@index([releaseId])
 }
+
+// ── ARTeration Fest — its own section at /arteration ─────────
+// Everything on that page that isn't plain text (texts live in Settings,
+// "fest.*") is managed from the admin under "ARTeration Fest".
+model FestArtist {
+  id           String   @id @default(cuid())
+  name         String
+  role         String   @default("") // "Live set", "DJ set"...
+  edition      String   @default("2026") // year; the current one is the main lineup, older ones show as "Past editions"
+  image        String?
+  instagramUrl String?
+  linkUrl      String?
+  published    Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model FestVideo {
+  id        String   @id @default(cuid())
+  title     String
+  embedUrl  String   @default("") // YouTube / Vimeo link
+  thumbnail String? // optional poster, shown until the video is played
+  edition   String   @default("")
+  published Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FestPhoto {
+  id        String   @id @default(cuid())
+  image     String   @default("")
+  caption   String   @default("")
+  edition   String   @default("")
+  published Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FestPartner {
+  id        String   @id @default(cuid())
+  name      String
+  logo      String?
+  url       String?
+  published Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

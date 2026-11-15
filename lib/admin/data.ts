@@ -21,6 +21,14 @@ export function delegateFor(model: string): any {
       return prisma.labelArtist;
     case "labelProduction":
       return prisma.labelProduction;
+    case "festArtist":
+      return prisma.festArtist;
+    case "festVideo":
+      return prisma.festVideo;
+    case "festPhoto":
+      return prisma.festPhoto;
+    case "festPartner":
+      return prisma.festPartner;
     default:
       throw new Error(`Unknown model: ${model}`);
   }
