@@ -18,7 +18,7 @@
   background: var(--af-cream);
   color: var(--af-ink);
   font-family: var(--af-sans), "DM Sans", system-ui, sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: clip;
@@ -69,8 +69,8 @@
 }
 .af-mark {
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 800;
-  font-size: 26px;
+  font-weight: 700;
+  font-size: 24px;
   letter-spacing: -0.02em;
   line-height: 1;
   flex-shrink: 0;
@@ -87,19 +87,17 @@
   display: none;
 }
 .af-nav a {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--af-green);
+  color: color-mix(in srgb, var(--af-green) 70%, transparent);
   white-space: nowrap;
   padding: 6px 0;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s;
 }
 .af-nav a:hover {
   color: var(--af-orange);
-  border-color: var(--af-orange);
 }
 .af-header-end {
   display: flex;
@@ -111,8 +109,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.14em;
   color: color-mix(in srgb, var(--af-green) 45%, transparent);
 }
@@ -126,7 +124,7 @@
   color: var(--af-green);
 }
 .af-lang a.is-on {
-  border-bottom: 2px solid var(--af-orange);
+  border-bottom: 1px solid var(--af-orange);
 }
 .af-ig {
   display: inline-flex;
@@ -139,7 +137,7 @@
 
 /* ── Hero ─────────────────────────────────────────────────── */
 .af-hero {
-  padding: clamp(36px, 6vw, 80px) 0 clamp(40px, 5vw, 64px);
+  padding: clamp(48px, 8vw, 112px) 0 clamp(64px, 9vw, 128px);
 }
 .af-hero-grid {
   display: grid;
@@ -151,27 +149,27 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--af-purple);
-  margin-bottom: 14px;
+  color: color-mix(in srgb, var(--af-green) 60%, transparent);
+  margin-bottom: 18px;
 }
 .af-chip {
-  letter-spacing: 0.12em;
-  font-size: 11px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: var(--af-orange);
-  color: var(--af-cream);
+  letter-spacing: 0.14em;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  border: 1px solid var(--af-orange);
+  color: var(--af-orange);
 }
 .af-title {
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 800;
-  line-height: 0.88;
-  letter-spacing: -0.025em;
-  font-size: clamp(46px, 14vw, 120px);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-size: clamp(44px, 12.5vw, 96px);
   display: flex;
   flex-direction: column;
 }
@@ -184,55 +182,58 @@
   color: var(--af-green);
 }
 .af-tagline {
-  margin-top: 24px;
-  max-width: 36ch;
-  font-size: clamp(18px, 1.9vw, 21px);
-  line-height: 1.45;
-  color: color-mix(in srgb, var(--af-ink) 78%, transparent);
+  margin-top: 28px;
+  max-width: 38ch;
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--af-ink) 70%, transparent);
 }
 .af-facts {
-  margin-top: 26px;
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--af-line);
   display: flex;
   flex-direction: column;
   gap: 4px;
+  max-width: 420px;
 }
 .af-fact-date {
   font-family: var(--af-display), Georgia, serif;
-  font-size: clamp(28px, 3.4vw, 40px);
-  font-weight: 600;
-  line-height: 1.1;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 500;
+  line-height: 1.15;
   color: var(--af-orange);
 }
 .af-fact-line {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--af-green);
 }
 .af-fact-city {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--af-purple);
+  color: color-mix(in srgb, var(--af-green) 60%, transparent);
 }
 .af-cta {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 .af-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 24px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  padding: 13px 26px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  border: 1.5px solid var(--af-green);
+  border: 1px solid var(--af-green);
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .af-btn-solid {
@@ -258,8 +259,9 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 6px;
-  box-shadow: 0 30px 50px -30px color-mix(in srgb, var(--af-green) 50%, transparent);
+  border-radius: 0;
+  outline: 1px solid var(--af-line);
+  outline-offset: 10px;
 }
 
 /* ── Info strip ───────────────────────────────────────────── */
@@ -294,24 +296,25 @@
 
 /* ── Sections ─────────────────────────────────────────────── */
 .af-section {
-  padding: clamp(60px, 8vw, 104px) 0;
+  padding: clamp(64px, 9vw, 128px) 0;
+  border-top: 1px solid var(--af-line);
 }
 .af-kicker {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--af-orange);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .af-h2 {
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(32px, 4.4vw, 56px);
-  line-height: 1.04;
+  font-weight: 500;
+  font-size: clamp(30px, 3.8vw, 46px);
+  line-height: 1.08;
   letter-spacing: -0.02em;
   color: var(--af-green);
-  margin-bottom: clamp(22px, 3vw, 34px);
+  margin-bottom: clamp(24px, 3.4vw, 40px);
 }
 .af-section-intro {
   max-width: 56ch;
@@ -320,28 +323,28 @@
   opacity: 0.8;
 }
 .af-body {
-  font-size: clamp(16px, 1.3vw, 18px);
-  line-height: 1.75;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.8;
   color: color-mix(in srgb, var(--af-ink) 84%, transparent);
   max-width: 62ch;
   margin-bottom: 18px;
 }
 .af-lead {
   font-family: var(--af-display), Georgia, serif;
-  font-size: clamp(18px, 1.6vw, 21px);
-  line-height: 1.5;
+  font-size: clamp(18px, 1.55vw, 20px);
+  line-height: 1.55;
   color: var(--af-green);
 }
 .af-empty,
 .af-placeholder {
   font-family: var(--af-display), Georgia, serif;
   font-style: italic;
-  font-size: clamp(20px, 2.4vw, 28px);
+  font-size: clamp(18px, 2vw, 24px);
   color: color-mix(in srgb, var(--af-green) 70%, transparent);
 }
 .af-placeholder {
-  border: 1.5px dashed color-mix(in srgb, var(--af-green) 28%, transparent);
-  border-radius: 14px;
+  border: 1px solid var(--af-line);
+  border-radius: 0;
   padding: clamp(36px, 6vw, 72px) 24px;
   text-align: center;
 }
@@ -364,24 +367,24 @@
   display: grid;
   gap: 8px;
   font-family: var(--af-display), Georgia, serif;
-  font-size: 19px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 500;
   color: var(--af-green);
 }
 .af-credits span {
   display: inline-block;
   min-width: 128px;
   font-family: var(--af-sans), sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--af-purple);
+  color: color-mix(in srgb, var(--af-green) 55%, transparent);
 }
 
 /* Pillars */
 .af-pillars-sec {
-  padding-top: 0;
+  padding-top: clamp(64px, 9vw, 128px);
 }
 .af-pillars {
   list-style: none;
@@ -391,17 +394,14 @@
   margin-top: 6px;
 }
 .af-pillars li {
-  border-top: 2px solid var(--af-orange);
+  border-top: 1px solid var(--af-green);
   padding-top: 18px;
 }
-.af-pillars li:nth-child(2) { border-color: var(--af-mustard); }
-.af-pillars li:nth-child(3) { border-color: var(--af-purple); }
-.af-pillars li:nth-child(4) { border-color: var(--af-green); }
 .af-pillar-num {
   display: block;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   color: var(--af-orange);
   margin-bottom: 10px;
 }
@@ -410,31 +410,30 @@
 .af-pillars li:nth-child(4) .af-pillar-num { color: var(--af-green); }
 .af-pillars h3 {
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(21px, 2vw, 25px);
-  line-height: 1.15;
+  font-weight: 500;
+  font-size: clamp(19px, 1.8vw, 22px);
+  line-height: 1.2;
   color: var(--af-green);
   margin-bottom: 10px;
 }
 .af-pillars p {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.75;
   color: color-mix(in srgb, var(--af-ink) 78%, transparent);
 }
 
 /* Quote */
 .af-quote {
-  padding: clamp(56px, 8vw, 110px) 0;
+  padding: clamp(72px, 10vw, 140px) 0;
   text-align: center;
   border-top: 1px solid var(--af-line);
-  border-bottom: 1px solid var(--af-line);
 }
 .af-quote-text {
   font-family: var(--af-display), Georgia, serif;
   font-style: italic;
-  font-weight: 600;
-  font-size: clamp(30px, 5.4vw, 70px);
-  line-height: 1.1;
+  font-weight: 500;
+  font-size: clamp(26px, 4.4vw, 54px);
+  line-height: 1.15;
   letter-spacing: -0.015em;
   color: var(--af-purple);
 }
@@ -446,46 +445,35 @@
 }
 .af-quote-note {
   max-width: 52ch;
-  margin: 24px auto 0;
-  font-size: 15px;
+  margin: 28px auto 0;
+  font-size: 14px;
   color: color-mix(in srgb, var(--af-ink) 70%, transparent);
 }
 
-/* Artists (dark) */
-.af-lineup {
-  background: var(--af-green);
-  color: var(--af-cream);
-}
-.af-lineup .af-kicker {
-  color: var(--af-mustard);
-}
-.af-lineup .af-h2,
-.af-lineup .af-empty {
-  color: var(--af-cream);
-}
+/* Artists */
 .af-years {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 26px;
+  gap: 22px;
+  margin-bottom: 30px;
 }
 .af-years button {
   min-height: 0;
-  padding: 8px 18px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--af-cream) 35%, transparent);
+  padding: 4px 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
   background: transparent;
-  color: var(--af-cream);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--af-green) 55%, transparent);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: color 0.2s, border-color 0.2s;
 }
 .af-years button.is-on,
 .af-years button:hover {
-  background: var(--af-cream);
   color: var(--af-green);
+  border-bottom-color: var(--af-orange);
 }
 .af-dir {
   display: grid;
@@ -494,10 +482,10 @@
 }
 .af-lineup-list {
   list-style: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--af-cream) 18%, transparent);
+  border-bottom: 1px solid var(--af-line);
 }
 .af-lineup-list li {
-  border-top: 1px solid color-mix(in srgb, var(--af-cream) 18%, transparent);
+  border-top: 1px solid var(--af-line);
 }
 .af-lu-row {
   display: grid;
@@ -506,40 +494,40 @@
   column-gap: clamp(10px, 2vw, 22px);
   width: 100%;
   min-height: 0;
-  padding: clamp(12px, 1.4vw, 18px) 0;
+  padding: clamp(14px, 1.6vw, 20px) 0;
   background: none;
   border: 0;
-  color: var(--af-cream);
+  color: var(--af-green);
   text-align: left;
   cursor: pointer;
   transition: color 0.2s, padding 0.25s ease;
 }
 .af-lu-num {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.2em;
-  color: var(--af-mustard);
+  color: color-mix(in srgb, var(--af-green) 45%, transparent);
 }
 .af-lu-name {
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(26px, 3.6vw, 46px);
-  line-height: 1.08;
+  font-weight: 500;
+  font-size: clamp(22px, 2.8vw, 34px);
+  line-height: 1.1;
   letter-spacing: -0.015em;
   overflow-wrap: anywhere;
 }
 .af-lu-role {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--af-purple-soft);
+  color: color-mix(in srgb, var(--af-green) 55%, transparent);
   text-align: right;
 }
 .af-lu-plus {
   position: relative;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   justify-self: end;
 }
 .af-lu-plus::before,
@@ -549,8 +537,8 @@
   left: 0;
   right: 0;
   top: 50%;
-  height: 1.5px;
-  background: var(--af-mustard);
+  height: 1px;
+  background: var(--af-orange);
   transition: transform 0.25s;
 }
 .af-lu-plus::after {
@@ -562,10 +550,10 @@
 .af-lu-row:hover .af-lu-name,
 .af-lu-row:focus-visible .af-lu-name,
 .af-lineup-list li.is-active .af-lu-name {
-  color: var(--af-mustard);
+  color: var(--af-orange);
 }
 .af-lu-row:focus-visible {
-  outline: 2px solid var(--af-mustard);
+  outline: 1px solid var(--af-orange);
   outline-offset: 2px;
 }
 
@@ -581,30 +569,31 @@
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: center 20%;
-  border-radius: 8px;
+  border-radius: 0;
 }
 .af-detail-ph {
   display: grid;
   place-items: center;
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 800;
-  font-size: clamp(64px, 9vw, 110px);
-  background: color-mix(in srgb, var(--af-cream) 7%, transparent);
-  border: 1px solid color-mix(in srgb, var(--af-cream) 18%, transparent);
+  font-weight: 500;
+  font-size: clamp(56px, 8vw, 96px);
+  color: color-mix(in srgb, var(--af-green) 60%, transparent);
+  background: color-mix(in srgb, var(--af-green) 4%, transparent);
+  border: 1px solid var(--af-line);
 }
 .af-detail-role {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--af-mustard);
+  color: var(--af-orange);
   margin-bottom: 10px;
 }
 .af-detail-bio {
-  font-size: 16px;
-  line-height: 1.72;
+  font-size: 15px;
+  line-height: 1.75;
   white-space: pre-line;
-  color: color-mix(in srgb, var(--af-cream) 90%, transparent);
+  color: color-mix(in srgb, var(--af-ink) 84%, transparent);
 }
 .af-detail-links {
   display: flex;
@@ -613,16 +602,16 @@
   margin-top: 16px;
 }
 .af-detail-links a {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--af-mustard);
-  border-bottom: 1px solid currentColor;
+  color: var(--af-green);
+  border-bottom: 1px solid var(--af-orange);
   padding-bottom: 2px;
 }
 .af-detail-links a:hover {
-  color: var(--af-cream);
+  color: var(--af-orange);
 }
 .af-panel {
   display: none;
@@ -648,7 +637,7 @@
 .af-video-frame {
   position: relative;
   aspect-ratio: 16 / 9;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   background: var(--af-green2);
 }
@@ -702,23 +691,20 @@
 }
 .af-video-year {
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--af-purple);
-  color: var(--af-cream);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--af-purple);
 }
 .af-video-title {
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(19px, 2vw, 23px);
+  font-weight: 500;
+  font-size: clamp(18px, 1.8vw, 21px);
   line-height: 1.2;
 }
 
 /* Photos */
 .af-photos {
-  background: var(--af-cream2);
+  background: transparent;
 }
 .af-gallery {
   column-count: 3;
@@ -731,7 +717,7 @@
   margin: 0 0 14px;
   padding: 0;
   border: 0;
-  border-radius: 6px;
+  border-radius: 0;
   overflow: hidden;
   cursor: zoom-in;
   background: var(--af-green2);
@@ -800,12 +786,12 @@
 
 /* Partners */
 .af-partners {
-  padding: clamp(44px, 6vw, 72px) 0;
+  padding: clamp(56px, 7vw, 96px) 0;
   border-top: 1px solid var(--af-line);
 }
 .af-partners .af-kicker {
   text-align: center;
-  color: var(--af-purple);
+  color: color-mix(in srgb, var(--af-green) 60%, transparent);
   margin-bottom: 30px;
 }
 .af-partner-row {
@@ -838,9 +824,9 @@ a.af-partner:hover {
 
 /* Footer */
 .af-footer {
-  background: var(--af-green2);
-  color: var(--af-cream);
-  padding: clamp(40px, 5vw, 60px) 0;
+  color: var(--af-green);
+  padding: clamp(40px, 5vw, 64px) 0;
+  border-top: 1px solid var(--af-line);
 }
 .af-footer-inner {
   width: min(1180px, 100% - 40px);
@@ -852,8 +838,8 @@ a.af-partner:hover {
 }
 .af-footer-title {
   font-family: var(--af-display), Georgia, serif;
-  font-weight: 800;
-  font-size: clamp(26px, 3.2vw, 36px);
+  font-weight: 600;
+  font-size: clamp(22px, 2.6vw, 28px);
   line-height: 1.05;
   margin-bottom: 8px;
 }
@@ -869,16 +855,16 @@ a.af-partner:hover {
   align-items: flex-start;
 }
 .af-footer-links a {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--af-mustard);
+  color: var(--af-green);
   padding: 6px 0;
   transition: color 0.2s;
 }
 .af-footer-links a:hover {
-  color: var(--af-cream);
+  color: var(--af-orange);
 }
 
 /* ── Wide screens: the artist panel sits beside the list ──── */
@@ -903,7 +889,7 @@ a.af-partner:hover {
     grid-template-columns: 44px minmax(0, 1fr) auto;
   }
   .af-title {
-    font-size: clamp(60px, 8vw, 112px);
+    font-size: clamp(56px, 6.6vw, 92px);
   }
 }
 

@@ -4,6 +4,24 @@ import React from "react";
 import Link from "next/link";
 import { CTAButton, Section, SectionHeader } from "./shared";
 
+// The bio may write the festival name in plain letters or in the bold
+// unicode letters used elsewhere in the bio. Either way it links to /arteration.
+const FEST_RE = /(𝐀𝐑𝐓𝐄𝐑𝐀𝐓𝐈𝐎𝐍(?:\s+𝐅𝐄𝐒𝐓)?|ARTeration(?:\s+Fest)?)/iu;
+
+function withFestLink(text: string): React.ReactNode {
+  const parts = text.split(FEST_RE);
+  if (parts.length < 2) return text;
+  return parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <Link key={i} href="/arteration" className="about-fest-link">
+        {part}
+      </Link>
+    ) : (
+      part
+    )
+  );
+}
+
 export default function About({
   p1,
   p2,
@@ -31,8 +49,8 @@ export default function About({
 
         <div>
           <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
-          {p1 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "20px" }}>{p1}</p>}
-          {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8 }}>{p2}</p>}
+          {p1 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "20px" }}>{withFestLink(p1)}</p>}
+          {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8 }}>{withFestLink(p2)}</p>}
 
           <div style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "14px", alignItems: "center" }}>
             {hasEpk && <CTAButton label="Download EPK (PDF)" primary href="https://www.yongolailan.xyz/yongolailan-epk" />}

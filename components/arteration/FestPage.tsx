@@ -265,41 +265,6 @@ export default async function FestPage({ lang }: { lang: Lang }) {
           </div>
         </section>
 
-        {/* ── Info strip ───────────────────────────────────── */}
-        <div className="af-wrap">
-          <dl className="af-info">
-            {date ? (
-              <div>
-                <dt>{ui.date}</dt>
-                <dd>
-                  {date}, {year}
-                </dd>
-              </div>
-            ) : null}
-            {time ? (
-              <div>
-                <dt>{ui.time}</dt>
-                <dd>{time}</dd>
-              </div>
-            ) : null}
-            {venue ? (
-              <div>
-                <dt>{ui.place}</dt>
-                <dd>
-                  {venue}
-                  {venue2 ? `, ${venue2}` : ""}
-                </dd>
-              </div>
-            ) : null}
-            {city ? (
-              <div>
-                <dt>{ui.city}</dt>
-                <dd>{city}</dd>
-              </div>
-            ) : null}
-          </dl>
-        </div>
-
         {/* ── About ────────────────────────────────────────── */}
         <section className="af-section" id="about">
           <div className="af-wrap af-about">
