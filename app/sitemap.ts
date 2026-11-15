@@ -21,6 +21,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${site}/arteration/es`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     ...artistSlugs.map((slug) => ({
       url: `${site}/caribbean-sea-sound/artists/${slug}`,
       lastModified: now,

@@ -378,7 +378,10 @@ export const COLLECTIONS: Record<string, Collection> = {
     ],
     fields: [
       { name: "name", label: "Artist name", type: "text", required: true },
-      { name: "role", label: "Role (optional)", type: "text", placeholder: "Live set · DJ set · Visual art" },
+      { name: "role", label: "Role (English)", type: "text", placeholder: "Singer-songwriter · New York" },
+      { name: "roleEs", label: "Role (Spanish)", type: "text", placeholder: "Cantautor · Nueva York" },
+      { name: "bio", label: "Biography (English)", type: "textarea", help: "Shown when someone selects the artist on /arteration." },
+      { name: "bioEs", label: "Biography (Spanish)", type: "textarea", help: "Shown on /arteration/es." },
       {
         name: "edition",
         label: "Festival year",
@@ -386,7 +389,7 @@ export const COLLECTIONS: Record<string, Collection> = {
         placeholder: "2026",
         help: "The current year (set in Info & texts) is the main lineup. Earlier years appear under “Past editions”.",
       },
-      { name: "image", label: "Photo (optional)", type: "image", help: "Shown as a small round photo next to the name." },
+      { name: "image", label: "Photo (optional)", type: "image", help: "Portrait photo shown next to the biography." },
       { name: "instagramUrl", label: "Instagram", type: "url", placeholder: "https://instagram.com/…" },
       { name: "linkUrl", label: "Other link", type: "url", placeholder: "https://…" },
       { name: "published", label: "Visible on site", type: "boolean" },
@@ -406,7 +409,8 @@ export const COLLECTIONS: Record<string, Collection> = {
       { name: "edition", label: "Year" },
     ],
     fields: [
-      { name: "title", label: "Title", type: "text", required: true, placeholder: "ARTeration Fest 2026 · Aftermovie" },
+      { name: "title", label: "Title (English)", type: "text", required: true, placeholder: "ARTeration Fest 2026 · Aftermovie" },
+      { name: "titleEs", label: "Title (Spanish, optional)", type: "text", help: "Leave empty to use the English title." },
       { name: "embedUrl", label: "YouTube or Vimeo link", type: "url", required: true, placeholder: "https://youtu.be/…" },
       {
         name: "thumbnail",
@@ -433,7 +437,8 @@ export const COLLECTIONS: Record<string, Collection> = {
     ],
     fields: [
       { name: "image", label: "Photo", type: "image", required: true },
-      { name: "caption", label: "Caption (optional)", type: "text" },
+      { name: "caption", label: "Caption (English, optional)", type: "text" },
+      { name: "captionEs", label: "Caption (Spanish, optional)", type: "text" },
       { name: "edition", label: "Festival year (optional)", type: "text", placeholder: "2026" },
       { name: "published", label: "Visible on site", type: "boolean" },
     ],

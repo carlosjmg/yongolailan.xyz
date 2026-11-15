@@ -10,18 +10,26 @@ const KEYS = [
   "fest.name",
   "fest.year",
   "fest.tagline",
+  "fest.taglineEs",
   "fest.venue",
   "fest.venue2",
   "fest.city",
   "fest.date",
+  "fest.dateEs",
   "fest.time",
   "fest.startIso",
   "fest.endIso",
   "fest.presentedBy",
   "fest.curatedBy",
   "fest.producedBy",
+  "fest.aboutTitle",
+  "fest.aboutTitleEs",
   "fest.about1",
+  "fest.about1Es",
   "fest.about2",
+  "fest.about2Es",
+  "fest.about3",
+  "fest.about3Es",
   "fest.instagram",
   "fest.ticketUrl",
   "fest.ticketLabel",
@@ -36,7 +44,7 @@ export default async function FestAdmin({ searchParams }: { searchParams: { save
     <div>
       <h1 className="admin-h1">ARTeration Fest</h1>
       <p className="admin-sub">
-        The festival&rsquo;s own page at <b>/arteration</b>. Artists, videos, photos and partners are managed in their own
+        The festival&rsquo;s own page at <b>/arteration</b> (English) and <b>/arteration/es</b> (Spanish). Artists, videos, photos and partners are managed in their own
         lists on the left. <a href="/arteration" target="_blank" rel="noopener noreferrer">View page ↗</a>
       </p>
       <SavedNote show={Boolean(searchParams?.saved)} />
@@ -51,7 +59,14 @@ export default async function FestAdmin({ searchParams }: { searchParams: { save
             <TextSetting name="fest.year" label="Current year" value={s["fest.year"]} placeholder="2026" help="Artists with this year form the main lineup." />
           </div>
         </div>
-        <TextSetting name="fest.tagline" label="Tagline (under the title)" value={s["fest.tagline"]} />
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="fest.tagline" label="Tagline (English)" value={s["fest.tagline"]} />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="fest.taglineEs" label="Tagline (Spanish)" value={s["fest.taglineEs"]} />
+          </div>
+        </div>
 
         <GroupHeading>When &amp; where</GroupHeading>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
@@ -65,7 +80,10 @@ export default async function FestAdmin({ searchParams }: { searchParams: { save
             <TextSetting name="fest.city" label="City" value={s["fest.city"]} placeholder="New York, NY" />
           </div>
           <div style={{ flex: "1 1 260px" }}>
-            <TextSetting name="fest.date" label="Date (as shown)" value={s["fest.date"]} placeholder="August 15" />
+            <TextSetting name="fest.date" label="Date (English)" value={s["fest.date"]} placeholder="Saturday, August 15" />
+          </div>
+          <div style={{ flex: "1 1 260px" }}>
+            <TextSetting name="fest.dateEs" label="Date (Spanish)" value={s["fest.dateEs"]} placeholder="Sábado 15 de agosto" />
           </div>
           <div style={{ flex: "1 1 260px" }}>
             <TextSetting name="fest.time" label="Time (as shown)" value={s["fest.time"]} placeholder="3:00 PM - 9:00 PM" />
@@ -94,8 +112,17 @@ export default async function FestAdmin({ searchParams }: { searchParams: { save
         </div>
 
         <GroupHeading>About the festival</GroupHeading>
-        <TextareaSetting name="fest.about1" label="Paragraph 1" value={s["fest.about1"]} rows={4} help="Tell the story of the festival. This is a first draft: replace it with your own words." />
-        <TextareaSetting name="fest.about2" label="Paragraph 2" value={s["fest.about2"]} rows={4} />
+        <p className="admin-help" style={{ marginTop: "-8px", marginBottom: "14px" }}>
+          Every text has an English and a Spanish version. If a Spanish one is empty, the English one is shown on /arteration/es.
+        </p>
+        <TextSetting name="fest.aboutTitle" label="Heading (English)" value={s["fest.aboutTitle"]} />
+        <TextSetting name="fest.aboutTitleEs" label="Heading (Spanish)" value={s["fest.aboutTitleEs"]} />
+        <TextareaSetting name="fest.about1" label="Paragraph 1 (English)" value={s["fest.about1"]} rows={5} help="The opening paragraph, shown larger." />
+        <TextareaSetting name="fest.about1Es" label="Paragraph 1 (Spanish)" value={s["fest.about1Es"]} rows={5} />
+        <TextareaSetting name="fest.about2" label="Paragraph 2 (English)" value={s["fest.about2"]} rows={4} />
+        <TextareaSetting name="fest.about2Es" label="Paragraph 2 (Spanish)" value={s["fest.about2Es"]} rows={4} />
+        <TextareaSetting name="fest.about3" label="Paragraph 3 (English)" value={s["fest.about3"]} rows={4} />
+        <TextareaSetting name="fest.about3Es" label="Paragraph 3 (Spanish)" value={s["fest.about3Es"]} rows={4} />
 
         <GroupHeading>Links &amp; poster</GroupHeading>
         <TextSetting name="fest.instagram" label="Instagram link" value={s["fest.instagram"]} placeholder="https://www.instagram.com/arte.ration/" />

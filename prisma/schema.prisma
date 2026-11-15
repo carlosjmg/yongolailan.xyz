@@ -264,6 +264,9 @@ model FestArtist {
   id           String   @id @default(cuid())
   name         String
   role         String   @default("") // "Live set", "DJ set"...
+  roleEs       String   @default("")
+  bio          String   @default("")
+  bioEs        String   @default("")
   edition      String   @default("2026") // year; the current one is the main lineup, older ones show as "Past editions"
   image        String?
   instagramUrl String?
@@ -277,6 +280,7 @@ model FestArtist {
 model FestVideo {
   id        String   @id @default(cuid())
   title     String
+  titleEs   String   @default("")
   embedUrl  String   @default("") // YouTube / Vimeo link
   thumbnail String? // optional poster, shown until the video is played
   edition   String   @default("")
@@ -290,6 +294,7 @@ model FestPhoto {
   id        String   @id @default(cuid())
   image     String   @default("")
   caption   String   @default("")
+  captionEs String   @default("")
   edition   String   @default("")
   published Boolean  @default(true)
   sortOrder Int      @default(0)
