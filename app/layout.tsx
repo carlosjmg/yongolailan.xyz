@@ -20,6 +20,7 @@ const display = Cormorant_Garamond({
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
+  fallback: ["Georgia", "serif"],
 });
 
 const mono = DM_Mono({
@@ -27,6 +28,7 @@ const mono = DM_Mono({
   weight: ["300", "400", "500"],
   variable: "--font-mono",
   display: "swap",
+  fallback: ["ui-monospace", "monospace"],
 });
 
 const body = Inter({
@@ -34,6 +36,7 @@ const body = Inter({
   weight: ["300", "400", "500", "600"],
   variable: "--font-body",
   display: "swap",
+  fallback: ["system-ui", "sans-serif"],
 });
 
 // Geometric, Futura-like sans — the Bauhaus voice of the Caribbean Sea Sound
@@ -43,16 +46,17 @@ const bauhaus = Jost({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-bauhaus",
   display: "swap",
+  fallback: ["system-ui", "sans-serif"],
 });
 
 // Optional section-header fonts, chosen in the admin. preload:false so a font
 // only downloads when it's actually the selected one.
-const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-playfair", display: "swap", preload: false });
-const ebgaramond = EB_Garamond({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-ebgaramond", display: "swap", preload: false });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-spacegrotesk", display: "swap", preload: false });
-const oswald = Oswald({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-oswald", display: "swap", preload: false });
-const bebas = Bebas_Neue({ subsets: ["latin"], weight: ["400"], variable: "--font-bebas", display: "swap", preload: false });
-const anton = Anton({ subsets: ["latin"], weight: ["400"], variable: "--font-anton", display: "swap", preload: false });
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-playfair", display: "swap", preload: false, fallback: ["system-ui", "sans-serif"] });
+const ebgaramond = EB_Garamond({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-ebgaramond", display: "swap", preload: false, fallback: ["system-ui", "sans-serif"] });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-spacegrotesk", display: "swap", preload: false, fallback: ["system-ui", "sans-serif"] });
+const oswald = Oswald({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-oswald", display: "swap", preload: false, fallback: ["system-ui", "sans-serif"] });
+const bebas = Bebas_Neue({ subsets: ["latin"], weight: ["400"], variable: "--font-bebas", display: "swap", preload: false, fallback: ["system-ui", "sans-serif"] });
+const anton = Anton({ subsets: ["latin"], weight: ["400"], variable: "--font-anton", display: "swap", preload: false, fallback: ["system-ui", "sans-serif"] });
 
 const fontVars = [display, mono, body, bauhaus, playfair, ebgaramond, spaceGrotesk, oswald, bebas, anton]
   .map((f) => f.variable)
