@@ -8,7 +8,7 @@ import { CTAButton, Section, SectionHeader } from "./shared";
 // in plain letters or in the bold unicode letters; the text is shown exactly as
 // written and only wrapped in a link.
 const BIO_LINK_RE =
-  /(𝐀𝐑𝐓𝐄𝐑𝐀𝐓𝐈𝐎𝐍(?:s+𝐅𝐄𝐒𝐓)?|ARTeration(?:s+Fest)?|𝐂𝐚𝐫𝐢𝐛𝐛𝐞𝐚𝐧s+𝐒𝐞𝐚s+𝐒𝐨𝐮𝐧𝐝|Caribbeans+Seas+Sound)/iu;
+  /(𝐀𝐑𝐓𝐄𝐑𝐀𝐓𝐈𝐎𝐍(?:\s+𝐅𝐄𝐒𝐓)?|ARTeration(?:\s+Fest)?|𝐂𝐚𝐫𝐢𝐛𝐛𝐞𝐚𝐧\s+𝐒𝐞𝐚\s+𝐒𝐨𝐮𝐧𝐝|Caribbean\s+Sea\s+Sound)/iu;
 
 function bioLinkHref(match: string): string {
   // NFKC turns the bold letters into plain ones, so one check covers both.
