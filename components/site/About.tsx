@@ -4,16 +4,23 @@ import React from "react";
 import Link from "next/link";
 import { CTAButton, Section, SectionHeader } from "./shared";
 
-// The bio may write the festival name in plain letters or in the bold
-// unicode letters used elsewhere in the bio. Either way it links to /arteration.
-const FEST_RE = /(𝐀𝐑𝐓𝐄𝐑𝐀𝐓𝐈𝐎𝐍(?:\s+𝐅𝐄𝐒𝐓)?|ARTeration(?:\s+Fest)?)/iu;
+// Names inside the bio that link to their own section. The bio may write them
+// in plain letters or in the bold unicode letters; the text is shown exactly as
+// written and only wrapped in a link.
+const BIO_LINK_RE =
+  /(𝐀𝐑𝐓𝐄𝐑𝐀𝐓𝐈𝐎𝐍(?:s+𝐅𝐄𝐒𝐓)?|ARTeration(?:s+Fest)?|𝐂𝐚𝐫𝐢𝐛𝐛𝐞𝐚𝐧s+𝐒𝐞𝐚s+𝐒𝐨𝐮𝐧𝐝|Caribbeans+Seas+Sound)/iu;
 
-function withFestLink(text: string): React.ReactNode {
-  const parts = text.split(FEST_RE);
+function bioLinkHref(match: string): string {
+  // NFKC turns the bold letters into plain ones, so one check covers both.
+  return match.normalize("NFKC").toLowerCase().startsWith("arteration") ? "/arteration" : "/caribbean-sea-sound";
+}
+
+function withBioLinks(text: string): React.ReactNode {
+  const parts = text.split(BIO_LINK_RE);
   if (parts.length < 2) return text;
   return parts.map((part, i) =>
     i % 2 === 1 ? (
-      <Link key={i} href="/arteration" className="about-fest-link">
+      <Link key={i} href={bioLinkHref(part)} className="about-fest-link">
         {part}
       </Link>
     ) : (
@@ -49,8 +56,8 @@ export default function About({
 
         <div>
           <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
-          {p1 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "20px" }}>{withFestLink(p1)}</p>}
-          {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8 }}>{withFestLink(p2)}</p>}
+          {p1 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8, marginBottom: "20px" }}>{withBioLinks(p1)}</p>}
+          {p2 && <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-dim)", lineHeight: 1.8 }}>{withBioLinks(p2)}</p>}
 
           <div style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "14px", alignItems: "center" }}>
             {hasEpk && <CTAButton label="Download EPK (PDF)" primary href="https://www.yongolailan.xyz/yongolailan-epk" />}
