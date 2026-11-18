@@ -35,6 +35,35 @@ const LANDING_PAGES: Record<string, string> = {
   "just another day": "/just-another-day",
 };
 
+// The play overlay on a cover: opens the release's own page when it has one,
+// otherwise the first streaming link.
+function OverlayLink({
+  landing,
+  listen,
+  label,
+  style,
+  children,
+}: {
+  landing?: string;
+  listen?: string;
+  label: string;
+  style: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  if (landing) {
+    return (
+      <Link href={landing} aria-label={label} style={style}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a href={listen} target="_blank" rel="noopener noreferrer" aria-label={label} style={style}>
+      {children}
+    </a>
+  );
+}
+
 function CatalogCard({ release, creditsSize, isLatest }: { release: Release; creditsSize: number; isLatest: boolean }) {
   const [hover, setHover] = useState(false);
   const listen = firstLink(release);
@@ -117,12 +146,11 @@ function CatalogCard({ release, creditsSize, isLatest }: { release: Release; cre
             </div>
           </>
         )}
-        {listen && (
-          <a
-            href={listen}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Listen to ${release.title}`}
+        {(landing || listen) && (
+          <OverlayLink
+            landing={landing}
+            listen={listen}
+            label={landing ? `Open ${release.title}` : `Listen to ${release.title}`}
             style={{
               position: "absolute",
               inset: 0,
@@ -156,7 +184,7 @@ function CatalogCard({ release, creditsSize, isLatest }: { release: Release; cre
                 }}
               />
             </div>
-          </a>
+          </OverlayLink>
         )}
       </div>
 
@@ -175,13 +203,7 @@ function CatalogCard({ release, creditsSize, isLatest }: { release: Release; cre
             {landing ? (
               <Link
                 href={landing}
-                style={{
-                  color: "inherit",
-                  textDecoration: "underline",
-                  textDecorationThickness: "1px",
-                  textUnderlineOffset: "4px",
-                  textDecorationColor: "color-mix(in srgb, currentColor 35%, transparent)",
-                }}
+                style={{ color: "inherit", textDecoration: "none" }}
               >
                 {release.title}
               </Link>
