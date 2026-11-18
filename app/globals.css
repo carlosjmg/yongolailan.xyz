@@ -237,9 +237,9 @@ select option {
 
 /* Festival name inside the biography links to /arteration. */
 .about-fest-link {
-  color: var(--text);
+  color: oklch(76% 0.009 60); /* between the grey of the bio and white */
   text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--text) 40%, transparent);
+  text-decoration-color: oklch(76% 0.009 60 / 0.45);
   text-underline-offset: 4px;
   transition: color 0.2s, text-decoration-color 0.2s;
 }

@@ -10,6 +10,15 @@ import { CTAButton, Section, SectionHeader } from "./shared";
 const BIO_LINK_RE =
   /(𝐀𝐑𝐓𝐄𝐑𝐀𝐓𝐈𝐎𝐍(?:\s+𝐅𝐄𝐒𝐓)?|ARTeration(?:\s+Fest)?|𝐂𝐚𝐫𝐢𝐛𝐛𝐞𝐚𝐧\s+𝐒𝐞𝐚\s+𝐒𝐨𝐮𝐧𝐝|Caribbean\s+Sea\s+Sound)/iu;
 
+// The linked names show in the bio's regular letters (not the bold unicode
+// ones) with each word capitalised: "Caribbean Sea Sound", "Arteration Fest".
+function plainName(match: string): string {
+  return match
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/(^|\s)(\S)/g, (_m, sp: string, ch: string) => sp + ch.toUpperCase());
+}
+
 function bioLinkHref(match: string): string {
   // NFKC turns the bold letters into plain ones, so one check covers both.
   return match.normalize("NFKC").toLowerCase().startsWith("arteration") ? "/arteration" : "/caribbean-sea-sound";
@@ -21,7 +30,7 @@ function withBioLinks(text: string): React.ReactNode {
   return parts.map((part, i) =>
     i % 2 === 1 ? (
       <Link key={i} href={bioLinkHref(part)} className="about-fest-link">
-        {part}
+        {plainName(part)}
       </Link>
     ) : (
       part
