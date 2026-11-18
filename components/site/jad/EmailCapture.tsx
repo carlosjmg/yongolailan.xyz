@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 /** Discreet, no-popup email capture. Posts to /api/subscribe. */
-export default function EmailCapture({ heading }: { heading: string }) {
+export default function EmailCapture({ heading, source = "just-another-day" }: { heading: string; source?: string }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
 
@@ -15,7 +15,7 @@ export default function EmailCapture({ heading }: { heading: string }) {
       const r = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), source: "just-another-day" }),
+        body: JSON.stringify({ email: email.trim(), source }),
       });
       setStatus(r.ok ? "done" : "error");
     } catch {

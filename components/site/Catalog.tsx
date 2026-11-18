@@ -33,6 +33,7 @@ function firstLink(r: Release): string | undefined {
 // Releases that have their own landing page: clicking the song title opens it.
 const LANDING_PAGES: Record<string, string> = {
   "just another day": "/just-another-day",
+  havanece: "/havanece",
 };
 
 // The play overlay on a cover: opens the release's own page when it has one,

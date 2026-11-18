@@ -556,3 +556,45 @@
     font-size: var(--jad-info-size-mobile, 14px);
   }
 }
+
+/* ── Limited-edition vinyl (closing block of the Havanece page) ── */
+.jad-vinyl {
+  width: 100%;
+  max-width: 420px;
+  margin-top: clamp(18px, 4vh, 36px);
+  padding-top: clamp(28px, 5vh, 44px);
+  border-top: 1px solid var(--jad-line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.jad-vinyl-photos {
+  width: min(86vw, 340px);
+  border: 1px solid var(--jad-line);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8), 0 0 60px -10px rgba(242, 106, 31, 0.14);
+}
+.jad-vinyl-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(24px, 5vw, 30px);
+  line-height: 1.15;
+  color: var(--jad-text);
+  margin: 4px 0 0;
+}
+.jad-vinyl-desc {
+  font-family: var(--font-mono), monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--jad-muted);
+  max-width: 40ch;
+  margin: 0;
+}
+.jad-vinyl-price {
+  font-family: var(--font-mono), monospace;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--jad-orange);
+}

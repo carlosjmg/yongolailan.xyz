@@ -11,7 +11,7 @@ import { SectionFullWidth, SectionHeader } from "./shared";
  *  which let a sliver of the neighbouring photo (a white line, on white-
  *  background shots) show along the edge. One round button in the bottom-right
  *  corner advances; swiping works on touch screens. */
-function MerchGallery({ images, alt }: { images: string[]; alt: string }) {
+export function MerchGallery({ images, alt }: { images: string[]; alt: string }) {
   const [index, setIndex] = useState(0);
   const [fit, setFit] = useState<Record<number, "cover" | "contain">>({});
   const touchX = useRef<number | null>(null);
